@@ -1,0 +1,2136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Layerpath in Slack · Onboarding (V1)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap">
+<style>
+/* ===================== Demo chrome ===================== */
+:root{--ink:#1b1f24;--muted:#5d6670;--line:#dde1e6;--bg:#eceef1;--later:#b45309;--pulse:26,115,232}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);overflow:hidden}
+button{font:inherit;cursor:pointer}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
+.topbar{height:46px;display:flex;align-items:center;gap:14px;padding:0 18px;background:#14181c;color:#fff}
+.topbar .t{font-weight:700;font-size:15px}
+.topbar .note{font-size:12px;color:#a9b3bd}
+.topbar .sp{flex:1}
+.chip-later{font-size:12px;font-weight:700;color:#5a2c00;background:#ffd38a;border-radius:999px;padding:3px 10px}
+.app{display:flex;height:calc(100vh - 46px)}
+.rail{width:244px;flex:none;overflow-y:auto;background:#fff;border-right:1px solid var(--line);padding:6px 8px 24px}
+.rail h4{margin:14px 8px 4px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.rail h4.lt{color:var(--later)}
+.ri{display:flex;gap:8px;align-items:baseline;padding:5px 8px;border-radius:7px;cursor:pointer;font-size:13px;line-height:1.3;color:#2a3138;text-decoration:none}
+.ri:hover{background:#f2f4f6}
+.ri.on{background:#e3f1ee;color:#0b4f49;font-weight:600}
+.ri .c{font:600 11px/1.35 ui-monospace,Menlo,monospace;color:#7b8590;min-width:30px}
+.ri.on .c{color:#0b4f49}
+.ri .n{margin-left:auto;font-size:11px;color:#9aa3ac;font-weight:400}
+.ri.lt .c{color:var(--later)}
+.main{flex:1;min-width:0;display:flex;flex-direction:column;padding:8px 16px 8px}
+.schead{display:flex;align-items:center;gap:10px;min-height:34px;flex:none}
+.schead .st{font-weight:700;font-size:15px;white-space:nowrap}
+.schead .code{font:700 12px ui-monospace,Menlo,monospace;background:#1b1f24;color:#fff;border-radius:5px;padding:2px 6px}
+.schead .code.lt{background:var(--later)}
+.tools{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--muted)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+.seg button{border:0;background:none;padding:4px 10px;font-size:12px;color:#38414a}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button.on{background:#1b1f24;color:#fff}
+.persona{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12.5px;color:#38414a;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 12px 3px 4px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.persona .pav{width:24px;height:24px;border-radius:6px;color:#fff;font-weight:700;font-size:11px;display:grid;place-items:center;flex:none}
+.persona b{font-weight:700}
+.stage{flex:1;min-height:0;position:relative;overflow:hidden}
+.under{flex:none;padding-top:6px}
+.row1{display:flex;align-items:center;gap:14px}
+.caption{flex:1;min-width:0;font-size:15px;line-height:1.4;font-weight:500;color:#1b1f24}
+.caption .lt{display:inline-block;font-size:11px;font-weight:800;color:#fff;background:var(--later);border-radius:4px;padding:1px 6px;margin-right:6px;vertical-align:1px}
+.ctrls{display:flex;align-items:center;gap:8px;flex:none}
+.ctrls button{height:32px;border-radius:8px;border:1px solid #c9ced4;background:#fff;padding:0 14px;font-size:13px;font-weight:600;color:#1b1f24}
+.ctrls button:disabled{opacity:.4;cursor:default}
+.ctrls button.primary{background:#1b1f24;color:#fff;border-color:#1b1f24}
+.ctrls #counter{font-size:12.5px;color:var(--muted);min-width:76px;text-align:center}
+#how{margin-top:6px;background:#fff;border:1px solid var(--line);border-radius:8px;font-size:13px}
+#how summary{cursor:pointer;padding:6px 12px;color:#38414a;font-weight:600;list-style:none;display:flex;gap:10px;align-items:center}
+#how summary::-webkit-details-marker{display:none}
+#how summary:before{content:"\25B8";font-size:11px;color:#8b949e}
+#how[open] summary:before{content:"\25BE"}
+#howBody{padding:0 14px 10px 30px;color:#2a3138;line-height:1.5;max-height:110px;overflow:auto}
+.copyflag{display:inline-block;font-size:11.5px;font-weight:700;color:#7a3e00;background:#ffe7bf;border-radius:5px;padding:1px 7px}
+#howBody .copyflag{margin-top:6px}
+:focus-visible{outline:2px solid rgb(var(--pulse));outline-offset:2px}
+
+/* ===================== Desktop ===================== */
+.desk{position:absolute;left:50%;top:50%;width:1180px;height:720px;transform:translate(-50%,-50%) scale(var(--s,1));border-radius:14px;overflow:hidden;background:linear-gradient(140deg,#a9b8c8 0%,#c8d3dd 48%,#e1e7ec 100%);box-shadow:0 8px 30px rgba(20,30,40,.14)}
+.desk.later{box-shadow:0 0 0 4px var(--later),0 8px 30px rgba(20,30,40,.14)}
+.win{position:absolute;width:1060px;height:632px;border-radius:10px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.28),0 0 0 .5px rgba(0,0,0,.3);background:#fff}
+#winSlack{left:14px;top:12px}
+#winChrome{left:104px;top:44px}
+.win.front{z-index:3}
+.win.back{z-index:2;cursor:pointer}
+.win.back>*{pointer-events:none}
+.win.back:after{content:"";position:absolute;inset:0;background:rgba(40,50,60,.12)}
+.win.raise{animation:raise .4s cubic-bezier(.2,.8,.2,1)}
+@keyframes raise{0%{transform:scale(.965) translateY(10px);opacity:.55}100%{transform:none;opacity:1}}
+.dock{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);z-index:5;display:flex;gap:10px;padding:5px 10px 7px;border-radius:14px;background:rgba(255,255,255,.45);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.6)}
+.dk{position:relative;width:36px;height:36px;border-radius:9px;cursor:pointer;display:grid;place-items:center}
+.dk i{position:absolute;bottom:-5px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:#333}
+.dk .slk{width:36px;height:36px;border-radius:9px;background:#4a154b;display:grid;place-items:center}
+.dk .slk svg{width:22px;height:22px}
+.dk .chr{width:32px;height:32px;border-radius:50%;background:conic-gradient(from -30deg,#db4437 0 120deg,#f4c20d 0 240deg,#0f9d58 0);display:grid;place-items:center}
+.dk .chr:after{content:"";width:13px;height:13px;border-radius:50%;background:#4285f4;box-shadow:0 0 0 3px #fff}
+.swap{position:absolute;left:50%;bottom:64px;transform:translate(-50%,0);z-index:40;background:rgba(20,24,28,.92);color:#fff;border-radius:14px;padding:14px 22px;font-size:17px;font-weight:600;display:flex;align-items:center;gap:12px;opacity:0;pointer-events:none;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+.swap.show{animation:swap 1.7s ease forwards}
+@keyframes swap{0%{opacity:0;transform:translate(-50%,10px)}15%{opacity:1;transform:translate(-50%,0)}75%{opacity:1}100%{opacity:0}}
+.swap .pav{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;font-weight:800;font-size:13px}
+.later-banner{position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:30;background:var(--later);color:#fff;font-weight:800;font-size:16px;letter-spacing:.02em;padding:7px 22px 8px;border-radius:0 0 12px 12px;box-shadow:0 6px 18px rgba(0,0,0,.22);display:none}
+.desk.later .later-banner{display:block}
+.newtab-tip{position:absolute;z-index:6;background:rgb(var(--pulse));color:#fff;font:600 11.5px system-ui,sans-serif;border-radius:6px;padding:3px 8px;white-space:nowrap;pointer-events:none;animation:tip 2.6s ease forwards}
+.newtab-tip:after{content:"";position:absolute;left:14px;top:-4px;border:4px solid transparent;border-top:0;border-bottom-color:rgb(var(--pulse))}
+@keyframes tip{0%{opacity:0;transform:translateY(4px)}12%{opacity:1;transform:none}80%{opacity:1}100%{opacity:0}}
+
+/* the element to press next */
+.nx{position:relative;z-index:1;outline:2px solid rgba(var(--pulse),.95)!important;outline-offset:2px;animation:pulse 1.6s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(var(--pulse),.55)}70%{box-shadow:0 0 0 10px rgba(var(--pulse),0)}100%{box-shadow:0 0 0 0 rgba(var(--pulse),0)}}
+.ctrls button.nx{outline-offset:2px}
+.hint{animation:hint .5s ease 2}
+@keyframes hint{50%{box-shadow:0 0 0 6px rgba(var(--pulse),.5)}}
+
+/* ===================== Slack ===================== */
+.sl{position:relative;height:100%;display:flex;flex-direction:column;background:#fff;color:#1d1c1d;font:15px/1.46 Lato,"Helvetica Neue",Helvetica,Arial,sans-serif}
+.sl .ic{width:16px;height:16px;flex:none}
+.traffic{display:flex;gap:7px;flex:none}
+.traffic i{width:12px;height:12px;border-radius:50%;background:#ff5f57}
+.traffic i:nth-child(2){background:#febc2e}
+.traffic i:nth-child(3){background:#28c840}
+.sl-top{height:36px;flex:none;display:flex;align-items:center;gap:14px;padding:0 12px;background:#350d36;color:rgba(255,255,255,.8)}
+.sl-top .nav{display:flex;gap:10px;align-items:center}
+.sl-search{flex:1;max-width:520px;margin:0 auto;height:24px;border-radius:6px;background:rgba(255,255,255,.2);display:flex;align-items:center;gap:7px;padding:0 10px;font-size:13px;color:rgba(255,255,255,.85)}
+.sl-search .ic{width:13px;height:13px}
+.sl-body{flex:1;min-height:0;display:flex}
+.sl-rail{width:62px;flex:none;display:flex;flex-direction:column;align-items:center;gap:10px;padding:10px 0 12px;background:#350d36}
+.sl-wsic{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;font-weight:900;font-size:17px;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.85)}
+.sl-ri{display:flex;flex-direction:column;align-items:center;gap:1px;font-size:10.5px;color:rgba(255,255,255,.85)}
+.sl-ri .bx{width:34px;height:30px;border-radius:8px;display:grid;place-items:center}
+.sl-ri .bx .ic{width:18px;height:18px}
+.sl-ri.on .bx{background:rgba(255,255,255,.22)}
+.sl-rail .sp{flex:1}
+.sl-me{position:relative}
+.sl-me i{position:absolute;right:-3px;bottom:-3px;width:11px;height:11px;border-radius:50%;background:#2bac76;border:2px solid #350d36}
+.av{display:inline-grid;place-items:center;color:#fff;font-weight:700;border-radius:6px;flex:none;overflow:hidden;line-height:1}
+.av.lpav svg,.av.sbav svg{width:100%;height:100%;display:block}
+.av.sbav{background:#fff}
+.sl-side{width:208px;flex:none;display:flex;flex-direction:column;background:#4a154b;color:rgba(255,255,255,.75);font-size:15px}
+.sd-head{height:48px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 12px 0 16px;border-bottom:1px solid rgba(255,255,255,.13);color:#fff}
+.sd-ws{font-weight:900;font-size:18px;display:flex;align-items:center;gap:5px}
+.sd-ws .ic{width:13px;height:13px}
+.sd-cmp{width:30px;height:30px;border-radius:8px;background:#fff;color:#4a154b;display:grid;place-items:center}
+.sd-scroll{flex:1;overflow:hidden;padding:8px 0}
+.sd-i{display:flex;align-items:center;gap:8px;height:28px;margin:0 8px;padding:0 10px;border-radius:6px;cursor:pointer;white-space:nowrap;overflow:hidden}
+.sd-i .ic{opacity:.85}
+.sd-i .av{border-radius:4px;font-size:9px}
+.sd-i .lbl{overflow:hidden;text-overflow:ellipsis}
+.sd-i:hover{background:rgba(255,255,255,.08)}
+.sd-i.on{background:#1164a3;color:#fff}
+.sd-i.un{color:#fff;font-weight:900}
+.sd-i .badge{margin-left:auto;background:#cd2553;color:#fff;font-size:11px;font-weight:700;border-radius:9px;padding:0 6px;line-height:17px}
+.sd-i .you{font-weight:400;opacity:.65;font-size:13px}
+.sd-i .gst{font-weight:400;opacity:.65;font-size:12px}
+.sd-sec{display:flex;align-items:center;gap:6px;height:26px;margin:10px 8px 0;padding:0 10px;font-size:14.5px}
+.sd-sec .ic{width:11px;height:11px}
+.sl-main{flex:1;min-width:0;display:flex;flex-direction:column;background:#fff}
+.ch-head{height:48px;flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 14px 0 18px;border-bottom:1px solid #e2e2e2}
+.ch-title{display:flex;align-items:center;gap:6px;font-weight:900;font-size:17px;white-space:nowrap;min-width:0}
+.ch-title .chev{width:12px;height:12px;opacity:.7}
+.ch-title .av{border-radius:5px}
+.ch-r{display:flex;align-items:center;gap:8px}
+.orgs{display:flex}
+.orgs i{width:20px;height:20px;border-radius:5px;color:#fff;font:900 10px Lato,sans-serif;display:grid;place-items:center;font-style:normal;border:2px solid #fff;margin-left:-5px}
+.orgs i:first-child{margin-left:0}
+.ch-mem{display:flex;align-items:center;gap:6px;border:1px solid #ddd;border-radius:7px;padding:2px 8px 2px 3px;font-size:13px;color:#616061}
+.ch-mem .stack{display:flex}
+.ch-mem .stack .av{border:2px solid #fff;margin-left:-6px;border-radius:5px;font-size:8px}
+.ch-mem .stack .av:first-child{margin-left:0}
+.ch-tabs{height:36px;flex:none;display:flex;align-items:flex-end;gap:18px;padding:0 18px;border-bottom:1px solid #e2e2e2;font-size:13.5px;color:#616061}
+.ch-tabs span{padding-bottom:8px;display:flex;align-items:center;gap:5px;position:relative}
+.ch-tabs .ic{width:14px;height:14px}
+.ch-tabs span.on{color:#1d1c1d;font-weight:700;box-shadow:inset 0 -2px #1d1c1d}
+.ch-tabs span[data-k]{cursor:pointer}
+.ch-tabs .tdot{width:7px;height:7px;border-radius:50%;background:#cd2553;display:inline-block}
+.atabs span{font-size:14.5px;padding-left:2px;padding-right:2px}
+.ch-tabs span.nx{border-radius:5px}
+.msgs{flex:1;min-height:0;overflow-y:auto;padding:4px 0 10px}
+.day{display:flex;align-items:center;margin:10px 0 4px;position:relative}
+.day:before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:#e2e2e2}
+.day span{position:relative;margin:0 auto;border:1px solid #e2e2e2;border-radius:12px;background:#fff;font-size:12.5px;font-weight:700;padding:1px 12px}
+.msg{padding:6px 18px}
+.msg.cont{padding-top:1px}
+.m-row{display:flex;gap:8px}
+.m-gut{width:36px;flex:none}
+.m-body{flex:1;min-width:0}
+.m-head{display:flex;align-items:baseline;gap:6px;line-height:1.3;margin-bottom:1px;flex-wrap:wrap}
+.m-name{font-weight:900;font-size:15px}
+.appb{font-size:10px;font-weight:700;color:#616061;background:rgba(29,28,29,.13);border-radius:3px;padding:1px 3px;letter-spacing:.2px;align-self:center}
+.extorg{width:15px;height:15px;border-radius:4px;color:#fff;font:900 8.5px/15px Lato,sans-serif;text-align:center;align-self:center}
+.m-time{font-size:12px;color:#616061}
+.m-text{overflow-wrap:anywhere}
+.eph{display:flex;align-items:center;gap:6px;font-size:12.5px;color:#616061;margin:0 0 3px 44px}
+.eph .ic{width:15px;height:15px}
+.mention{background:rgba(29,155,209,.1);color:#1264a3;border-radius:3px;padding:0 2px}
+.mention.me{background:rgba(242,199,68,.4);color:#1d1c1d}
+.chlink{color:#1264a3;background:rgba(29,155,209,.1);border-radius:3px;padding:0 2px}
+.lnk{color:#1264a3;text-decoration:none}
+.sl code{color:#c01343;background:rgba(29,28,29,.04);border:1px solid rgba(29,28,29,.13);border-radius:3px;padding:0 3px;font-size:12px}
+.m-replies{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:13px;cursor:pointer}
+.m-replies .av{border-radius:4px;font-size:9px}
+.m-replies .rc{color:#1264a3;font-weight:700}
+.m-replies .rl{color:#616061}
+.files{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+.shot{width:100px;height:64px;border-radius:6px;border:1px solid #ddd;background:#f6f7f9;position:relative;overflow:hidden;flex:none}
+.shot b{position:absolute;left:0;right:0;top:0;height:10px;background:#e3e8ee}
+.shot b:after{content:"";position:absolute;left:5px;top:3px;width:18px;height:4px;border-radius:2px;background:#b9c3ce}
+.shot i{position:absolute;left:8px;top:18px;width:46%;height:6px;border-radius:3px;background:#cfd6df}
+.shot i+i{top:30px;width:64%}
+.shot i+i+i{top:44px;width:30%;height:9px;background:#6cc2ad}
+.shot u{position:absolute;right:8px;top:18px;width:24px;height:34px;border-radius:3px;background:#e8edf2}
+.shot.s2 i+i+i{left:40%;background:#7aa7e0}
+.shot.s3 u{background:#f3e0c7}
+/* thread */
+.th{width:408px;flex:none;border-left:1px solid #e2e2e2;display:flex;flex-direction:column;background:#fff}
+.th-head{height:48px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 14px 0 16px;border-bottom:1px solid #e2e2e2}
+.th-head b{font-weight:900;font-size:17px;margin-right:8px}
+.th-head .thc{font-size:13px;color:#616061}
+.th-scroll{flex:1;min-height:0;overflow-y:auto;padding:4px 0 8px}
+.th .msg{padding-left:16px;padding-right:14px}
+.th-div{display:flex;align-items:center;gap:10px;margin:2px 16px 4px;font-size:13px;color:#616061}
+.th-div:after{content:"";flex:1;height:1px;background:#e2e2e2}
+.th-status{display:flex;align-items:center;gap:8px;margin:6px 16px 2px;font-size:13.5px;color:#616061}
+.th-status .av{border-radius:4px}
+.th .cmp{padding:0 14px 12px}
+.th .cmp-tools{display:none}
+/* composer */
+.cmp{flex:none;padding:0 18px 14px}
+.cmp-box{border:1px solid #c8c8c8;border-radius:8px;overflow:hidden}
+.cmp-box.has{border-color:#8d8d8d;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.cmp-tools{height:30px;display:flex;align-items:center;gap:13px;padding:0 10px;background:#f8f8f8;color:#9a9a9a}
+.cmp-tools .ic{width:14px;height:14px}
+.cmp-text{min-height:22px;padding:7px 12px 3px;font-size:15px}
+.cmp-text .ph{color:#8b8b8b}
+.cmp-files{padding:4px 12px 2px}
+.cmp-files .shot{width:64px;height:44px}
+.cmp-files .shot i{top:15px}.cmp-files .shot i+i{top:23px}.cmp-files .shot i+i+i{top:31px;height:6px}
+.cmp-files .shot u{top:15px;width:14px;height:22px}
+.cmp-bar{height:34px;display:flex;align-items:center;gap:12px;padding:0 6px 0 10px;color:#7a7a7a}
+.cmp-bar .ic{width:16px;height:16px}
+.cmp-send{margin-left:auto;width:34px;height:26px;border-radius:5px;border:0;background:transparent;color:#b5b5b5;display:grid;place-items:center}
+.cmp-send.on{background:#007a5a;color:#fff}
+/* block kit */
+.blocks{margin-top:1px}
+.bk-sec{display:flex;gap:12px;align-items:flex-start;margin:3px 0}
+.bk-text{flex:1;min-width:0;overflow-wrap:anywhere}
+.bk-acc{flex:none}
+.bk-ctx{font-size:12.5px;color:#616061;margin:4px 0;line-height:1.4}
+.bk-act{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.bk-btn{height:30px;padding:0 12px;border-radius:6px;border:1px solid rgba(29,28,29,.3);background:#fff;color:#1d1c1d;font:700 14px/1 Lato,"Helvetica Neue",sans-serif;white-space:nowrap}
+.bk-btn.primary{background:#007a5a;border-color:#007a5a;color:#fff}
+.bk-btn.danger{background:#e01e5a;border-color:#e01e5a;color:#fff}
+.bk-select{height:30px;padding:0 8px 0 12px;border-radius:6px;border:1px solid rgba(29,28,29,.3);display:inline-flex;align-items:center;gap:14px;color:#616061;font-size:14px;cursor:pointer;background:#fff}
+.bk-select .ic{width:12px;height:12px}
+.bk-div{height:1px;background:#e2e2e2;margin:12px 0}
+.bk-hdr{font-weight:900;font-size:17px;margin:6px 0}
+.bk-quote{border-left:4px solid #ddd;padding-left:10px;margin:4px 0;color:#1d1c1d}
+.bk-plan{margin:6px 0}
+.plan-head{display:flex;align-items:center;gap:10px;color:#616061;cursor:pointer}
+.plan-head .chev{width:12px;height:12px}
+.plan-list{margin:6px 0 2px 6px;border-left:1px solid #d6d6d6;padding:0 0 0 0}
+.plan-row{display:flex;align-items:center;gap:10px;color:#616061;padding:4px 0;margin-left:-6px}
+.bk-plan.closed .plan-list{display:none}
+.pi{width:12px;height:12px;flex:none;display:grid;place-items:center;background:#fff}
+.pi.dot:after{content:"";width:5px;height:5px;border-radius:50%;background:#616061}
+.pi.spin{border:2px solid #cfe2ef;border-top-color:#1d9bd1;border-radius:50%;animation:spin .9s linear infinite}
+.pi.ok{width:16px;height:16px;background:none}
+.pi.ok svg{width:16px;height:16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bk-video{margin:8px 0}
+.v-title{color:#1264a3;display:flex;align-items:center;gap:4px;margin-bottom:6px}
+.v-title .ic{width:11px;height:11px}
+.v-thumb{width:272px;height:150px;border-radius:6px;overflow:hidden;position:relative;color:#fff;font-family:Inter,system-ui,sans-serif}
+.v-thumb.build{background:radial-gradient(circle at 20% 15%,#1d5a49 0,#0d1716 55%),#0d1716}
+.v-thumb.build:after{content:"";position:absolute;right:-20px;bottom:-30px;width:160px;height:90px;background:radial-gradient(circle,#8a4b2a 0,rgba(0,0,0,0) 70%)}
+.v-thumb.tour{background:linear-gradient(135deg,#3b78d0,#5c9ce6)}
+.v-thumb .vt{position:absolute;left:16px;top:22px;width:150px;font-weight:700;font-size:17px;line-height:1.2}
+.v-thumb .vs{position:absolute;left:16px;top:78px;font-size:11px;opacity:.85}
+.v-thumb .vb{position:absolute;left:16px;top:92px;background:#fff;color:#1d1c1d;border-radius:7px;font-size:11px;font-weight:700;padding:5px 9px;display:flex;align-items:center;gap:5px}
+.v-thumb .vb:before{content:"";width:9px;height:9px;border-radius:50%;background:#2f6fc5}
+.v-thumb .vpill{position:absolute;left:14px;bottom:12px;background:rgba(25,28,32,.82);color:#fff;border-radius:6px;padding:4px 9px;font-weight:700;font-size:12px;display:flex;gap:6px;align-items:center}
+.v-thumb .vpill:before{content:"";border-left:8px solid #fff;border-top:5px solid transparent;border-bottom:5px solid transparent}
+.v-thumb .vshot{position:absolute;right:-12px;top:36px;width:140px;height:96px;border-radius:6px;background:#f5f7fa;box-shadow:0 6px 18px rgba(0,0,0,.3);overflow:hidden}
+.v-thumb .vshot:before{content:"";position:absolute;left:0;right:0;top:0;height:12px;background:#dde3ea}
+.v-thumb .vshot:after{content:"";position:absolute;left:10px;top:24px;width:70px;height:7px;border-radius:4px;background:#c7d0da;box-shadow:0 14px 0 #c7d0da,0 28px 0 #6cc2ad}
+.v-thumb .vhot{position:absolute;left:58px;top:110px;width:18px;height:18px;border-radius:50%;background:#199f86;box-shadow:0 0 0 6px rgba(25,159,134,.35)}
+.v-thumb.build .vt{top:28px}
+.v-thumb.build .vs{top:72px}
+/* app home */
+.home{flex:1;min-height:0;overflow-y:auto}
+.home-in{max-width:640px;padding:16px 24px 28px}
+.about{padding:22px 26px}
+.ab-h{display:flex;gap:16px;align-items:center}
+.ab-n{font-weight:900;font-size:20px}
+.ab-d{color:#454245;margin-top:2px}
+.ab-meta{margin-top:18px;font-size:13.5px;color:#616061}
+/* modal */
+.smod-back{position:absolute;inset:0;background:rgba(0,0,0,.45);display:grid;place-items:center;z-index:20}
+.smod{width:460px;background:#fff;border-radius:10px;box-shadow:0 18px 50px rgba(0,0,0,.35);overflow:hidden}
+.smod-h{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 22px 6px;font-size:19px;font-weight:900;line-height:1.3}
+.smod-h .x{color:#616061}
+.smod-b{padding:6px 22px 18px;font-size:15px}
+.smod-f{display:flex;justify-content:flex-end;gap:10px;padding:14px 22px;border-top:1px solid #e2e2e2}
+.smod-f .bk-btn{height:36px;padding:0 16px}
+/* sketch (Later) */
+.sketch{border:2px dashed #c47a1c;background:#fffaf0;border-radius:10px;padding:11px 14px 12px;margin:8px 0;color:#5b4320;font-size:14px;font-family:Lato,sans-serif}
+.sk-tag{display:inline-block;font-size:10.5px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--later);border-radius:4px;padding:2px 6px;margin-bottom:7px}
+.sk-t{font-weight:900;font-size:15px;margin-bottom:3px;color:#3d2b10}
+.sk-l{line-height:1.45}
+.sk-o{display:flex;align-items:center;gap:8px;margin-top:7px}
+.sk-r{width:15px;height:15px;border:2px solid #b45309;border-radius:50%;flex:none}
+.sk-r.sq{border-radius:3px}
+.sk-r.on{background:radial-gradient(#b45309 0 3.5px,transparent 4.5px)}
+.sk-r.sq.on{background:#b45309}
+.sk-chips{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.sk-chips span{border:1.5px dashed #b45309;border-radius:6px;padding:2px 8px;font-size:13px}
+.sk-chips span.empty{color:#a8875a}
+.sk-bars i{display:block;height:8px;border-radius:4px;background:#efd9b3;margin-top:7px;width:85%}
+.sk-bars i:nth-child(2){width:62%}
+
+/* ===================== Chrome ===================== */
+.cr{height:100%;display:flex;flex-direction:column;background:#fff;font:13px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#202124}
+.cr .ic{width:16px;height:16px;flex:none}
+.cr-strip{height:38px;flex:none;display:flex;align-items:flex-end;background:#dfe3e8;padding:0 8px 0 12px}
+.cr-strip .traffic{align-self:center;margin-right:14px}
+.ctabs{display:flex;align-items:flex-end;flex:1;min-width:0}
+.ctab{position:relative;display:flex;align-items:center;gap:8px;height:31px;width:200px;min-width:60px;flex:0 1 200px;padding:0 9px 0 12px;border-radius:9px 9px 0 0;color:#3c4043;font-size:12.5px}
+.ctab+.ctab:before{content:"";position:absolute;left:0;top:9px;bottom:8px;width:1px;background:#aeb4bb}
+.ctab.on:before,.ctab.on+.ctab:before{display:none}
+.ctab.on{background:#fff}
+.ctab .ct{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.ctab .fav{width:16px;height:16px;flex:none;display:grid;place-items:center}
+.ctab .fav svg{width:16px;height:16px}
+.ctab .cx{width:16px;height:16px;color:#5f6368;display:grid;place-items:center}
+.ctab .cx .ic{width:10px;height:10px}
+.ctab.fresh{animation:tabin .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes tabin{0%{max-width:0;opacity:0}100%{max-width:200px;opacity:1}}
+.cplus{width:28px;height:28px;display:grid;place-items:center;color:#5f6368;align-self:center;margin-left:4px}
+.cplus .ic{width:14px;height:14px}
+.cr-bar{height:40px;flex:none;display:flex;align-items:center;gap:10px;padding:0 10px;border-bottom:1px solid #e3e3e3}
+.cnav{display:flex;gap:14px;color:#5f6368;padding:0 4px}
+.omni{flex:1;height:30px;border-radius:15px;background:#eef1f4;display:flex;align-items:center;gap:8px;padding:0 12px;min-width:0;color:#5f6368}
+.omni .ic{width:14px;height:14px}
+.omni .url{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#5f6368;font-size:13.5px}
+.omni .url b{color:#202124;font-weight:400}
+.omni .url .ph{color:#80868b}
+.cprof{width:24px;height:24px;border-radius:50%;color:#fff;font-weight:700;font-size:11px;display:grid;place-items:center;flex:none}
+.ckeb{color:#5f6368}
+.cr-page{flex:1;min-height:0;overflow-y:auto;position:relative}
+.nt{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:#fff}
+.nt-g{font:500 64px/1 "Product Sans",Arial,sans-serif;letter-spacing:-2px}
+.nt-g span:nth-child(1),.nt-g span:nth-child(4){color:#4285f4}.nt-g span:nth-child(2),.nt-g span:nth-child(6){color:#ea4335}.nt-g span:nth-child(3){color:#fbbc05}.nt-g span:nth-child(5){color:#34a853}
+.nt-s{width:480px;height:44px;border-radius:22px;border:1px solid #dfe1e5;display:flex;align-items:center;gap:10px;padding:0 16px;color:#80868b}
+
+/* ===================== Layerpath (dark product UI) ===================== */
+.lp{font-family:Inter,"Inter Display",system-ui,-apple-system,sans-serif;color:#e7eaee;-webkit-font-smoothing:antialiased;font-size:14px;line-height:1.45}
+.lp .ic{width:17px;height:17px;flex:none}
+.lpd{display:flex;height:100%;background:#0a0c0d;padding:8px;gap:8px;position:relative}
+.lps{width:206px;flex:none;display:flex;flex-direction:column;gap:8px}
+.lps-box{background:#151719;border:1px solid rgba(255,255,255,.05);border-radius:20px;padding:10px;display:flex;flex-direction:column;gap:10px}
+.lpfull{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:16px;color:#fff;letter-spacing:-.2px}
+.lpfull svg{width:26px;height:26px;border-radius:8px}
+.lps-ws{display:flex;align-items:center;gap:8px;background:#0a0c0d;border-radius:12px;padding:6px}
+.lps-wsav{width:30px;height:30px;border-radius:8px;background:#08332b;border:1px solid #158470;color:#72e9d3;font-weight:700;display:grid;place-items:center;font-size:13px;flex:none}
+.lps-wsn{flex:1;display:flex;flex-direction:column;line-height:1.2;min-width:0}
+.lps-wsn b{font-size:13px;font-weight:600;color:#fff}
+.lps-wsn small{font-size:11px;color:#73808c}
+.lps-nav{flex:1;display:flex;flex-direction:column;gap:2px;padding:2px}
+.lps-i{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;font-size:13.5px;color:#9ba7b3}
+.lps-i.on{background:#1f2326;color:#fff}
+.lps-foot{background:#151719;border:1px solid rgba(255,255,255,.05);border-radius:24px;padding:8px;display:flex;flex-direction:column;gap:4px}
+.lps-user{display:flex;align-items:center;gap:8px;background:#1f2326;border:1px solid rgba(255,255,255,.04);border-radius:16px;padding:7px 8px;min-width:0}
+.lps-user div{min-width:0}
+.lps-user b{display:block;font-size:12.5px;font-weight:600;color:#fff}
+.lps-user small{display:block;font-size:11px;color:#73808c;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lpav2{width:28px;height:28px;border-radius:8px;background:#08332b;border:1px solid #158470;color:#72e9d3;font-weight:700;font-size:12px;display:grid;place-items:center;flex:none;text-transform:uppercase}
+.lpm{flex:1;min-width:0;background:#151719;border:1px solid rgba(255,255,255,.05);border-radius:24px;display:flex;flex-direction:column;overflow:hidden}
+.lpm-top{height:30px;flex:none}
+.lpm-c{flex:1;overflow:auto;padding:4px 32px 26px}
+.lp-h1{font-size:22px;font-weight:600;color:#fff;margin:0 0 14px}
+.lpt{display:flex;gap:4px;border-bottom:1px solid #262626;margin-bottom:22px}
+.lpt-i{padding:9px 10px;font-size:13.5px;font-weight:500;color:#9ca3af;cursor:pointer;border-radius:4px 4px 0 0}
+.lpt-i.on{color:#e5e7eb;box-shadow:inset 0 -2px #199f86}
+.lp-card{background:#1c1f22;border:1px solid #2a2e33;border-radius:16px;padding:18px 20px;max-width:760px}
+.lp-lbl{font-size:12.5px;color:#9ba7b3;margin-bottom:6px}
+.lp-field{background:#0f1113;border:1px solid #2a2e33;border-radius:10px;padding:9px 12px;color:#fff;max-width:340px}
+.lp-btn{display:inline-flex;align-items:center;height:34px;padding:0 14px;border-radius:10px;font-size:13px;font-weight:600;border:1px solid #2a2e33;background:#1f2326;color:#e7eaee}
+.lp-btn.primary{background:#199f86;border-color:#199f86;color:#fff}
+.int-card{display:flex;gap:16px;align-items:flex-start;background:#1c1f22;border:1px solid #2a2e33;border-radius:16px;padding:18px 20px;max-width:780px}
+.int-ic{width:46px;height:46px;border-radius:12px;background:#fff;display:grid;place-items:center;flex:none}
+.int-ic svg{width:26px;height:26px}
+.int-b{flex:1;min-width:0}
+.int-t{font-weight:600;font-size:15px;color:#fff}
+.int-d{font-size:13.5px;color:#9ba7b3;margin-top:3px}
+.int-st{display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin-top:12px;font-size:13px;color:#d2d6da}
+.int-st .dot{width:8px;height:8px;border-radius:50%;background:#27b358;margin-right:4px}
+.int-st.off .dot{background:#73808c}
+.int-dis{color:#ff8fa3;text-decoration:underline;cursor:pointer;border-radius:4px;padding:0 2px}
+.int-cta{flex:none}
+.ats{display:inline-flex;align-items:center;gap:9px;height:40px;padding:0 16px 0 12px;background:#fff;border:1px solid #ddd;border-radius:6px;color:#1d1c1d;font:15px/1 Lato,"Helvetica Neue",sans-serif}
+.ats svg{width:20px;height:20px}
+.ats b{font-weight:900}
+.lp-notice{display:flex;gap:10px;align-items:center;max-width:780px;background:rgba(237,13,80,.09);border:1px solid rgba(237,13,80,.4);color:#ffb8c6;border-radius:12px;padding:10px 14px;margin-bottom:14px;font-size:13.5px}
+.lpdlg-back{position:absolute;inset:0;background:rgba(0,0,0,.6);display:grid;place-items:center;z-index:10}
+.lpdlg{width:430px;background:#1d1f22;border:1px solid #2a2e33;border-radius:20px;padding:22px 24px;box-shadow:0 48px 80px rgba(0,0,0,.48);color:#e7eaee;font-family:Inter,system-ui,sans-serif}
+.lpdlg h3{margin:0 0 8px;font-size:17px;font-weight:600;color:#fff}
+.lpdlg p{margin:0;color:#b0b8bf;font-size:14px}
+.lpdlg-f{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
+.ghost-btn{height:42px;padding:0 18px;border-radius:14px;border:1px solid #2a2e33;background:transparent;color:#e7eaee;font-weight:600;font-size:14px}
+.danger-btn{height:42px;padding:0 18px;border-radius:14px;border:0;background:#ed0d50;color:#fff;font-weight:600;font-size:14px}
+/* members */
+.mstats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;background:#000;border-radius:16px;padding:14px 18px;margin-bottom:18px}
+.ms b{display:block;font-size:24px;font-weight:700;color:#fff}
+.ms span{display:flex;align-items:center;gap:5px;font-size:13.5px;color:#a3a3a3}
+.ms .ic{width:13px;height:13px}
+.mtabs{display:flex;align-items:center;gap:6px;margin-bottom:12px}
+.mtabs span.t{padding:6px 12px;border-radius:8px;font-size:13.5px;color:#a3a3a3}
+.mtabs span.t.on{background:#262626;color:#fff}
+.mtabs .sp{flex:1}
+.mtable{width:100%;border-collapse:collapse;font-size:13px}
+.mtable th{text-align:left;font-weight:500;color:#a3a3a3;padding:9px 10px;border-bottom:1px solid #262626}
+.mtable td{padding:9px 10px;border-bottom:1px solid #262626;color:#e5e7eb;vertical-align:middle}
+.mtable td.rc{position:relative}
+.rsel{display:inline-flex;align-items:center;justify-content:space-between;gap:8px;width:108px;height:30px;border:1px solid #262626;border-radius:8px;padding:0 9px;background:#0f1113;cursor:pointer}
+.rsel .ic{width:12px;height:12px;color:#8b949e}
+.rmenu{position:absolute;left:10px;top:42px;z-index:4;width:130px;background:#0f1113;border:1px solid #2a2e33;border-radius:10px;padding:4px;box-shadow:0 12px 30px rgba(0,0,0,.5)}
+.rmenu div{padding:6px 9px;border-radius:7px;cursor:pointer}
+.rmenu div.on{background:#1f2326}
+.mdel{color:#f87171;cursor:pointer;border-radius:4px;padding:1px 3px}
+.mst{display:inline-flex;align-items:center;gap:6px}
+.mst .ic{width:14px;height:14px;color:#8b949e}
+.mpag{display:flex;justify-content:flex-end;gap:10px;color:#a3a3a3;font-size:12.5px;padding:10px 4px}
+.mtable tr.gone td{opacity:.3;text-decoration:line-through}
+/* plan */
+.plan-card .pt{font-size:18px;font-weight:600;color:#fff}
+.plan-card .ps{font-size:12.5px;color:#9ba7b3;margin:14px 0 6px;text-transform:uppercase;letter-spacing:.06em}
+.plan-card .pr{display:flex;justify-content:space-between;max-width:340px;padding:8px 0;border-bottom:1px solid #2a2e33;font-size:13.5px}
+.plan-card .lp-btn{margin-top:16px}
+/* projects */
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pcard{border-radius:16px;overflow:visible;position:relative}
+.pthumb{height:118px;border-radius:16px 16px 0 0;background:linear-gradient(135deg,#3b78d0,#5c9ce6);position:relative;overflow:hidden}
+.pthumb.b{background:linear-gradient(135deg,#2b3a4a,#40566c)}
+.pthumb.c{background:linear-gradient(135deg,#1f5c50,#2f8a76)}
+.pthumb i{position:absolute;right:14px;top:18px;width:110px;height:76px;border-radius:6px;background:#f5f7fa;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.pthumb i:after{content:"";position:absolute;left:9px;top:16px;width:60px;height:6px;border-radius:3px;background:#c7d0da;box-shadow:0 12px 0 #c7d0da,0 24px 0 #6cc2ad}
+.pthumb b{position:absolute;left:14px;top:20px;width:90px;color:#fff;font-size:12px;font-weight:700;line-height:1.25}
+.pinfo{background:#0f1113;border:1px solid #1f2326;border-top:0;border-radius:0 0 16px 16px;padding:12px 14px}
+.pinfo .pt{font-size:14.5px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pm{display:flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;color:#73808c;position:relative}
+.pav{width:16px;height:16px;border-radius:50%;background:#158470;color:#fff;font-size:10px;display:grid;place-items:center}
+.ptip{position:absolute;left:-6px;top:-34px;background:#fff;color:#111;font-size:12px;font-weight:500;border-radius:7px;padding:4px 9px;white-space:nowrap;box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.ptip:after{content:"";position:absolute;left:12px;bottom:-5px;border:5px solid transparent;border-bottom:0;border-top-color:#fff}
+.pcard.new .pinfo{border-color:#199f86}
+/* editor */
+.lpe{height:100%;display:flex;flex-direction:column;background:#0a0c0d}
+.lpe-top{height:52px;flex:none;display:flex;align-items:center;gap:12px;padding:0 14px;border-bottom:1px solid #1f2326}
+.lpe-top b{font-weight:600;color:#fff}
+.lpe-back{width:32px;height:32px;border-radius:10px;background:#1f2326;display:grid;place-items:center;cursor:pointer}
+.lpe-saved{font-size:12px;color:#73808c}
+.lpe-top .sp{flex:1}
+.lpe-body{flex:1;min-height:0;display:flex}
+.lpe-steps{width:150px;flex:none;border-right:1px solid #1f2326;padding:10px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+.lpe-st{display:flex;gap:6px;align-items:flex-start;font-size:11px;color:#9ba7b3}
+.lpe-st i{width:96px;height:56px;border-radius:6px;background:#f5f7fa;flex:none;position:relative;overflow:hidden}
+.lpe-st i:after{content:"";position:absolute;left:7px;top:12px;width:44px;height:4px;border-radius:2px;background:#c7d0da;box-shadow:0 9px 0 #c7d0da,0 18px 0 #6cc2ad}
+.lpe-st.on i{box-shadow:0 0 0 2px #199f86}
+.lpe-canvas{flex:1;display:grid;place-items:center;background:#111416}
+.lpe-shot{width:560px;height:330px;border-radius:10px;background:#f5f7fa;position:relative;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.lpe-shot:before{content:"";position:absolute;left:0;right:0;top:0;height:26px;background:#dde3ea}
+.lpe-shot .bar{position:absolute;left:24px;height:12px;border-radius:6px;background:#c7d0da}
+.lpe-hot{position:absolute;left:300px;top:150px;width:26px;height:26px;border-radius:50%;background:#199f86;box-shadow:0 0 0 9px rgba(25,159,134,.3)}
+.lpe-call{position:absolute;left:230px;top:196px;background:#fff;border-radius:12px;padding:10px 14px;font:600 14px Inter,sans-serif;color:#111;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+/* auth-style pages */
+.lpa{min-height:100%;background:#0a0a0a;padding:8px;display:flex}
+.lpa-in{flex:1;background:#101214;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;padding:22px 20px 44px}
+.lpa-col{width:390px;max-width:100%}
+.auth-logo{display:flex;justify-content:center;margin-bottom:16px}
+.lpa h1{font-size:23px;font-weight:600;text-align:center;color:#fff;line-height:1.25;margin:0 0 6px}
+.lpa h1.lpa-h{margin-bottom:16px}
+.lpa h1.sm{font-size:20px}
+.lpa .sub{text-align:center;color:rgba(255,255,255,.6);font-size:14px;font-weight:500;margin:0 0 20px}
+.lpa-p{color:#b0b8bf;font-size:14px;margin:0 0 16px}
+.lpa-p.c{text-align:center}
+.lpa-note{color:#8f9aa5;font-size:13px;margin:12px 0 16px}
+.lpa-box{background:#1c1f22;border:1px solid #2a2e33;border-radius:12px;padding:12px 14px;font-size:14px;color:#d2d6da;margin-bottom:16px}
+.lpa-box code{background:#0a0c0d;border:1px solid #2a2e33;border-radius:5px;padding:1px 5px;color:#72e9d3}
+.lpa-alert{background:rgba(213,143,63,.1);border:1px solid rgba(213,143,63,.45);color:#f3c58d;border-radius:12px;padding:12px 14px;font-size:14px}
+.lpa-btns{display:flex;flex-direction:column;gap:10px}
+.auth-banner{display:flex;align-items:center;gap:10px;background:rgba(25,159,134,.12);border:1px solid rgba(25,159,134,.5);color:#a6f0df;border-radius:12px;padding:9px 12px;font-size:13.5px;font-weight:500;margin-bottom:16px}
+.auth-banner svg{width:18px;height:18px;flex:none}
+.g-btn{width:100%;height:46px;background:#1c1f22;border:1px solid #2a2e33;border-radius:16px;color:#fff;display:flex;align-items:center;justify-content:center;gap:12px;font-weight:500;font-size:14px}
+.g-btn svg{width:18px;height:18px}
+.or{display:flex;align-items:center;gap:14px;margin:12px 0;color:rgba(255,255,255,.6);font-size:14px}
+.or:before,.or:after{content:"";flex:1;height:1px;opacity:.3;background:linear-gradient(to left,#fff,rgba(153,153,153,0))}
+.or:after{background:linear-gradient(to right,#fff,rgba(153,153,153,0))}
+.inp{position:relative;height:50px;background:#1f2326;border-radius:16px;display:flex;align-items:center;padding:0 14px 0 54px;color:rgba(255,255,255,.5);font-size:14px;margin-bottom:12px}
+.inp .ib{position:absolute;left:8px;top:8px;width:34px;height:34px;border-radius:12px;background:#121416;display:grid;place-items:center;color:#9ba7b3;box-shadow:inset -2.5px 1.1px 1.1px 1.1px #0d0f10}
+.inp .ib .ic{width:15px;height:15px}
+.inp.v{color:#e7eaee}
+.inp.pw{border:1px solid rgba(255,255,255,.6)}
+.pwok{color:#27b358;font-size:13px;margin:-6px 0 10px 4px}
+.sub-btn{width:100%;height:46px;background:#fff;color:#000;font-weight:600;border:0;border-radius:16px;font-size:14px}
+.sub-btn.dim{opacity:.5}
+.acc-btn{width:100%;height:50px;border:0;border-radius:12px;background:#199f86;color:#fff;font-weight:600;font-size:14px;box-shadow:0 0 0 1px #25d0ca}
+.tog{display:block;text-align:center;margin-top:12px;color:rgba(255,255,255,.6);text-decoration:underline;font-weight:500;font-size:14px;cursor:pointer}
+.auth-alt{text-align:center;margin-top:16px;color:rgba(255,255,255,.5);font-weight:500;font-size:14px}
+.auth-alt a{color:#199f86;text-decoration:underline}
+.auth-foot{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-size:12.5px;font-weight:500;color:rgba(255,255,255,.5)}
+.auth-foot a{color:rgba(255,255,255,.8);text-decoration:underline}
+.cw-list{display:flex;flex-direction:column;gap:8px}
+.cw-opt{display:flex;align-items:center;gap:12px;background:#1c1f22;border:1px solid #2a2e33;border-radius:14px;padding:13px 14px;font-size:14px;color:#e7eaee;cursor:pointer}
+.cw-opt .radio{width:16px;height:16px;border-radius:50%;border:2px solid #5b656f;flex:none}
+.cw-opt.on{border-color:#199f86;background:rgba(25,159,134,.08)}
+.cw-opt.on .radio{border-color:#199f86;background:radial-gradient(#199f86 0 4px,transparent 5px)}
+.sc-pair{display:flex;align-items:stretch;gap:10px;margin-bottom:18px}
+.sc-pair .sc-link{align-self:center}
+.sc-side{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;white-space:nowrap;background:#1c1f22;border:1px solid #2a2e33;border-radius:16px;padding:16px 10px;text-align:center;font-size:13.5px;color:#e7eaee}
+.sc-side svg{width:30px;height:30px}
+.sc-side .lpav2{width:30px;height:30px}
+.sc-link{color:#72e9d3}
+.okc{display:flex;justify-content:center;margin-bottom:10px}
+.okc svg{width:44px;height:44px}
+.inv{min-height:100%;background:#0b0d0e;position:relative;display:flex;align-items:center;justify-content:center;padding:18px;overflow:hidden}
+.inv:before{content:"";position:absolute;left:50%;top:-180px;width:1100px;height:1100px;margin-left:-550px;border-radius:50%;background:repeating-radial-gradient(circle,rgba(255,255,255,.035) 0 1px,transparent 2px 70px)}
+.inv-c{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;width:500px}
+.inv-c .shine{width:58px;height:58px;filter:drop-shadow(0 -4px 12px rgba(255,255,255,.15))}
+.inv-c .shine svg{width:58px;height:58px;border-radius:18px}
+.inv-c h2{font-family:Georgia,"Times New Roman",serif;font-weight:600;font-size:34px;line-height:1.3;margin:6px 0 4px;color:#fff;letter-spacing:-.3px}
+.inv-c h1{font-size:18px;font-weight:600;color:#e7eaee;margin:0 0 14px}
+.inv-card{width:380px;background:#1d1f22;border-radius:24px;padding:18px 24px;box-shadow:0 48px 80px rgba(0,0,0,.48);text-align:left}
+.web{min-height:100%;background:#0a0c0d;color:#fff;font-family:Inter,system-ui,sans-serif}
+.web-nav{height:56px;display:flex;align-items:center;padding:0 34px;border-bottom:1px solid #1f2326}
+.web-hero{display:flex;flex-direction:column;align-items:center;text-align:center;padding:60px 40px}
+.web-pair{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.web-pair .b{width:62px;height:62px;border-radius:16px;background:#fff;display:grid;place-items:center}
+.web-pair .b svg{width:36px;height:36px}
+.web-pair .lpx svg{width:62px;height:62px;border-radius:16px}
+.web-pair .plus{color:#73808c;font-size:24px}
+.web-hero h1{font-size:34px;font-weight:600;line-height:1.2;margin:0 0 12px}
+.web-p{font-size:17px;color:#b0b8bf;max-width:560px;margin:0 0 28px;line-height:1.45}
+.skpage{min-height:100%;background:#fff;padding:40px 60px;font-family:Lato,sans-serif}
+.skpage .sketch{max-width:560px;margin:0 auto}
+/* Slack OAuth page */
+.oa{min-height:100%;background:#fff;color:#1d1c1d;font:15px/1.46 Lato,"Helvetica Neue",sans-serif}
+.oa .ic{width:16px;height:16px}
+.oa-top{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;border-bottom:1px solid #ececec}
+.oa-logo{display:flex;align-items:center;gap:7px;font-weight:900;font-size:23px;letter-spacing:-.6px}
+.oa-logo svg{width:24px;height:24px}
+.oa-sw{display:flex;align-items:center;gap:10px;border:1px solid #ddd;border-radius:8px;padding:4px 10px 4px 5px;font-size:13px}
+.oa-sw .wi{width:28px;height:28px;border-radius:6px;color:#fff;font-weight:900;display:grid;place-items:center}
+.oa-sw b{display:block;font-size:14px;line-height:1.2}
+.oa-sw small{display:block;color:#616061;font-size:12px;line-height:1.2}
+.oa-c{width:590px;margin:0 auto;padding:16px 0 22px}
+.oa-ic{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:10px}
+.oa-ic .ai{width:46px;height:46px;border-radius:10px;overflow:hidden;display:grid;place-items:center;color:#fff;font-weight:900;font-size:20px}
+.oa-ic .ai svg{width:46px;height:46px}
+.oa-ic .dots{display:flex;gap:4px}
+.oa-ic .dots i{width:5px;height:5px;border-radius:50%;background:#bbb}
+.oa h1{font-size:21px;font-weight:900;text-align:center;line-height:1.3;margin:0 0 12px}
+.oa h2{font-size:16px;font-weight:900;margin:12px 0 6px}
+.oa-g{border:1px solid #ddd;border-radius:8px;margin-bottom:6px}
+.oa-gh{display:flex;align-items:center;gap:12px;padding:8px 14px;cursor:pointer;font-size:14.5px}
+.oa-gh .gi{width:26px;height:26px;border-radius:6px;background:#f4ede4;display:grid;place-items:center;color:#7a5a33}
+.oa-gh .gi .ic{width:14px;height:14px}
+.oa-gh .chev{margin-left:auto;color:#616061;display:grid}
+.oa-gh .chev.up{transform:rotate(180deg)}
+.oa-gh .chev .ic{width:12px;height:12px}
+.oa-gr{padding:0 14px 8px 52px;font-size:13.5px;color:#454245}
+.oa-gr div{padding:2px 0}
+.oa-f{display:flex;justify-content:flex-end;gap:10px;margin-top:14px}
+.oa-btn{height:38px;padding:0 20px;border-radius:6px;border:1px solid rgba(29,28,29,.3);background:#fff;font:700 15px/1 Lato,sans-serif;color:#1d1c1d}
+.oa-btn.go{background:#007a5a;border-color:#007a5a;color:#fff}
+.oa-req{display:flex;gap:10px;align-items:flex-start;background:#f8f8f8;border-radius:8px;padding:10px 12px;margin-top:12px;font-size:14px;color:#454245}
+.oa-req .ic{margin-top:2px;color:#1264a3}
+.oa-reason{margin-top:12px}
+.oa-reason label{display:block;font-weight:700;font-size:14px;margin-bottom:6px}
+.oa-ta{border:1px solid #868686;border-radius:6px;min-height:64px;padding:8px 10px;font-size:14px}
+.oa-sent{display:flex;gap:12px;align-items:center;background:#f2f9f6;border:1px solid #b8e0cf;border-radius:8px;padding:12px 14px;margin-top:14px}
+.oa-sent .ic{color:#007a5a;width:20px;height:20px}
+/* Google */
+.gpage{min-height:100%;background:#f0f4f9;display:grid;place-items:center;padding:20px;font-family:"Google Sans",Roboto,Arial,sans-serif;color:#1f1f1f}
+.gcard{width:740px;background:#fff;border-radius:28px;padding:28px 34px 30px}
+.gtop{display:flex;align-items:center;gap:10px;font-size:14px}
+.gtop svg{width:20px;height:20px}
+.gbody{display:flex;gap:28px;margin-top:18px}
+.gleft{flex:1}
+.gleft h1{font-weight:400;font-size:32px;margin:0 0 10px;line-height:1.2}
+.gleft p{font-size:15px;margin:0}
+.gleft a{color:#0b57d0}
+.gright{flex:1.15}
+.gacc{display:flex;align-items:center;gap:12px;padding:11px 8px;border-bottom:1px solid #e3e3e3;cursor:pointer;border-radius:6px}
+.gav{width:30px;height:30px;border-radius:50%;color:#fff;display:grid;place-items:center;font-size:14px;flex:none}
+.gav.o{background:#fff;border:1px solid #c4c7c5;color:#444}
+.gav .ic{width:16px;height:16px}
+.gacc b{display:block;font-weight:500;font-size:14px}
+.gacc small{display:block;font-size:12.5px;color:#444}
+
+@media (prefers-reduced-motion: reduce){
+  .nx{animation:none}
+  .win.raise,.ctab.fresh,.swap.show,.newtab-tip,.hint{animation:none}
+  .swap.show{opacity:1}
+  .pi.spin{animation-duration:3s}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="t">Layerpath in Slack · Onboarding (V1)</span>
+  <span class="note">Built from the 2 Oct 2026 spec</span>
+  <span class="sp"></span>
+  <span class="chip-later">Later = not in V1</span>
+</header>
+<div class="app">
+  <nav class="rail" id="rail" aria-label="Scenarios"></nav>
+  <main class="main">
+    <div class="schead">
+      <span class="code" id="scCode"></span><span class="st" id="scTitle"></span>
+      <span class="tools" id="scTools"></span>
+      <span class="persona" id="persona"></span>
+    </div>
+    <div class="stage" id="stage">
+      <div class="desk" id="desk">
+        <div class="win" id="winSlack"></div>
+        <div class="win" id="winChrome"></div>
+        <div class="dock" id="dock"></div>
+        <div class="swap" id="swap"></div>
+        <div class="later-banner" id="laterBanner">Later, not in V1</div>
+      </div>
+    </div>
+    <div class="under">
+      <div class="row1">
+        <div class="caption" id="caption"></div>
+        <div class="ctrls">
+          <button id="btnBack" type="button">Back</button>
+          <span id="counter"></span>
+          <button id="btnNext" type="button" class="primary">Next</button>
+          <button id="btnRestart" type="button">Restart scenario</button>
+        </div>
+      </div>
+      <details id="how"><summary>How this is built <span id="sumCopy"></span></summary><div id="howBody"></div></details>
+    </div>
+  </main>
+</div>
+<script>
+(function () {
+"use strict";
+
+/* ============================================================
+   Helpers
+   ============================================================ */
+var $ = function (s, r) { return (r || document).querySelector(s); };
+function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+function clone(o) { return JSON.parse(JSON.stringify(o)); }
+
+var NEXT = null;      // the key of the element to press next on this step
+var CURVIEW = null;   // whose Slack is being drawn (for self-mentions)
+var SCALE = 1;
+function nx(k) { return k && k === NEXT ? " nx" : ""; }
+function dk(k) { return k ? ' data-k="' + esc(k) + '"' : ""; }
+
+/* Slack-style text: *bold*, _italic_, ~strike~, `code`, {@Name} mentions, {#channel} links */
+function md(s) {
+  var h = esc(s);
+  h = h.replace(/`([^`]+)`/g, "<code>$1</code>");
+  h = h.replace(/\{@([^}]+)\}/g, function (_, n) {
+    var me = CURVIEW && P[CURVIEW] && (P[CURVIEW].first === n || P[CURVIEW].name === n);
+    return '<span class="mention' + (me ? " me" : "") + '">@' + n + "</span>";
+  });
+  h = h.replace(/\{#([^}]+)\}/g, '<span class="chlink">#$1</span>');
+  h = h.replace(/(^|[\s(>•])\*([^*\n]+?)\*(?=[\s.,:;)!?<]|$)/g, "$1<b>$2</b>");
+  h = h.replace(/(^|[\s(>])~([^~\n]+?)~(?=[\s.,:;)!?<]|$)/g, "$1<s>$2</s>");
+  h = h.replace(/(^|[\s(>])_([^_\n]+?)_(?=[\s.,:;)!?<]|$)/g, "$1<i>$2</i>");
+  return h.replace(/\n/g, "<br>");
+}
+
+/* ============================================================
+   Icons
+   ============================================================ */
+function sv(d, vb, sw) { return '<svg class="ic" viewBox="' + (vb || "0 0 20 20") + '" fill="none" stroke="currentColor" stroke-width="' + (sw || 1.6) + '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + "</svg>"; }
+var SLACK_LOGO = '<svg viewBox="0 0 122.8 122.8" aria-hidden="true"><path d="M25.8 77.6c0 7.1-5.8 12.9-12.9 12.9S0 84.7 0 77.6s5.8-12.9 12.9-12.9h12.9v12.9zm6.5 0c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9v32.3c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V77.6z" fill="#e01e5a"/><path d="M45.2 25.8c-7.1 0-12.9-5.8-12.9-12.9S38.1 0 45.2 0s12.9 5.8 12.9 12.9v12.9H45.2zm0 6.5c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H12.9C5.8 58.1 0 52.3 0 45.2s5.8-12.9 12.9-12.9h32.3z" fill="#36c5f0"/><path d="M97 45.2c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9-5.8 12.9-12.9 12.9H97V45.2zm-6.5 0c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V12.9C64.7 5.8 70.5 0 77.6 0s12.9 5.8 12.9 12.9v32.3z" fill="#2eb67d"/><path d="M77.6 97c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9-12.9-5.8-12.9-12.9V97h12.9zm0-6.5c-7.1 0-12.9-5.8-12.9-12.9s5.8-12.9 12.9-12.9h32.3c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H77.6z" fill="#ecb22e"/></svg>';
+var LP_LOGO = '<svg viewBox="0 0 101 101" aria-hidden="true"><rect width="101" height="101" rx="26" fill="#181F1C"/><path d="M49.8912 54.1519C48.5714 54.1519 47.6599 53.8675 47.1429 53.2715C46.5986 52.7027 46.3401 51.8494 46.3401 50.7658V29H38V51.1586C38 52.6349 38.2313 54.0029 38.6531 55.249C39.0748 56.4951 39.7415 57.6057 40.6259 58.5809C41.5102 59.5426 42.6803 60.3146 44.1361 60.8835C45.5646 61.4252 47.2517 61.7097 49.1429 61.7097H64V54.1384H49.8776L49.8912 54.1519Z" fill="#fff"/><rect x="38" y="65.06" width="26" height="6.71" fill="#41E1C4"/></svg>';
+var GOOGLE_G = '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>';
+var SLACKBOT = '<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#fff"/><g transform="translate(9 9) scale(.179)">' + SLACK_LOGO.replace(/<\/?svg[^>]*>/g, "") + "</g></svg>";
+var CHECKC = '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="#616061"/><path d="m6.5 10.2 2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var OKBIG = '<svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21" fill="rgba(39,179,88,.15)" stroke="#27b358" stroke-width="1.5"/><path d="m14 22.5 5.5 5.5L30.5 17" stroke="#27b358" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var I = {
+  hash: sv('<path d="M8 3 6.5 17M13.5 3 12 17M4 7.5h13M3 12.5h13"/>'),
+  shared: sv('<path d="M7.3 3 6.2 12.5M11.8 3l-1.1 9.5M3.4 6.4h10M2.8 10h9.2"/><rect x="11.6" y="11.6" width="4.6" height="4.6" rx="1.2"/><rect x="14" y="14" width="4.4" height="4.4" rx="1.2" fill="currentColor"/>'),
+  eye: sv('<path d="M1.6 10s3-5.6 8.4-5.6 8.4 5.6 8.4 5.6-3 5.6-8.4 5.6S1.6 10 1.6 10Z"/><circle cx="10" cy="10" r="2.4" fill="currentColor" stroke="none"/>'),
+  search: sv('<circle cx="8.6" cy="8.6" r="5.4"/><path d="m12.7 12.7 4.3 4.3"/>'),
+  chev: sv('<path d="m5 7.5 5 5 5-5"/>', null, 1.9),
+  caret: '<svg class="ic" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5h10l-5 5.5z" fill="currentColor"/></svg>',
+  x: sv('<path d="m5 5 10 10M15 5 5 15"/>', null, 1.8),
+  plus: sv('<path d="M10 4v12M4 10h12"/>', null, 1.8),
+  send: '<svg class="ic" viewBox="0 0 20 20" aria-hidden="true"><path d="M2.6 2.9 18 10 2.6 17.1l1.9-6.1L11 10 4.5 9z" fill="currentColor"/></svg>',
+  home: sv('<path d="M3.5 9 10 3.5 16.5 9v7.5h-4.4v-4.6H7.9v4.6H3.5z"/>'),
+  dms: sv('<path d="M3.5 4.5h13v8.6H8.6l-3.6 2.8v-2.8H3.5z"/>'),
+  bell: sv('<path d="M5.2 13.8V9a4.8 4.8 0 0 1 9.6 0v4.8l1.3 1.4H3.9zM8.3 17.2a1.9 1.9 0 0 0 3.4 0"/>'),
+  files: sv('<path d="M5 2.8h6.6L15.5 6.6v10.6H5z"/><path d="M11.5 2.8v4h4"/>'),
+  more: '<svg class="ic" viewBox="0 0 20 20" aria-hidden="true"><circle cx="4.5" cy="10" r="1.6" fill="currentColor"/><circle cx="10" cy="10" r="1.6" fill="currentColor"/><circle cx="15.5" cy="10" r="1.6" fill="currentColor"/></svg>',
+  help: sv('<circle cx="10" cy="10" r="7.2"/><path d="M7.9 7.7a2.2 2.2 0 1 1 3 2.1c-.6.3-.9.7-.9 1.4M10 14v.2"/>'),
+  left: sv('<path d="M15.5 10h-11M9 4.5 3.8 10 9 15.5"/>'),
+  right: sv('<path d="M4.5 10h11M11 4.5l5.2 5.5-5.2 5.5"/>'),
+  clock: sv('<circle cx="10" cy="10" r="7"/><path d="M10 6v4.2l2.8 1.8"/>'),
+  compose: sv('<path d="M14.6 3.6 16.4 5.4 9.3 12.5 6.6 13.4 7.5 10.7z"/><path d="M15.5 11v4.5h-11v-11H9"/>'),
+  bold: sv('<path d="M6 4h5a3 3 0 0 1 0 6H6zM6 10h5.6a3 3 0 0 1 0 6H6z"/>', null, 2),
+  ital: sv('<path d="M12.5 4h-4M11.5 16h-4M11 4 9 16"/>'),
+  strike: sv('<path d="M4 10h12M13.2 6.4c-.5-1.4-1.8-2.2-3.3-2.2-1.9 0-3.3 1.1-3.3 2.7M6.8 13.4c.4 1.6 1.8 2.5 3.5 2.5 2 0 3.5-1.1 3.5-2.8"/>'),
+  linkic: sv('<path d="M8.4 11.6a3.2 3.2 0 0 0 4.5 0l2.6-2.6a3.2 3.2 0 0 0-4.5-4.5l-.9.9M11.6 8.4a3.2 3.2 0 0 0-4.5 0L4.5 11a3.2 3.2 0 0 0 4.5 4.5l.9-.9"/>'),
+  list: sv('<path d="M8 5.5h8.5M8 10h8.5M8 14.5h8.5M3.8 5.5h.1M3.8 10h.1M3.8 14.5h.1"/>', null, 1.8),
+  codeic: sv('<path d="m7 6-4 4 4 4M13 6l4 4-4 4"/>'),
+  aa: sv('<path d="M2.8 15.5 6.4 5l3.6 10.5M4 12.2h4.8M12.4 15.5V9.8a2.4 2.4 0 1 1 4.8 0v5.7M12.4 12.6h4.8"/>'),
+  smile: sv('<circle cx="10" cy="10" r="7.2"/><path d="M7 11.6a3.6 3.6 0 0 0 6 0M7.6 8h.1M12.4 8h.1"/>', null, 1.7),
+  at: sv('<circle cx="10" cy="10" r="3"/><path d="M13 10v1.2a2.2 2.2 0 0 0 4.4 0V10a7.4 7.4 0 1 0-3 6"/>'),
+  back: sv('<path d="M16 10H4.5M9.5 4.6 4 10l5.5 5.4"/>', null, 1.8),
+  fwd: sv('<path d="M4 10h11.5M10.5 4.6 16 10l-5.5 5.4"/>', null, 1.8),
+  reload: sv('<path d="M16 10a6 6 0 1 1-1.8-4.3M16 3.5v3.6h-3.6"/>', null, 1.8),
+  tune: sv('<path d="M3.5 6.5h8M15 6.5h1.5M3.5 13.5H5M8.5 13.5h8"/><circle cx="13.2" cy="6.5" r="1.8"/><circle cx="6.8" cy="13.5" r="1.8"/>'),
+  star: sv('<path d="m10 3.4 2 4.2 4.6.6-3.3 3.2.8 4.6L10 13.8 5.9 16l.8-4.6-3.3-3.2 4.6-.6z"/>'),
+  kebab: '<svg class="ic" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="4.5" r="1.5" fill="currentColor"/><circle cx="10" cy="10" r="1.5" fill="currentColor"/><circle cx="10" cy="15.5" r="1.5" fill="currentColor"/></svg>',
+  info: sv('<circle cx="10" cy="10" r="7.2"/><path d="M10 9v4.6M10 6.4v.1"/>'),
+  check: sv('<circle cx="10" cy="10" r="7.2"/><path d="m6.8 10.2 2.2 2.2 4.2-4.4"/>'),
+  user: sv('<circle cx="10" cy="7.2" r="3.2"/><path d="M3.8 16.6a6.4 6.4 0 0 1 12.4 0"/>'),
+  updown: sv('<path d="m6.5 7.5 3.5-3.5 3.5 3.5M6.5 12.5l3.5 3.5 3.5-3.5"/>'),
+  gear: sv('<circle cx="10" cy="10" r="2.6"/><path d="M10 2.6v2M10 15.4v2M17.4 10h-2M4.6 10h-2M15.2 4.8l-1.4 1.4M6.2 13.8l-1.4 1.4M15.2 15.2l-1.4-1.4M6.2 6.2 4.8 4.8"/>'),
+  folder: sv('<path d="M2.8 5.2h5l1.6 1.8h7.8v8.8H2.8z"/>'),
+  play: sv('<rect x="2.8" y="4.2" width="14.4" height="11.6" rx="2.4"/><path d="m8.5 7.6 4 2.4-4 2.4z" fill="currentColor"/>'),
+  brand: sv('<circle cx="10" cy="10" r="7.2"/><circle cx="7.4" cy="8" r="1.1" fill="currentColor"/><circle cx="12.6" cy="8" r="1.1" fill="currentColor"/><circle cx="10" cy="13" r="1.1" fill="currentColor"/>'),
+  chart: sv('<path d="M3.5 16.5h13M6 13.5V9.5M10 13.5V5.5M14 13.5V8"/>'),
+  mail: sv('<rect x="2.8" y="4.6" width="14.4" height="10.8" rx="2"/><path d="m3.6 5.6 6.4 5 6.4-5"/>'),
+  lock: sv('<rect x="4.4" y="9" width="11.2" height="8" rx="2"/><path d="M7 9V6.6a3 3 0 0 1 6 0V9"/>'),
+  eyeOpen: sv('<path d="M1.6 10s3-5.6 8.4-5.6 8.4 5.6 8.4 5.6-3 5.6-8.4 5.6S1.6 10 1.6 10Z"/><circle cx="10" cy="10" r="2.6"/>'),
+  view: sv('<path d="M1.6 10s3-5.6 8.4-5.6 8.4 5.6 8.4 5.6-3 5.6-8.4 5.6S1.6 10 1.6 10Z"/><circle cx="10" cy="10" r="2.6"/>'),
+  bolt: sv('<path d="M11 2.8 4.6 11.2h5l-.8 6 6.6-8.6h-5z"/>'),
+  people: sv('<circle cx="7.4" cy="7.4" r="2.6"/><path d="M2.6 15.8a4.8 4.8 0 0 1 9.6 0M12.6 5a2.6 2.6 0 0 1 0 5M14.2 11.4a4.8 4.8 0 0 1 3.2 4.4"/>')
+};
+var TRAFFIC = '<div class="traffic"><i></i><i></i><i></i></div>';
+var FAV = {
+  lp: '<span class="fav">' + LP_LOGO + "</span>",
+  slack: '<span class="fav">' + SLACK_LOGO + "</span>",
+  google: '<span class="fav">' + GOOGLE_G + "</span>",
+  newtab: '<span class="fav">' + sv('<circle cx="10" cy="10" r="7"/><path d="M3 10h14M10 3c2.4 2.6 2.4 11.4 0 14M10 3c-2.4 2.6-2.4 11.4 0 14"/>', null, 1.2) + "</span>"
+};
+var LPFULL = '<span class="lpfull">' + LP_LOGO + "<span>Layerpath</span></span>";
+
+/* ============================================================
+   People (spec section 3)
+   ============================================================ */
+var P = {
+  priya: { name: "Priya Shah", first: "Priya", email: "priya@acme.com", col: "#b5542e", chip: "priya@acme.com · Owner of Acme in Layerpath" },
+  sam: { name: "Sam Lee", first: "Sam", email: "sam@acme.com", col: "#2463a6", chip: "sam@acme.com · Editor in Acme (sam@acme.com)" },
+  maya: { name: "Maya Cruz", first: "Maya", email: "maya@acme.com", col: "#7c3aed", chip: "maya@acme.com · Editor in Acme under maya.cruz@gmail.com" },
+  dev: { name: "Dev Patel", first: "Dev", email: "dev@acme.com", col: "#1f7a4d", chip: "dev@acme.com · no Layerpath account" },
+  omar: { name: "Omar Haddad", first: "Omar", email: "omar@acme.com", col: "#a16207", chip: "omar@acme.com · Viewer in Acme" },
+  lena: { name: "Lena Ortiz", first: "Lena", email: "lena@contractor.io", col: "#be185d", chip: "lena@contractor.io · single-channel guest in Acme's Slack" },
+  tom: { name: "Tom Reed", first: "Tom", email: "tom@globex.com", col: "#475569", chip: "tom@globex.com · Globex, in a Slack Connect channel" },
+  sadmin: { name: "Slack admin", first: "Admin", email: "", col: "#334155", chip: "a Slack admin at Acme (not one of the spec's people)" }
+};
+var LPEMAIL = { maya: "maya.cruz@gmail.com" };
+function lpEmail(k) { return LPEMAIL[k] || P[k].email; }
+function initials(n) { return n.split(/\s+/).map(function (w) { return w[0]; }).join("").slice(0, 2).toUpperCase(); }
+var ACME_PEOPLE = ["priya", "sam", "maya", "dev", "omar"];
+
+function cfgFor(as) {
+  if (as === "tom") return { ws: "Globex", init: "G", wcol: "#0f766e", chans: ["general", "shared-globex"], dms: ["slackbot", "tom"], apps: false, team: "Globex" };
+  if (as === "lena") return { ws: "Acme", init: "A", wcol: "#9a3412", chans: ["customer-training"], dms: ["slackbot", "lena"], apps: false, team: "Acme", guest: true };
+  var others = ACME_PEOPLE.filter(function (x) { return x !== as; }).slice(0, 3);
+  return { ws: "Acme", init: "A", wcol: "#9a3412", chans: ["general", "customer-training", "shared-globex"], dms: ["slackbot"].concat(others, [as]), apps: true, team: "Acme" };
+}
+function teamOf(k) { return k === "tom" ? "Globex" : k === "lena" ? "Acme" : "Acme"; }
+
+/* ============================================================
+   World model and builder
+   ============================================================ */
+var MID = 0;
+function M(from, o) { var m = { id: "m" + (++MID), from: from, time: "10:42 AM" }; for (var k in (o || {})) m[k] = o[k]; return m; }
+
+function world() {
+  return {
+    as: "priya", front: "slack", installed: true,
+    chan: {
+      "general": [M("priya", { text: "Morning all. The new CRM goes live on Monday.", time: "9:12 AM" })],
+      "customer-training": [M("priya", { text: "Training tours for the new CRM go in this channel.", time: "9:58 AM" })],
+      "shared-globex": [M("priya", { text: "Welcome, Globex team. Rollout questions go here.", time: "9:30 AM" })]
+    },
+    thr: {}, dm: {}, home: {}, ui: {}, br: {}
+  };
+}
+function U(W, as) {
+  as = as || W.as;
+  if (!W.ui[as]) W.ui[as] = { view: { k: "ch", id: as === "tom" ? "shared-globex" : "customer-training" }, thread: null, threadCh: null, composer: null, modal: null, unread: [], msgDot: false };
+  return W.ui[as];
+}
+function BR(W, as) {
+  as = as || W.as;
+  if (!W.br[as]) W.br[as] = { tabs: [{ fav: "newtab", title: "New Tab", url: "", page: { kind: "newtab" } }], active: 0 };
+  return W.br[as];
+}
+function Seq() {
+  MID = 0;
+  var W = world();
+  var steps = [];
+  return {
+    W: W, steps: steps,
+    step: function (meta) { U(W); BR(W); var s = {}; for (var k in meta) s[k] = meta[k]; s.states = [clone(W)]; s.delays = [0]; steps.push(s); },
+    frame: function (ms) { U(W); BR(W); var s = steps[steps.length - 1]; s.states.push(clone(W)); s.delays.push(ms || 800); },
+    save: function () { return clone(W); },
+    restore: function (snap) { Object.keys(W).forEach(function (k) { delete W[k]; }); var c = clone(snap); for (var k in c) W[k] = c[k]; }
+  };
+}
+
+/* actions on the world */
+function as(W, who, front) { W.as = who; if (front) W.front = front; U(W); BR(W); }
+function viewKey(v) { return v.k === "ch" ? "ch:" + v.id : v.k === "app" ? "app" : "dm:" + v.id; }
+function goView(W, v) { var u = U(W); u.view = v; u.unread = u.unread.filter(function (x) { return x !== viewKey(v); }); if (v.k === "app" && v.tab === "messages") u.msgDot = false; }
+function compose(W, text, files) { U(W).composer = { text: text, files: files || 0 }; }
+function openThread(W, ch, id, who) { var u = U(W, who); u.thread = id; u.threadCh = ch; if (!W.thr[id]) W.thr[id] = { replies: [], status: "" }; }
+function send(W) { var u = U(W); var ch = u.view.id; var m = M(W.as, { text: u.composer.text, files: u.composer.files }); W.chan[ch].push(m); u.composer = null; openThread(W, ch, m.id); return m; }
+function post(W, ch, who, text, files, time) { var m = M(who, { text: text, files: files || 0, time: time || "10:42 AM" }); W.chan[ch].push(m); return m; }
+function rep(W, pid, m) { W.thr[pid].replies.push(m); return m; }
+function tab(W, t) { var b = BR(W); b.tabs.push(t); b.active = b.tabs.length - 1; W.front = "chrome"; }
+function navTab(W, t) { var b = BR(W); b.tabs[b.active] = t; W.front = "chrome"; }
+function setPage(W, patch) { var b = BR(W); var t = b.tabs[b.active]; var p = {}; var k; for (k in t.page) p[k] = t.page[k]; for (k in patch) p[k] = patch[k]; t.page = p; }
+function dmTo(W, who, m, kind) { var key = (kind || "app") + ":" + who; (W.dm[key] = W.dm[key] || []).push(m); return m; }
+function unread(W, who, key) { var u = U(W, who); if (u.unread.indexOf(key) < 0) u.unread.push(key); }
+
+/* ============================================================
+   URLs and browser tabs (spec 8.2 routes and pages)
+   ============================================================ */
+var URLS = {
+  settings: "app.layerpath.com/dashboard/acme/settings",
+  oauth: "slack.com/oauth/v2/authorize?client_id=…&scope=app_mentions:read,channels:history,…,users:read,users:read.email&redirect_uri=https://app.layerpath.com/api/integrations/slack/oauth/callback&state=…",
+  cw: "app.layerpath.com/integrations/slack/connect-workspace",
+  done: "app.layerpath.com/integrations/slack/done",
+  signin: "app.layerpath.com/signin?from=/integrations/slack/connect-workspace",
+  connect: "app.layerpath.com/slack/connect?state=…",
+  invite: "app.layerpath.com/invite/…",
+  editor: "app.layerpath.com/projects/…/tour/edit",
+  projects: "app.layerpath.com/dashboard/acme/projects",
+  web: "layerpath.com/slack",
+  google: "accounts.google.com/v3/signin/accountchooser?client_id=…",
+  market: "slack.com/marketplace/…/layerpath"
+};
+function ext(base, extra) { var o = {}; var k; for (k in base) o[k] = base[k]; for (k in (extra || {})) o[k] = extra[k]; return o; }
+var T = {
+  settings: function (tabName, extra) { return { fav: "lp", title: "Layerpath", url: tabName === "general" ? URLS.settings : URLS.settings + "/" + tabName, page: ext({ kind: "lp-settings", tab: tabName, user: "priya", plan: "Team" }, extra) }; },
+  oauth: function (extra) { return { fav: "slack", title: "Slack", url: URLS.oauth, page: ext({ kind: "oauth", ws: "Acme", mode: "allow" }, extra) }; },
+  cw: function (extra) { return { fav: "lp", title: "Layerpath", url: URLS.cw, page: ext({ kind: "cw", mode: "pre", sel: 0 }, extra) }; },
+  done: function (extra) { return { fav: "lp", title: "Layerpath", url: URLS.done, page: ext({ kind: "done" }, extra) }; },
+  signin: function (extra) { return { fav: "lp", title: "Sign In", url: URLS.signin, page: ext({ kind: "auth" }, extra) }; },
+  google: function (accts) { return { fav: "google", title: "Sign in - Google Accounts", url: URLS.google, page: { kind: "google", accounts: accts } }; },
+  conn: function (extra) { return { fav: "lp", title: "Layerpath", url: URLS.connect, page: ext({ kind: "conn", mode: "confirm" }, extra) }; },
+  invite: function (extra) { return { fav: "lp", title: "Login", url: URLS.invite, page: ext({ kind: "invite", mode: "signup" }, extra) }; },
+  web: function () { return { fav: "lp", title: "Layerpath", url: URLS.web, page: { kind: "web" } }; },
+  editor: function (tour) { return { fav: "lp", title: "Layerpath", url: URLS.editor, page: { kind: "editor", title: tour.title, steps: tour.steps } }; },
+  projects: function () { return { fav: "lp", title: "Layerpath", url: URLS.projects, page: { kind: "projects", user: "sam" } }; },
+  sketch: function (url, block) { return { fav: url.indexOf("slack.com") === 0 ? "slack" : "lp", title: "Later sketch", url: url, page: { kind: "sketch", block: block } }; }
+};
+var GA = {
+  priya: { name: "Priya Shah", email: "priya@acme.com", col: "#b5542e" },
+  mayaWork: { name: "Maya Cruz", email: "maya@acme.com", col: "#7c3aed" },
+  mayaGmail: { name: "Maya Cruz", email: "maya.cruz@gmail.com", col: "#0b8043" }
+};
+
+/* ============================================================
+   Content (spec copy, and the bot's real copy from apps/agent)
+   ============================================================ */
+var TOURS = {
+  sam: { title: "Create a new deal", steps: ["Open Deals", "Click New deal", "Fill in the deal details", "Pick the pipeline stage", "Save the deal"] },
+  maya: { title: "Log a customer call", steps: ["Open the contact", "Click Log activity", "Choose Call", "Add your notes", "Save the call"] },
+  priya: { title: "Invite a teammate", steps: ["Open Settings", "Go to Members", "Click Invite member", "Enter their email", "Send the invite"] }
+};
+var TL = {
+  sam: [["Create a new deal", "2 Oct"], ["Log a customer call", "1 Oct"], ["Merge duplicate contacts", "30 Sep"], ["Set up a sales pipeline", "29 Sep"], ["Export a monthly report", "26 Sep"]],
+  priya: [["Invite a teammate", "1 Oct"], ["Set up single sign-on", "30 Sep"], ["Create a custom report", "29 Sep"], ["Add a new product", "26 Sep"], ["Turn on email alerts", "24 Sep"]]
+};
+var HOW_TO = "How to use: add @Layerpath to a channel, then mention it with what you want and your screens.";
+var LEAD = "I'm on it. I'll make a tour from your 3 screenshots.";   // slackOptions.ts OPTIONS_COPY.lead
+
+/* slackOptions.ts: optionsBlocks / startedBlocks */
+function optionsBlocks() {
+  function row(label, hint, vals) {
+    return [{ t: "sec", md: "*" + label + "*\n" + hint }, { t: "act", els: vals.map(function (v, i) { return { b: v, s: i === 0 ? "primary" : "" }; }) }];
+  }
+  return [{ t: "sec", md: LEAD + " Pick how you want it, or tap Create tour." }]
+    .concat(row("Steps", "How many steps AI creates.", ["Auto", "Short", "Detailed"]))
+    .concat(row("Voiceover", "Add voiceover during creation.", ["Auto", "On", "Off"]))
+    .concat(row("Tone", "Writing style for callouts and voiceover.", ["Auto", "Clear", "Friendly", "Formal"]))
+    .concat([{ t: "act", els: [{ b: "Create tour", s: "primary", k: "create" }] }, { t: "ctx", md: "It starts by itself in 20s with what's picked." }]);
+}
+function startedBlocks() { return [{ t: "sec", md: LEAD }, { t: "ctx", md: "Steps: Auto · Voiceover: Auto · Tone: Auto" }]; }
+function optionsMsg(o) { return M("lp", ext({ blocks: optionsBlocks() }, o)); }
+
+/* slackCard.ts: resultBlocks */
+function cardBlocks(tour, o) {
+  o = o || {};
+  var draft = !!o.draft, n = tour.steps.length;
+  var b = [{ t: "sec", md: "*" + tour.title + "*" }, { t: "ctx", md: n + " steps · 1 min" + (o.updated ? " · Updated " + o.updated : "") }];
+  if (!draft) b.push({ t: "video", kind: "tour", desc: "Click through it without leaving Slack", title: "Play the interactive tour", tour: tour.title, len: n + " steps · 1 min" });
+  if (draft) b.push({ t: "sec", md: "Free allows up to 3 published projects at a time. Unpublish another project or upgrade to publish this one." });
+  b.push({ t: "act", els: (draft ? [] : [{ b: "Open tour", s: "primary", k: "card-open" }]).concat([{ b: "Edit in Layerpath", s: draft ? "primary" : "", k: "card-edit" }, { b: "Export video", k: "card-video" }]) });
+  b.push({ t: "act", els: [{ b: "Shorten steps", k: "card-shorter" }, { sel: "Translate", k: "card-translate" }, { b: "Add voiceover", k: "card-voice" }, { b: "Blur private info", k: "card-blur" }] });
+  b.push({ t: "ctx", md: "Tap a change above, or reply in this thread to change anything." + (draft ? "" : " The link stays the same.") });
+  return b;
+}
+
+/* slackStream.ts: the plan, its tasks one by one, and the status line by the reply box */
+function buildTour(S, W, pid, meta, tour) {
+  var n = tour.steps.length;
+  var plan = { t: "plan", title: "Working on your tour from your 3 screenshots", tasks: [], done: false };
+  var live = { t: "video", kind: "build", desc: "Opens right here in Slack", title: "Watch it build" };
+  var found = { t: "sec", md: "Found " + n + " steps, from “" + tour.steps[0] + "” to “" + tour.steps[n - 1] + "”." };
+  var sm = M("lp", { cont: true, blocks: [plan] });
+  rep(W, pid, sm);
+  var R = "Read your 3 screenshots", WS = "Write the steps · " + n + " steps", WC = "Write the callouts", PH = "Place the hotspots";
+  var F = [
+    [[[R, "in_progress"]], "is looking closely at every screen…", 0, 0, 0],
+    [[[R, "complete"], ["Write the steps", "in_progress"]], "is working out where each step begins…", 1, 0, 0],
+    [[[R, "complete"], [WS, "complete"], [WC, "in_progress"]], "is finding the right words…", 1, 0, 0],
+    [[[R, "complete"], [WS, "complete"], [WC, "complete"], [PH + " · 1 of " + n, "in_progress"]], "is pinpointing every click…", 1, 1, 0],
+    [[[R, "complete"], [WS, "complete"], [WC, "complete"], [PH + " · 3 of " + n, "in_progress"]], "is lining up the dots…", 1, 1, 0],
+    [[[R, "complete"], [WS, "complete"], [WC, "complete"], [PH, "complete"]], "is adding the final touches…", 1, 1, 1]
+  ];
+  F.forEach(function (f, i) {
+    plan.tasks = f[0].map(function (x) { return { title: x[0], st: x[1] }; });
+    plan.done = !!f[4];
+    sm.blocks = [plan].concat(f[2] ? [live] : []).concat(f[3] ? [found] : []);
+    W.thr[pid].status = f[1];
+    if (i === 0) { meta.focus = sm.id; S.step(meta); } else S.frame(i === 1 ? 900 : 800);
+  });
+  return sm;
+}
+/* slack.ts readyPing: "<@user> your tour is ready!" */
+function finishCard(W, pid, sm, tour, who, o) {
+  sm.blocks = cardBlocks(tour, o);
+  W.thr[pid].status = "";
+  rep(W, pid, M("lp", { cont: true, text: "{@" + P[who].first + "} your tour is ready!" }));
+}
+
+/* New copy from the spec (Kripa to approve) */
+function connectPrompt() { return [{ t: "sec", md: "To make tours here, Layerpath needs to know who you are at Acme." }, { t: "act", els: [{ b: "Connect your Layerpath account", s: "primary", k: "e-connect" }, { b: "Ask for access", k: "e-ask" }] }]; }
+function viewerMsg() { return [{ t: "sec", md: "Viewers can watch tours but can't make them." }, { t: "act", els: [{ b: "Ask to become an editor", k: "e-ask-editor" }] }]; }
+var ASKED = "I asked Acme's admins for access. I'll let you know here.";
+function welcomeDM() {
+  return [{ t: "sec", md: "Hi Priya, Layerpath is set up in Acme's Slack. Add me to a channel with /invite @Layerpath, then mention @Layerpath with screenshots, a Loom or a YouTube link and I'll make an interactive tour in Acme's workspace. Owners, Admins and Editors in Acme can make tours; anyone else can ask for access here." }, { t: "act", els: [{ b: "Open Home", k: "dm-open-home" }] }];
+}
+var SEAT = {
+  free: { text: "Acme's Free plan includes 1 creator seat, and it's in use. Upgrade to add editors.", btn: "Upgrade in Layerpath", k: "dm-upgrade" },
+  pro: { text: "All 3 creator seats on Acme's Pro plan are in use. Upgrade to Team or change a role in Members.", btn: "Open Members", k: "dm-members" },
+  team: { text: "All 14 creator seats on Acme's Team plan are in use. Change a role in Members.", btn: "Open Members", k: "dm-members" }
+};
+function accessReq(plan) {
+  var b = [{ t: "sec", md: "Dev Patel (dev@acme.com) wants to make tours with Layerpath. Asked in {#customer-training}." }];
+  if (!plan) b.push({ t: "act", els: [{ b: "Invite as Editor", s: "primary", k: "dm-invite" }, { b: "Decline", k: "dm-decline" }] });
+  else { b.push({ t: "sec", md: SEAT[plan].text }); b.push({ t: "act", els: [{ b: SEAT[plan].btn, k: SEAT[plan].k }, { b: "Decline", k: "dm-decline" }] }); }
+  return b;
+}
+function editorReq() { return [{ t: "sec", md: "Omar Haddad (omar@acme.com) is a Viewer in Acme and wants to make tours." }, { t: "act", els: [{ b: "Make Editor", s: "primary", k: "dm-make" }, { b: "Decline", k: "dm-decline" }] }]; }
+function homeNotLinked() {
+  return [{ t: "sec", md: "Make interactive tours from screenshots, a Loom or a YouTube link, right here in Slack." },
+    { t: "act", els: [{ b: "Connect your Layerpath account", s: "primary", k: "h-connect" }, { b: "Ask for access", k: "h-ask" }] },
+    { t: "div" }, { t: "sec", md: HOW_TO }];
+}
+function homeLinked(key, role, tours, admin) {
+  var b = [{ t: "sec", md: "Connected as " + lpEmail(key) + " · " + role + " in Acme", acc: { b: "Disconnect", s: "danger", k: "h-disconnect" } }, { t: "div" }, { t: "sec", md: "*Your recent tours*" }];
+  (tours || []).forEach(function (t, i) { b.push({ t: "sec", md: "*" + t[0] + "* · " + t[1], acc: { b: "Open", k: "h-open" + i } }); });
+  b.push({ t: "div" }, { t: "sec", md: HOW_TO });
+  if (admin) b = b.concat(adminBlocks(admin));
+  return b;
+}
+function adminBlocks(a) {
+  var b = [{ t: "div" },
+    { t: "sec", md: "Acme Slack ↔ Acme workspace · connected by Priya Shah", acc: { b: "Manage in Layerpath", k: "h-manage" } },
+    { t: "ctx", md: "3 people can make tours (Owners, Admins, Editors) · 2 connected in Slack" }];
+  if (a.requests && a.requests.length) {
+    b.push({ t: "sec", md: "*Requests*" });
+    a.requests.forEach(function (r) {
+      b.push({ t: "sec", md: "*" + r.name + "* · " + r.email + "\n" + (r.kind === "EDITOR" ? "Wants to become an editor" : "Wants to make tours") });
+      b.push({ t: "act", els: r.kind === "EDITOR" ? [{ b: "Make Editor", s: "primary", k: "h-make" }, { b: "Decline", k: "h-decline" }] : [{ b: "Invite as Editor", s: "primary", k: "h-invite" }, { b: "Decline", k: "h-decline" }] });
+    });
+  }
+  b.push({ t: "act", els: [{ b: "Disconnect Slack", s: "danger", k: "h-disconnect-slack" }] });
+  return b;
+}
+function homeViewer(asked) {
+  return [{ t: "sec", md: "Connected as omar@acme.com · Viewer in Acme" }, asked ? { t: "ctx", md: "Asked Priya · 2h ago" } : { t: "act", els: [{ b: "Ask to become an editor", k: "h-ask-editor" }] }];
+}
+function homePending() { return [{ t: "sec", md: "Priya invited you to Acme." }, { t: "act", els: [{ b: "Accept invite", s: "primary", k: "h-accept" }] }]; }
+
+/* How this is built: spec section 8 */
+var H = {
+  event: "Slack sends the mention to `https://agent.layerpath.com/slack/events` (HTTP, not Socket Mode; the signing secret is checked on every request, 8.1). The agent then calls `POST /api/agent/slack/resolve` {team, user, email?} and makes the access decision in section 5 (8.2, 8.3).",
+  token: "`POST /api/agent/slack/token` returns a short-lived (10 min) token for (person, workspace). The existing create, edit and export actions run with it, under Layerpath's own permission, seat and limit checks, instead of today's single bot-account session (D5, 8.2, 8.3). Person tokens are never stored by the agent (8.4).",
+  home: "`app_home_opened` → `views.publish`, a different view for each person (5.4). The Home tab is enabled and `app_home_opened` subscribed in the app config (8.1).",
+  install: "`GET /api/integrations/slack/install` redirects the same tab to Slack with a signed, single-use `state` naming the Layerpath workspace (4.1, 8.2, 8.4).",
+  installWeb: "`layerpath.com/slack`: a page headed \"Layerpath for Slack\" with the Slack card sentence and the Add to Slack button, which goes to Slack's OAuth page with no workspace in `state` (4.2).",
+  oauth: "Drawn by Slack (4.3). One public app, \"Layerpath\", with OAuth distribution and the redirect URL `https://app.layerpath.com/api/integrations/slack/oauth/callback`. Scopes as today, plus the new `users:read.email` (\"View email addresses of people in a workspace\") (8.1).",
+  callback: "`GET /api/integrations/slack/oauth/callback` exchanged the code (`oauth.v2.access`), stored a PENDING `SlackInstallation` (with `botTokenEncrypted`) and redirected to `/integrations/slack/connect-workspace`. Connect calls `POST /api/integrations/slack/connect-workspace` (4.4, 8.2).",
+  done: "`SlackInstallation` becomes ACTIVE with its `workspaceId` (unique: one Slack ↔ one Layerpath workspace, D7). The installer gets a `SlackUserLink` with `linkedVia: CONNECT`. Page: `/integrations/slack/done`. Open Slack is `slack://app?team=T&id=A&tab=home` (4.5, 8.2).",
+  card: "Today's card, unchanged (`apps/agent/src/slackCard.ts`), and the ready tag from `slack.ts`. The tour is created in Acme's workspace with Acme's brand memory, voice and plan (6).",
+  later: function (n) { return "Spec section 9, item " + n + ". Not in V1 and not designed yet: this is only a sketch of the one line in the spec."; }
+};
+
+/* ============================================================
+   Scenarios (spec section 11)
+   ============================================================ */
+var SCEN = [];
+function sc(code, title, group, build) { SCEN.push({ code: code, title: title, group: group, build: build }); }
+
+/* ---------------- Admin ---------------- */
+sc("A1", "Start in Layerpath", "admin", function () {
+  var S = Seq(), W = S.W; W.installed = false;
+  as(W, "priya", "chrome"); BR(W).tabs = [T.settings("general")];
+  S.step({ cap: "Priya, the Owner of Acme in Layerpath, opens Settings and goes to the new Integrations tab.", next: "lp-tab-integrations", copy: true,
+    how: "Settings menu (4.1), as on dev today plus one tab: General · Members · Integrations (new) · Plan · Custom domain. Transfers and Organization stay hidden. Settings is already open only to Owners and Admins (`settings/layout.tsx`), so nobody else can reach Add to Slack in the app. New page: `settings/integrations`, the Slack card (8.2 Pages)." });
+  navTab(W, T.settings("integrations"));
+  S.step({ cap: "The Slack card has Slack's own Add to Slack button, and Priya presses it.", next: "lp-add-slack", copy: true, how: H.install });
+  navTab(W, T.oauth());
+  S.step({ cap: "In the same tab, Slack shows its own permission page for Acme's Slack, and Priya presses Allow.", next: "oa-allow", how: H.oauth });
+  navTab(W, T.cw({ mode: "pre", sel: 0 }));
+  S.step({ cap: "Back in Layerpath, Acme is already picked because she started from its Integrations page, so she confirms with Connect.", next: "cw-connect", copy: true, how: H.callback });
+  navTab(W, T.done()); W.installed = true;
+  S.step({ cap: "Layerpath is in Acme's Slack, Priya is linked as the installer, and she opens Slack from here.", next: "done-open-slack", copy: true, how: H.done });
+  W.front = "slack";
+  W.home.priya = homeLinked("priya", "Owner", TL.priya, { requests: [] });
+  dmTo(W, "priya", M("lp", { time: "10:31 AM", blocks: welcomeDM() }));
+  goView(W, { k: "app", tab: "home" }); U(W).msgDot = true;
+  S.step({ cap: "Slack opens on Layerpath's Home tab, where Priya sees her own link and, as an admin, the Slack connection.", next: "tab:messages", copy: true, how: H.home + " The admin rows read `SlackInstallation` and the count of `SlackUserLink` rows." });
+  goView(W, { k: "app", tab: "messages" });
+  S.step({ cap: "The welcome DM goes only to Priya, and nothing is posted in any channel.", next: "dock:chrome", copy: true, how: "A DM from the agent to the installer (4.5). Each team's bot token is loaded per install by Bolt `authorize`, read from Layerpath, not from env (8.1)." });
+  W.front = "chrome";
+  S.step({ cap: "Back in the browser, Priya goes back to Integrations.", next: "done-back", how: "Page: `/integrations/slack/done` (8.2)." });
+  navTab(W, T.settings("integrations", { card: "connected" }));
+  S.step({ cap: "The Slack card now shows who connected it, when, and how many people are connected.", copy: true, how: "The card reads `SlackInstallation` (`teamName`, `installedByUserId`, created date) and counts `SlackUserLink` rows (8.2). Disconnect is in L3." });
+  navTab(W, T.settings("integrations", { notice: "Slack wasn't connected." }));
+  S.step({ cap: "Edge case: if Priya had pressed Cancel on Slack's page, she would land back here with this note.", copy: true, how: "Cancel or deny on Slack's page comes back to `GET /api/integrations/slack/oauth/callback` without a code, so nothing is stored (4.3, 8.2)." });
+  return S.steps;
+});
+
+sc("A2", "Start from the website", "admin", function () {
+  var S = Seq(), W = S.W; W.installed = false;
+  as(W, "priya", "chrome"); BR(W).tabs = [T.web()];
+  S.step({ cap: "Priya starts on layerpath.com/slack and presses Add to Slack.", next: "web-add", how: H.installWeb });
+  navTab(W, T.oauth());
+  S.step({ cap: "Slack shows its permission page for Acme's Slack, and she presses Allow.", next: "oa-allow", how: H.oauth });
+  navTab(W, T.signin());
+  S.step({ cap: "Layerpath needs to know who she is, so it shows the normal sign-in page.", next: "auth-google", how: "`GET /api/integrations/slack/oauth/callback` exchanges the code (`oauth.v2.access`) and stores a PENDING `SlackInstallation`; with no session it asks her to sign in, then continues to `/integrations/slack/connect-workspace` (4.2, 4.4, 8.2)." });
+  navTab(W, T.google([GA.priya]));
+  S.step({ cap: "She continues with Google as priya@acme.com.", next: "g-acc-0", how: "Google's own screen; Layerpath's sign-in is unchanged." });
+  navTab(W, T.cw({ mode: "choose", sel: -1 }));
+  S.step({ cap: "She picks which Layerpath workspace will own Acme's Slack, from the ones where she's an Owner or Admin.", next: "cw-r0", copy: true, how: "Page: `/integrations/slack/connect-workspace` (8.2). The list is every workspace where she is Owner or Admin (4.4)." });
+  setPage(W, { sel: 0 });
+  S.step({ cap: "With Acme selected, she presses Connect.", next: "cw-connect", copy: true, how: "`POST /api/integrations/slack/connect-workspace` sets the installation's `workspaceId` and status ACTIVE (8.2)." });
+  navTab(W, T.done()); W.installed = true;
+  S.step({ cap: "Layerpath is in Acme's Slack, and she opens Slack.", next: "done-open-slack", copy: true, how: H.done });
+  W.front = "slack";
+  W.home.priya = homeLinked("priya", "Owner", TL.priya, { requests: [] });
+  dmTo(W, "priya", M("lp", { time: "10:31 AM", blocks: welcomeDM() }));
+  goView(W, { k: "app", tab: "home" }); U(W).msgDot = true;
+  S.step({ cap: "Slack opens on Layerpath's Home tab, and the welcome DM is waiting under Messages.", copy: true, how: H.home });
+  return S.steps;
+});
+
+sc("A3", "Slack needs approval", "admin", function () {
+  var S = Seq(), W = S.W; W.installed = false;
+  as(W, "priya", "chrome"); BR(W).tabs = [T.settings("integrations")];
+  S.step({ cap: "Priya presses Add to Slack on the Integrations page.", next: "lp-add-slack", copy: true, how: H.install });
+  navTab(W, T.oauth({ mode: "request" }));
+  S.step({ cap: "Acme's Slack requires app approval, so Slack shows Request to install instead of Allow.", next: "oa-request", how: "Drawn by Slack (4.3). Nothing reaches Layerpath yet." });
+  setPage(W, { mode: "reason" });
+  S.step({ cap: "She writes a reason and submits the request.", next: "oa-submit", how: "Drawn by Slack (4.3)." });
+  setPage(W, { mode: "sent" });
+  S.step({ cap: "Slack sends the request to Acme's Slack admins.", how: "Slack admins approve in Slack (4.3). Layerpath isn't involved." });
+  as(W, "sadmin", "slack");
+  dmTo(W, "sadmin", M("slackbot", { time: "10:24 AM", blocks: [{ t: "sec", md: "*Priya Shah* requested to install *Layerpath* in Acme." }, { t: "quote", md: "To make interactive training tours in #customer-training." }, { t: "act", els: [{ b: "Approve", s: "primary", k: "sb-approve" }] }] }), "slackbot");
+  goView(W, { k: "dm", id: "slackbot" });
+  S.step({ cap: "A Slack admin at Acme gets the request from Slackbot and approves it.", next: "sb-approve", how: "Slack's own app approval (4.3). Layerpath isn't involved." });
+  as(W, "priya", "slack");
+  dmTo(W, "priya", M("slackbot", { time: "10:26 AM", blocks: [{ t: "sec", md: "Your request to install *Layerpath* in Acme was approved." }] }), "slackbot");
+  goView(W, { k: "dm", id: "slackbot" });
+  S.step({ cap: "Slack tells Priya it's approved, and she goes back to the browser.", next: "dock:chrome", how: "Slack's own message. She runs Add to Slack again (4.3)." });
+  navTab(W, T.settings("integrations"));
+  S.step({ cap: "She runs Add to Slack again from Integrations.", next: "lp-add-slack", copy: true, how: H.install });
+  navTab(W, T.oauth());
+  S.step({ cap: "This time Slack shows Allow, and she presses it.", next: "oa-allow", how: H.oauth });
+  navTab(W, T.cw({ mode: "pre", sel: 0 }));
+  S.step({ cap: "Acme is preselected, and she presses Connect.", next: "cw-connect", copy: true, how: H.callback });
+  navTab(W, T.done()); W.installed = true;
+  S.step({ cap: "Layerpath is in Acme's Slack, and the rest is the same as A1.", copy: true, how: H.done });
+  return S.steps;
+});
+
+sc("A4", "Brand-new company", "admin", function () {
+  var S = Seq(), W = S.W; W.installed = false;
+  as(W, "priya", "chrome"); BR(W).tabs = [T.web()];
+  S.step({ cap: "Suppose Acme is new to Layerpath: Priya starts on layerpath.com/slack and presses Add to Slack.", next: "web-add", chip: "priya@acme.com · new to Layerpath in this scenario", how: H.installWeb });
+  navTab(W, T.oauth());
+  S.step({ cap: "Slack's permission page for Acme's Slack, and she presses Allow.", next: "oa-allow", chip: "priya@acme.com · new to Layerpath in this scenario", how: H.oauth });
+  navTab(W, T.signin());
+  S.step({ cap: "The normal sign-in page also signs her up, with Google or any email.", next: "auth-google", chip: "priya@acme.com · new to Layerpath in this scenario", how: "The callback stores a PENDING `SlackInstallation`, then asks her to sign in or sign up (4.2, 8.2)." });
+  navTab(W, T.google([GA.priya]));
+  S.step({ cap: "She continues with Google as priya@acme.com.", next: "g-acc-0", chip: "priya@acme.com · new to Layerpath in this scenario", how: "Google's own screen; Layerpath's sign-up is unchanged." });
+  navTab(W, T.cw({ mode: "none" }));
+  S.step({ cap: "She isn't an Owner or Admin of any workspace, so Layerpath offers to create one for Acme.", next: "cw-create", copy: true, chip: "priya@acme.com · new to Layerpath in this scenario", how: "`/integrations/slack/connect-workspace` with no workspace where she is Owner or Admin (4.4)." });
+  setPage(W, { mode: "create" });
+  S.step({ cap: "The name comes from the Slack team name, and she presses Create and connect.", next: "cw-create-connect", copy: true, chip: "priya@acme.com · new to Layerpath in this scenario", how: "Creates the workspace with Priya as Owner, then `POST /api/integrations/slack/connect-workspace` (4.4, 8.2)." });
+  navTab(W, T.done({ newWs: true })); W.installed = true;
+  S.step({ cap: "Layerpath is in Acme's Slack, and since nobody else is in the new workspace, the page says how the team gets in.", next: "done-open-slack", copy: true, chip: "priya@acme.com · Owner of the new Acme workspace", how: H.done + " A brand-new workspace gets its own line in place of the email match (4.5)." });
+  W.front = "slack";
+  W.home.priya = homeLinked("priya", "Owner", [], null);
+  dmTo(W, "priya", M("lp", { time: "10:31 AM", blocks: welcomeDM() }));
+  goView(W, { k: "app", tab: "messages" });
+  S.step({ cap: "The welcome DM is the same as for any install.", copy: true, chip: "priya@acme.com · Owner of the new Acme workspace", how: "A DM from the agent to the installer (4.5)." });
+  return S.steps;
+});
+
+sc("A5", "Slack already connected elsewhere", "admin", function () {
+  var S = Seq(), W = S.W; W.installed = false;
+  as(W, "priya", "chrome"); BR(W).tabs = [T.settings("integrations")];
+  S.step({ cap: "Case 1: Acme's Slack is already connected to a different Layerpath workspace, and Priya presses Add to Slack.", next: "lp-add-slack", copy: true, how: H.install });
+  navTab(W, T.oauth());
+  S.step({ cap: "Slack's permission page, and she presses Allow.", next: "oa-allow", how: H.oauth });
+  navTab(W, T.cw({ mode: "errLinked" }));
+  S.step({ cap: "Layerpath stops and says who to ask, because one Slack workspace connects to one Layerpath workspace.", copy: true, how: "`SlackInstallation.slackTeamId` is unique (8.2, D7): there's already an ACTIVE installation for Acme's Slack on another workspace, and it isn't replaced." });
+  var b = BR(W); b.tabs = [T.web()]; b.active = 0;
+  S.step({ cap: "Case 2: the Acme workspace is connected to an older Slack, 'Acme Old', and Priya starts from layerpath.com/slack.", next: "web-add", how: H.installWeb });
+  navTab(W, T.oauth());
+  S.step({ cap: "Slack's permission page for Acme's Slack, and she presses Allow.", next: "oa-allow", how: H.oauth });
+  navTab(W, T.cw({ mode: "choose", sel: 0 }));
+  S.step({ cap: "She picks Acme and presses Connect.", next: "cw-connect", copy: true, how: "`POST /api/integrations/slack/connect-workspace` (8.2)." });
+  setPage(W, { mode: "replace" });
+  S.step({ cap: "Layerpath asks before replacing the old connection, and she presses Replace.", next: "cw-replace", copy: true, how: "`SlackInstallation.workspaceId` is unique (8.2): Replace removes the 'Acme Old' installation and its links, so people there lose Layerpath in Slack, then connects Acme's Slack (4.4)." });
+  navTab(W, T.done()); W.installed = true;
+  S.step({ cap: "Acme's Slack is now the one connected to the Acme workspace.", copy: true, how: H.done });
+  return S.steps;
+});
+
+/* ---------------- People ---------------- */
+sc("P1", "Sam (email match)", "people", function () {
+  var S = Seq(), W = S.W;
+  as(W, "sam", "slack");
+  compose(W, "{@Layerpath} make a training tour from these", 3);
+  S.step({ cap: "Sam's Slack email matches his Layerpath account, and he asks Layerpath for a tour in #customer-training.", next: "send", how: H.event });
+  var m = send(W);
+  rep(W, m.id, M("lp", { only: "sam", text: "You're connected as sam@acme.com, Editor in Acme. Not you? Disconnect in Layerpath's Home tab." }));
+  S.step({ cap: "Layerpath matches his Slack email, links him, and tells him once, privately.", copy: true,
+    how: "`resolve` returns `email_linked`: Slack's profile email (`users:read.email`) exactly matches an active member of Acme, so a `SlackUserLink` is created with `linkedVia: EMAIL`. The note shows once, privately, and is skipped if `disconnectedAt` is set (5, 8.2, 8.4)." });
+  var om = rep(W, m.id, optionsMsg());
+  S.step({ cap: "Then the usual options card, and he presses Create tour.", next: "create", how: "Today's options card (`slackOptions.ts`), unchanged." });
+  om.blocks = startedBlocks();
+  var sm = buildTour(S, W, m.id, { cap: "The tour is made as Sam, in Acme's workspace, live in the thread.", how: H.token }, TOURS.sam);
+  finishCard(W, m.id, sm, TOURS.sam, "sam");
+  S.step({ cap: "The finished card and the ready tag, then Sam opens Layerpath under Apps.", next: "side:app", focus: sm.id, how: H.card });
+  W.home.sam = homeLinked("sam", "Editor", TL.sam);
+  goView(W, { k: "app", tab: "home" });
+  S.step({ cap: "His Home tab shows who he's connected as, his recent tours, and how to use it.", copy: true, how: H.home + " Recent tours are read with Sam's own token." });
+  return S.steps;
+});
+
+sc("P2", "Maya (Connect with another email)", "people", function () {
+  var S = Seq(), W = S.W;
+  as(W, "maya", "slack");
+  compose(W, "{@Layerpath} can you turn these into a tour for the support team?", 3);
+  S.step({ cap: "Maya's Layerpath account is maya.cruz@gmail.com, so her Slack email matches nobody, and she asks for a tour.", next: "send", how: H.event });
+  var m = send(W);
+  rep(W, m.id, M("lp", { only: "maya", blocks: connectPrompt() }));
+  S.step({ cap: "With no link and no email match, Layerpath replies privately with two choices and holds her request for 30 minutes.", next: "e-connect", copy: true,
+    how: "`resolve` returns `not_linked`. The request (thread, text, files) is held for 30 minutes as `pendingAction` (JSON: channel, thread, text, file IDs, expiry) (5.1, 8.2). A private reply: one of the agent's new connect and denial replies (8.3)." });
+  var saved = S.save();
+  tab(W, { fav: "lp", title: "Sign In", url: URLS.connect, page: { kind: "auth", banner: "Sign in to connect your Slack account" } });
+  S.step({ cap: "Connect opens Layerpath in a new browser tab, and because she's signed out it shows the sign-in page.", next: "auth-google", copy: true,
+    how: "Page: `/slack/connect?state=…`. The `state` is signed, single use and lasts 15 minutes (5.1, 8.2, 8.4). Sign up works here too: Google or any email." });
+  navTab(W, T.google([GA.mayaWork, GA.mayaGmail]));
+  S.step({ cap: "She continues with Google and picks maya.cruz@gmail.com, the account that's in Acme's workspace.", next: "g-acc-1", how: "Google's own screen; Layerpath's sign-in is unchanged." });
+  navTab(W, T.conn({ mode: "confirm" }));
+  S.step({ cap: "Layerpath shows both sides, Maya in Acme's Slack and her Layerpath account, and she presses Connect.", next: "sc-connect", copy: true, how: "Page: `/slack/connect` (8.2). Connect calls `POST /api/integrations/slack/link`." });
+  setPage(W, { mode: "ok" });
+  S.step({ cap: "She's connected and goes back to Slack.", next: "sc-open-slack", copy: true,
+    how: "`POST /api/integrations/slack/link` creates the `SlackUserLink` (`linkedVia: CONNECT`), and a webhook tells the agent a link was created so it can run the `pendingAction` (8.2)." });
+  W.front = "slack";
+  rep(W, m.id, M("lp", { time: "10:44 AM", text: "Thanks Maya, you're connected. Making your tour now." }));
+  S.step({ cap: "In the thread, Layerpath thanks her and picks up the held request.", copy: true, how: "The agent runs the held request because it's under 30 minutes old (5.1, 8.3)." });
+  var om = rep(W, m.id, optionsMsg({ cont: true, time: "10:44 AM" }));
+  S.step({ cap: "The normal flow runs: the usual options card, and she presses Create tour.", next: "create", how: "Today's options card (`slackOptions.ts`), unchanged." });
+  om.blocks = startedBlocks();
+  var sm = buildTour(S, W, m.id, { cap: "The tour is made as Maya, in Acme's workspace.", how: H.token }, TOURS.maya);
+  finishCard(W, m.id, sm, TOURS.maya, "maya");
+  S.step({ cap: "Her tour is ready.", focus: sm.id, how: H.card });
+  S.restore(saved); tab(W, T.conn({ mode: "ok" })); W.front = "slack";
+  rep(W, m.id, M("lp", { time: "11:20 AM", text: "You're connected. Ask me again here to make your tour." }));
+  S.step({ cap: "Other result: if she had connected more than 30 minutes later, the held request is dropped and she's asked again.", copy: true, how: "`pendingAction` carries an expiry of 30 minutes (5.1, 8.2)." });
+  S.restore(saved); tab(W, T.conn({ mode: "viewer" }));
+  S.step({ cap: "Other result: if her account were a Viewer in Acme, she'd be connected and told why she can't make tours yet.", next: "sc-open-slack", copy: true, chip: "maya@acme.com · if she were a Viewer in Acme", how: "The link is created; `resolve` then returns `viewer` (5.1)." });
+  W.front = "slack";
+  rep(W, m.id, M("lp", { only: "maya", time: "10:44 AM", blocks: viewerMsg() }));
+  S.step({ cap: "Back in the thread, she gets the Viewer message, with a way to ask to become an editor.", copy: true, chip: "maya@acme.com · if she were a Viewer in Acme", how: "The Viewer message from section 5, step 5, instead of running the held request (5.1)." });
+  S.restore(saved); tab(W, T.conn({ mode: "notin" }));
+  S.step({ cap: "Other result: if the account she signed in with isn't in Acme's workspace, she's connected and can ask for access.", copy: true, how: "The link is created; `resolve` then returns `not_member` (5.1, 8.2)." });
+  S.restore(saved); tab(W, T.conn({ mode: "expired" }));
+  S.step({ cap: "Other result: the link expires after 15 minutes.", copy: true, how: "`state` values are signed and single use, and this one lasts 15 minutes (5.1, 8.4)." });
+  S.restore(saved); tab(W, T.conn({ mode: "other" }));
+  S.step({ cap: "Other result: if this Slack person is already linked to another Layerpath account, she's told to disconnect it first.", copy: true, how: "`SlackUserLink` is unique on `slackTeamId` + `slackUserId` (8.2)." });
+  return S.steps;
+});
+
+sc("P3", "Dev (ask, invite, accept)", "people", function () {
+  var S = Seq(), W = S.W;
+  as(W, "dev", "slack");
+  W.home.dev = homeNotLinked();
+  goView(W, { k: "app", tab: "home" });
+  S.step({ cap: "Dev has no Layerpath account, so Layerpath's Home tab shows him the not-linked view, and he goes to #customer-training.", next: "side:ch:customer-training", copy: true, how: H.home });
+  goView(W, { k: "ch", id: "customer-training" });
+  compose(W, "{@Layerpath} make a tour from these screenshots", 3);
+  S.step({ cap: "He asks Layerpath for a tour.", next: "send", how: H.event });
+  var m = send(W);
+  rep(W, m.id, M("lp", { only: "dev", blocks: connectPrompt() }));
+  S.step({ cap: "dev@acme.com matches nobody in Acme, so he gets the private Connect prompt and presses Ask for access.", next: "e-ask", copy: true, how: "`resolve` returns `not_linked` (5.1)." });
+  rep(W, m.id, M("lp", { only: "dev", text: ASKED }));
+  S.step({ cap: "Layerpath tells him privately that it asked Acme's admins.", copy: true, how: "`POST /api/agent/slack/access-request` creates a `SlackAccessRequest` (kind ACCESS, status OPEN, his email, and the held request as `pendingAction`) (5.2, 8.2)." });
+  var beforeDecision = S.save();
+  as(W, "priya", "slack");
+  var dm = dmTo(W, "priya", M("lp", { time: "10:43 AM", blocks: accessReq(null) }));
+  goView(W, { k: "app", tab: "messages" });
+  S.step({ cap: "Priya, Acme's Owner, gets a DM with a one-tap Invite as Editor.", next: "dm-invite", copy: true,
+    how: "Agent: access request and approval messages, and their button handlers (8.3). Each connected Owner and Admin gets this DM; the first to act settles it, and it also appears under Requests in their Home tab (5.2)." });
+  dm.blocks = [dm.blocks[0], { t: "sec", md: "Invited Dev as an Editor." }];
+  S.step({ cap: "She taps it: Layerpath sends Dev the usual invite email for an Editor seat, and her DM updates.", copy: true,
+    how: "`POST /api/agent/slack/invite` → the existing invite route (role EDITOR, to his Slack email), which sends the usual email and reserves a seat (`creatorSeats.ts`). `SlackAccessRequest` → INVITED with `decidedByUserId`. Other admins' DMs would update to \"Priya invited Dev as an Editor\" (5.2, 8.2)." });
+  as(W, "dev", "slack");
+  W.home.dev = homePending();
+  dmTo(W, "dev", M("lp", { time: "10:45 AM", blocks: [{ t: "sec", md: "Priya invited you to Acme's Layerpath workspace as an Editor." }, { t: "act", els: [{ b: "Accept invite", s: "primary", k: "dm-accept" }] }] }));
+  goView(W, { k: "app", tab: "home" }); U(W).msgDot = true;
+  S.step({ cap: "Dev's Home tab now shows the pending invite, and a DM is waiting under Messages.", next: "tab:messages", copy: true, how: H.home + " `resolve` returns `invite_pending`." });
+  goView(W, { k: "app", tab: "messages" });
+  S.step({ cap: "The DM says who invited him, and he presses Accept invite.", next: "dm-accept", copy: true, how: "Agent DM after the invite (5.2)." });
+  tab(W, T.invite({ mode: "signup" }));
+  S.step({ cap: "Layerpath's existing invite page opens in a new tab, and he signs up first with dev@acme.com filled in.", next: "inv-signup", how: "The existing `/invite/[inviteId]` page and its existing copy, unchanged (5.2). Signed out, it shows sign-up with the invited email." });
+  setPage(W, { mode: "accept" });
+  S.step({ cap: "Signed up, he sees Accept and presses it.", next: "inv-accept", how: "The existing invite page once signed in, with its Accept button (5.2)." });
+  W.front = "slack"; goView(W, { k: "ch", id: "customer-training" });
+  var inMsg = rep(W, m.id, M("lp", { time: "10:47 AM", text: "You're in, Dev. Making your tour now." }));
+  rep(W, m.id, optionsMsg({ cont: true, time: "10:47 AM" }));
+  S.step({ focus: inMsg.id, cap: "Back in the thread, Layerpath picks up his held request and the normal tour flow starts.", copy: true, chip: "dev@acme.com · now an Editor in Acme", how: "On accept, the link is created (`linkedVia: INVITE`) and the webhook runs the `pendingAction` if it's under 30 minutes old (5.2, 8.2)." });
+  S.restore(beforeDecision);
+  as(W, "dev", "slack");
+  dmTo(W, "dev", M("lp", { time: "10:45 AM", text: "Priya didn't approve access this time." }));
+  goView(W, { k: "app", tab: "messages" });
+  S.step({ cap: "Other result: if Priya had pressed Decline, Dev would get this instead.", copy: true, how: "`POST /api/agent/slack/decline` → `SlackAccessRequest` DECLINED. Other admins' DMs would update to \"Priya declined Dev's request\" (5.2, 8.2)." });
+  return S.steps;
+});
+
+sc("P4", "Omar (Viewer → Editor)", "people", function () {
+  var S = Seq(), W = S.W;
+  as(W, "omar", "slack");
+  W.home.omar = homeViewer(false);
+  goView(W, { k: "app", tab: "home" });
+  S.step({ cap: "Omar is a Viewer in Acme, and his Home tab says so, then he goes to #customer-training.", next: "side:ch:customer-training", copy: true, how: H.home });
+  goView(W, { k: "ch", id: "customer-training" });
+  compose(W, "{@Layerpath} make a tour from these", 3);
+  S.step({ cap: "He asks Layerpath for a tour.", next: "send", how: H.event });
+  var m = send(W);
+  rep(W, m.id, M("lp", { only: "omar", blocks: viewerMsg() }));
+  S.step({ cap: "Viewers can't make tours, so Layerpath tells him privately, with one next step, and he presses it.", next: "e-ask-editor", copy: true, how: "`resolve` returns `viewer`; his role is re-read from Layerpath, cached at most 60 s (5)." });
+  rep(W, m.id, M("lp", { only: "omar", text: "I asked Acme's admins to make you an editor. I'll let you know here." }));
+  S.step({ cap: "Layerpath confirms privately that it asked Acme's admins.", copy: true, how: "`POST /api/agent/slack/access-request` creates a `SlackAccessRequest` with kind EDITOR, status OPEN (5.3, 8.2)." });
+  W.home.omar = homeViewer(true);
+  goView(W, { k: "app", tab: "home" });
+  S.step({ cap: "Later, his Home tab shows the request is with Priya.", copy: true, how: H.home });
+  as(W, "priya", "slack");
+  W.home.priya = homeLinked("priya", "Owner", TL.priya, { requests: [{ name: "Omar Haddad", email: "omar@acme.com", kind: "EDITOR" }] });
+  var dm = dmTo(W, "priya", M("lp", { time: "10:43 AM", blocks: editorReq() }));
+  goView(W, { k: "app", tab: "home" }); U(W).msgDot = true;
+  S.step({ cap: "Priya sees Omar's request under Requests in her Home tab, and a DM is waiting under Messages.", next: "tab:messages", copy: true, how: H.home + " Requests are the OPEN `SlackAccessRequest` rows for Acme's Slack." });
+  goView(W, { k: "app", tab: "messages" });
+  S.step({ cap: "The DM has Make Editor, after the same seat check, and she taps it.", next: "dm-make", copy: true, how: "Agent approval message and button handler (8.3). Seat check with `creatorSeats.ts`: a Viewer doesn't use a seat, an Editor does (D8, 5.3)." });
+  dm.blocks = [dm.blocks[0], { t: "sec", md: "Made Omar an Editor." }];
+  W.home.priya = homeLinked("priya", "Owner", TL.priya, { requests: [] });
+  S.step({ cap: "Her DM updates to say it's done.", copy: true, how: "`POST /api/agent/slack/promote` → the existing members route changes his role; `SlackAccessRequest` → PROMOTED with `decidedByUserId` (5.3, 8.2)." });
+  as(W, "omar", "slack");
+  dmTo(W, "omar", M("lp", { time: "10:52 AM", text: "Priya made you an Editor in Acme. Ask me again to make your tour." }));
+  goView(W, { k: "app", tab: "messages" });
+  S.step({ cap: "Omar is told he's an Editor now and can ask again.", copy: true, chip: "omar@acme.com · now an Editor in Acme", how: "Agent DM after the role change (5.3)." });
+  return S.steps;
+});
+
+function buildP5(plan) {
+  var S = Seq(), W = S.W;
+  as(W, "dev", "slack");
+  var m = post(W, "customer-training", "dev", "{@Layerpath} make a tour from these screenshots", 3);
+  openThread(W, "customer-training", m.id);
+  rep(W, m.id, M("lp", { only: "dev", blocks: connectPrompt() }));
+  S.step({ cap: "Dev asks for a tour, as in P3, and presses Ask for access.", next: "e-ask", copy: true, how: "`resolve` returns `not_linked` (5.1)." });
+  rep(W, m.id, M("lp", { only: "dev", text: ASKED }));
+  S.step({ cap: "Layerpath tells him it asked Acme's admins.", copy: true, how: "`POST /api/agent/slack/access-request` (8.2)." });
+  as(W, "priya", "slack");
+  dmTo(W, "priya", M("lp", { time: "10:43 AM", blocks: accessReq(plan) }));
+  goView(W, { k: "app", tab: "messages" });
+  var capByPlan = {
+    free: "With Acme on Free, its one creator seat is Priya's, so her DM has no Invite button, only a way to upgrade.",
+    pro: "With Acme on Pro and all 3 creator seats in use, her DM has no Invite button, only a link to Members.",
+    team: "If all 14 creator seats on Team were in use, her DM has no Invite button, only a link to Members."
+  };
+  S.step({ cap: capByPlan[plan], next: SEAT[plan].k, copy: true, chip: "priya@acme.com · Owner of Acme, on " + (plan === "free" ? "Free" : plan === "pro" ? "a full Pro" : "a full Team") + " in this scenario",
+    how: "The seat check runs before the buttons are drawn, using `creatorSeats.ts` (8.2 Reuse). Limits as today: Free 1 (the Owner), Pro 3, Team 14; Viewers don't use a seat; pending elevated invites reserve a seat (D8)." });
+  if (plan === "free") tab(W, T.settings("plan", { plan: "Free" }));
+  else tab(W, T.settings("members", { plan: plan === "pro" ? "Pro" : "Team", extraEditors: plan === "team" ? 11 : 0, pages: plan === "team" ? 2 : 0 }));
+  S.step({ cap: "The link opens Layerpath in a new tab, on " + (plan === "free" ? "the Plan page." : "Members, where she can change a role."), chip: "priya@acme.com · Owner of Acme", how: "Existing Layerpath pages: Settings → " + (plan === "free" ? "Plan." : "Members.") });
+  return S.steps;
+}
+sc("P5", "No seat left", "people", function (opt) { return buildP5((opt && opt.plan) || "free"); });
+
+sc("P6", "Lena (guest)", "people", function () {
+  var S = Seq(), W = S.W;
+  as(W, "lena", "slack");
+  compose(W, "{@Layerpath} make a tour from these", 3);
+  S.step({ cap: "Lena is a single-channel guest in Acme's Slack, and she can still mention Layerpath there.", next: "send", how: H.event });
+  var m = send(W);
+  rep(W, m.id, M("lp", { only: "lena", text: "Layerpath isn't available to guests in Acme's Slack." }));
+  S.step({ cap: "Layerpath sees she's a guest and replies privately, with nothing made and nothing linked.", copy: true,
+    how: "Second check in section 5: `users.info` `is_restricted` or `is_ultra_restricted` → `guest`, before any link or email match. Bots are ignored. Every query is scoped to `slackTeamId` (8.4)." });
+  return S.steps;
+});
+
+sc("P7", "Tom (other company)", "people", function () {
+  var S = Seq(), W = S.W;
+  as(W, "tom", "slack");
+  goView(W, { k: "ch", id: "shared-globex" });
+  compose(W, "{@Layerpath} can you make a tour from these?", 3);
+  S.step({ cap: "Tom works at Globex and is in #shared-globex, a Slack Connect channel shared with Acme, and he mentions Layerpath.", next: "send", how: H.event });
+  var m = send(W);
+  rep(W, m.id, M("lp", { only: "tom", blocks: [{ t: "sec", md: "Layerpath here is set up for Acme. To make tours for your own team, add Layerpath to your Slack." }, { t: "act", els: [{ b: "Add to Slack", k: "e-add-slack" }] }] }));
+  S.step({ cap: "Layerpath sees he's from another company and replies privately, never showing Acme's tours.", next: "e-add-slack", copy: true,
+    how: "First check in section 5: the event's `user_team` isn't the install's team (Slack Connect) → `other_team`. Acme's tours are never shown or listed; every query is scoped to `slackTeamId`, with no fallback to another workspace (8.4)." });
+  tab(W, T.web());
+  S.step({ cap: "Add to Slack opens layerpath.com/slack in a new tab, where Globex can start its own install, as in A2.", copy: true, how: "Add to Slack opens layerpath.com/slack (5, step 1). From there it's the website install, with no workspace in `state` (4.2)." });
+  return S.steps;
+});
+
+/* ---------------- Day to day ---------------- */
+sc("D1", "A tour as yourself", "day", function () {
+  var S = Seq(), W = S.W;
+  as(W, "sam", "slack");
+  compose(W, "{@Layerpath} make a tour of creating a deal from these", 3);
+  S.step({ cap: "Sam is already linked, so his request goes straight through.", next: "send", how: H.event });
+  var m = send(W);
+  var om = rep(W, m.id, optionsMsg());
+  S.step({ cap: "The usual options card, with no extra note, and he presses Create tour.", next: "create", how: "`resolve` returns `linked`; his role and membership are re-read from Layerpath, cached at most 60 s (5)." });
+  om.blocks = startedBlocks();
+  var sm = buildTour(S, W, m.id, { cap: "The live build in chat, made as Sam with Acme's brand memory, voice and plan.", how: H.token }, TOURS.sam);
+  finishCard(W, m.id, sm, TOURS.sam, "sam");
+  S.step({ cap: "The finished card has every action from today, and he presses Edit in Layerpath.", next: "card-edit", focus: sm.id, how: H.card + " Shorten steps, Translate, Add voiceover, Blur, Export video, and Undo after each change." });
+  tab(W, T.editor(TOURS.sam));
+  S.step({ cap: "The editor opens in a new Layerpath tab, and Sam goes back to his projects.", next: "ed-back", how: "Edit in Layerpath opens `/projects/<id>/tour/edit` in a Layerpath tab. If the browser is signed in as another account, Layerpath shows its existing account or no-access page (6)." });
+  navTab(W, T.projects());
+  S.step({ cap: "In Acme's Projects, the new tour shows Created by Sam Lee.", how: "Made with Sam's own short-lived token, so Layerpath records him as the creator (D5, 6)." });
+  return S.steps;
+});
+
+sc("D2", "A button on someone else's card", "day", function () {
+  var S = Seq(), W = S.W;
+  as(W, "maya", "slack");
+  var m = post(W, "customer-training", "sam", "{@Layerpath} make a training tour from these", 3, "10:40 AM");
+  openThread(W, "customer-training", m.id);
+  rep(W, m.id, M("lp", { time: "10:40 AM", blocks: startedBlocks() }));
+  var card = rep(W, m.id, M("lp", { cont: true, time: "10:40 AM", blocks: cardBlocks(TOURS.sam) }));
+  rep(W, m.id, M("lp", { cont: true, time: "10:41 AM", text: "{@Sam} your tour is ready!" }));
+  S.step({ cap: "Maya, linked as an Editor, opens Sam's thread and presses Shorten steps on his card.", next: "card-shorter", chip: "maya@acme.com · linked, Editor in Acme", how: "A card button runs as the presser, with their own role (5.5): resolve Maya, then a token for (Maya, Acme) (8.2)." });
+  var er = rep(W, m.id, M("lp", { time: "10:47 AM", blocks: [{ t: "ctx", md: "*Making every step shorter…*" }] }));
+  S.step({ cap: "The change runs as Maya, with her own role, and the reply says who asked.", chip: "maya@acme.com · linked, Editor in Acme", how: H.token + " Reply and Undo are today's (`editReplyBlocks` in `slackCard.ts`)." });
+  er.blocks = [{ t: "sec", md: "*Tour updated*" }, { t: "ctx", md: "Shorten steps · asked by {@Maya}" },
+    { t: "sec", md: "• *Step 3 · Callout*: ~Fill in the deal name, amount and close date~ → Add the deal details\n• *Step 4 · Callout*: ~Pick which stage of the pipeline the deal is in~ → Pick the stage" },
+    { t: "act", els: [{ b: "Undo", k: "undo" }] }];
+  card.blocks = cardBlocks(TOURS.sam, { updated: "10:47 AM" });
+  S.frame(1700);
+  openThread(W, "customer-training", m.id, "dev");
+  as(W, "dev", "slack");
+  S.step({ cap: "Dev isn't linked, and he presses a button on the same card.", next: "card-blur", how: "Same handler; `resolve` runs for the presser." });
+  rep(W, m.id, M("lp", { only: "dev", time: "10:49 AM", blocks: connectPrompt() }));
+  S.step({ cap: "It acts as the presser, so Dev gets the Connect prompt.", copy: true, how: "`resolve` returns `not_linked` for Dev (5.5)." });
+  openThread(W, "customer-training", m.id, "omar");
+  as(W, "omar", "slack");
+  S.step({ cap: "Omar is a Viewer, and he presses Shorten steps on the same card.", next: "card-shorter", how: "Same handler: it acts as the presser, and the checks in section 5 run first (5.5)." });
+  rep(W, m.id, M("lp", { only: "omar", time: "10:50 AM", blocks: viewerMsg() }));
+  S.step({ cap: "The checks in section 5 run first, so Omar gets the Viewer message.", copy: true, how: "`resolve` returns `viewer`, so the change never starts (5.5). \"You can't change this tour. Ask Sam or an Admin in Acme.\" is only for an Editor whom Layerpath refuses for that tour." });
+  return S.steps;
+});
+
+sc("D3", "The Free publish limit", "day", function () {
+  var S = Seq(), W = S.W;
+  as(W, "priya", "slack");
+  var chip = "priya@acme.com · Owner of Acme, on Free in this scenario";
+  compose(W, "{@Layerpath} make a tour of inviting a teammate from these", 3);
+  S.step({ cap: "Suppose Acme is on Free with 3 tours published, where only the Owner can use the agent, so this is Priya.", next: "send", chip: chip, how: H.event + " On Free only the Owner can use the agent (flag for Vinay, section 2)." });
+  var m = send(W);
+  var om = rep(W, m.id, optionsMsg());
+  S.step({ cap: "The usual options card, and she presses Create tour.", next: "create", chip: chip, how: "`resolve` returns `linked`, role Owner (5)." });
+  om.blocks = startedBlocks();
+  var sm = buildTour(S, W, m.id, { cap: "The tour is made as usual.", chip: chip, how: H.token }, TOURS.priya);
+  finishCard(W, m.id, sm, TOURS.priya, "priya", { draft: true });
+  S.step({ cap: "It's kept as a draft and the card says why, in today's words, with Edit in Layerpath as the way in.", chip: chip, focus: sm.id,
+    how: "The publish cap is today's (`publishedProjectSlots.ts`, 8.2 Reuse), and so are its message and the draft card. The video export limit and the voice languages on Free also use today's messages (6, D8)." });
+  return S.steps;
+});
+
+/* ---------------- Leaving ---------------- */
+sc("L1", "Disconnect", "leaving", function () {
+  var S = Seq(), W = S.W;
+  as(W, "sam", "slack");
+  W.home.sam = homeLinked("sam", "Editor", TL.sam);
+  goView(W, { k: "app", tab: "home" });
+  S.step({ cap: "Sam opens Layerpath's Home tab and presses Disconnect.", next: "h-disconnect", copy: true, how: H.home });
+  U(W).modal = { title: "Disconnect your Layerpath account?", text: "I won't make tours for you in Slack until you connect again. Your tours stay in Acme.", confirm: "Disconnect", style: "danger", k: "m-confirm" };
+  S.step({ cap: "Layerpath asks him to confirm, and he presses Disconnect.", next: "m-confirm", copy: true, how: "A confirm on the Home tab button." });
+  U(W).modal = null;
+  W.home.sam = homeNotLinked();
+  S.step({ cap: "His Home tab goes back to the not-linked view.", copy: true, chip: "sam@acme.com · disconnected", how: "Deletes the `SlackUserLink`, sets `disconnectedAt` and revokes his tokens (5.5)." });
+  goView(W, { k: "ch", id: "customer-training" });
+  compose(W, "{@Layerpath} make a tour from these", 3);
+  S.step({ cap: "Next time, he asks for a tour.", next: "send", chip: "sam@acme.com · disconnected", how: H.event });
+  var m = send(W);
+  rep(W, m.id, M("lp", { only: "sam", blocks: connectPrompt() }));
+  S.step({ cap: "There's no automatic email match after a disconnect, so he gets the Connect prompt.", copy: true, chip: "sam@acme.com · disconnected", how: "`disconnectedAt` is set, so step 4 of section 5 (email match) is skipped (5, 5.5)." });
+  return S.steps;
+});
+
+function members() {
+  return [{ key: "priya", role: "Owner", created: "14 Jan 2026" }, { key: "sam", role: "Editor", created: "03 Feb 2026" }, { key: "maya", role: "Editor", created: "03 Feb 2026" }, { key: "omar", role: "Viewer", created: "18 Mar 2026" }];
+}
+sc("L2", "Removed from the workspace", "leaving", function () {
+  var S = Seq(), W = S.W;
+  as(W, "priya", "chrome"); BR(W).tabs = [T.settings("members", { rows: members() })];
+  S.step({ cap: "In Layerpath's Members page, Priya deletes Sam from the Acme workspace.", next: "mem-del-sam", how: "Existing members route. Nothing changes in Slack: the agent re-reads membership from Layerpath on each request, cached at most 60 s (5)." });
+  setPage(W, { rows: members().filter(function (r) { return r.key !== "sam"; }) });
+  S.step({ cap: "Sam is no longer a member of Acme.", how: "Existing Layerpath behaviour." });
+  as(W, "sam", "slack");
+  compose(W, "{@Layerpath} make a tour from these", 3);
+  S.step({ cap: "Sam's link still exists, and he asks for a tour.", next: "send", chip: "sam@acme.com · removed from Acme", how: H.event });
+  var m = send(W);
+  rep(W, m.id, M("lp", { only: "sam", blocks: [{ t: "sec", md: "You're no longer in Acme's Layerpath workspace, so I can't make tours for you." }, { t: "act", els: [{ b: "Ask for access", k: "e-ask" }] }] }));
+  S.step({ cap: "On his next use, he's told he's no longer in Acme's workspace, with a way to ask for access.", copy: true, chip: "sam@acme.com · removed from Acme", how: "`resolve` returns `not_member` (5.5)." });
+  as(W, "priya", "chrome");
+  setPage(W, { menu: "maya" });
+  S.step({ cap: "Role lowered: Priya changes Maya's role to Viewer.", next: "mem-viewer", how: "Existing members route." });
+  var rows = members().filter(function (r) { return r.key !== "sam"; }); rows[1].role = "Viewer";
+  setPage(W, { menu: null, rows: rows });
+  as(W, "maya", "slack");
+  var m2 = post(W, "customer-training", "maya", "{@Layerpath} make a tour from these", 3, "11:05 AM");
+  openThread(W, "customer-training", m2.id);
+  rep(W, m2.id, M("lp", { only: "maya", time: "11:05 AM", blocks: viewerMsg() }));
+  S.step({ cap: "Maya's next request gets the Viewer message.", copy: true, chip: "maya@acme.com · now a Viewer in Acme", how: "`resolve` returns `viewer`, read fresh from Layerpath (5.5)." });
+  return S.steps;
+});
+
+sc("L3", "Disconnect Slack or uninstall", "leaving", function () {
+  var S = Seq(), W = S.W;
+  as(W, "priya", "chrome"); BR(W).tabs = [T.settings("integrations", { card: "connected" })];
+  W.home.priya = homeLinked("priya", "Owner", TL.priya, { requests: [] });
+  var start = S.save();
+  S.step({ cap: "On the Integrations card, Priya presses Disconnect.", next: "lp-disconnect", copy: true, how: "`POST /api/integrations/slack/disconnect` (8.2), after a confirm." });
+  setPage(W, { dialog: "disconnect" });
+  S.step({ cap: "Layerpath asks her to confirm, and she presses Disconnect.", next: "lpd-confirm", copy: true, how: "Confirm before `POST /api/integrations/slack/disconnect` (7, 8.2)." });
+  setPage(W, { dialog: null });
+  as(W, "priya", "slack");
+  dmTo(W, "priya", M("lp", { time: "11:10 AM", text: "Layerpath was disconnected from Acme's Slack by Priya Shah. Tours made in Slack are still in the Acme workspace." }));
+  goView(W, { k: "app", tab: "messages" });
+  S.step({ cap: "Acme's admins get a DM first, and then Layerpath leaves Acme's Slack.", next: "dock:chrome", copy: true, how: "The DM goes first, then `apps.uninstall`; the installation and links are deleted and tokens revoked (7)." });
+  W.installed = false;
+  setPage(W, { card: "notconn" }); W.front = "chrome";
+  S.step({ cap: "The Integrations card shows Not connected, and reinstalling starts at A1 or A2 again.", copy: true, how: "`SlackInstallation` and `SlackUserLink` rows are gone (7). Reinstall: 4.1 or 4.2." });
+  S.restore(start);
+  as(W, "priya", "slack"); goView(W, { k: "app", tab: "home" });
+  S.step({ cap: "Admins can also disconnect from Layerpath's Home tab in Slack.", next: "h-disconnect-slack", copy: true, how: H.home });
+  U(W).modal = { title: "Disconnect Layerpath from Acme's Slack?", text: "Nobody at Acme will be able to make tours in Slack. Existing tours stay in the Acme workspace.", confirm: "Disconnect", style: "danger", k: "m-confirm" };
+  S.step({ cap: "The same confirm, in Slack, and then the same cleanup.", copy: true, how: "Same as the Integrations card: DM the admins, `apps.uninstall`, delete, revoke (7)." });
+  U(W).modal = null; W.installed = false;
+  as(W, "priya", "chrome"); setPage(W, { card: "notconn" });
+  S.step({ cap: "If a Slack admin removes Layerpath in Slack's own app management instead, the card shows Not connected too.", copy: true, how: "Layerpath receives `app_uninstalled` / `tokens_revoked` (subscribed in 8.1) and runs the same cleanup (7)." });
+  return S.steps;
+});
+
+/* ---------------- Later (spec section 9) ---------------- */
+function sk(o) { return ext({ t: "sketch" }, o); }
+function laterStep(S, n, meta) { S.step(ext({ later: true, how: H.later(n) }, meta)); }
+sc("LT1", "Personal mode", "later", function () {
+  var S = Seq(), W = S.W;
+  as(W, "priya", "slack"); goView(W, { k: "app", tab: "home" });
+  W.home.priya = [{ t: "sec", md: "Connected as priya@acme.com · Owner in Acme" }, { t: "div" }, sk({ title: "Personal mode", lines: ["An admin can allow people to pick their own workspace for new requests."], opts: [{ label: "Allow personal mode", sq: true, on: true }] })];
+  laterStep(S, 1, { cap: "An admin could allow personal mode (Vinay's model)." });
+  as(W, "maya", "slack"); goView(W, { k: "app", tab: "home" });
+  W.home.maya = [{ t: "sec", md: "Connected as maya.cruz@gmail.com · Editor in Acme" }, { t: "div" }, sk({ title: "Where your new requests go", opts: [{ label: "Acme", on: false }, { label: "Your own workspace", on: true }] })];
+  laterStep(S, 1, { cap: "With it allowed, a person picks their own workspace for new requests." });
+  return S.steps;
+});
+sc("LT2", "Viewer and nonmember drafts", "later", function () {
+  var S = Seq(), W = S.W;
+  as(W, "omar", "slack");
+  var m = post(W, "customer-training", "omar", "{@Layerpath} make a tour from these", 3);
+  openThread(W, "customer-training", m.id);
+  rep(W, m.id, M("lp", { only: "omar", blocks: [sk({ title: "Draft requested", lines: ["A Viewer or a nonmember requests a draft."], bars: true })] }));
+  laterStep(S, 2, { cap: "Viewers and nonmembers could request drafts." });
+  rep(W, m.id, M("lp", { cont: true, blocks: [sk({ title: "Omar's draft", lines: ["They revise their own draft."], bars: true })] }));
+  laterStep(S, 2, { cap: "They could revise their own draft." });
+  as(W, "sam", "slack"); goView(W, { k: "app", tab: "messages" });
+  dmTo(W, "sam", M("lp", { blocks: [sk({ title: "Review before publishing", lines: ["An Editor reviews the draft before it's published."], bars: true })] }));
+  laterStep(S, 2, { cap: "An Editor reviews it before publishing." });
+  return S.steps;
+});
+sc("LT3", "Pre-approved email domains", "later", function () {
+  var S = Seq(), W = S.W;
+  as(W, "priya", "chrome");
+  BR(W).tabs = [T.settings("integrations", { card: "connected", sketch: sk({ title: "Pre-approved email domains", lines: ["An explicit admin setting."], opts: [{ label: "Anyone with @acme.com can join as Editor", sq: true, on: false }] }) })];
+  laterStep(S, 3, { cap: "Pre-approved email domains would be an explicit admin setting, off unless an admin turns it on." });
+  setPage(W, { sketch: sk({ title: "Pre-approved email domains", lines: ["An explicit admin setting."], opts: [{ label: "Anyone with @acme.com can join as Editor", sq: true, on: true }] }) });
+  laterStep(S, 3, { cap: "Turned on, anyone with @acme.com can join as Editor." });
+  return S.steps;
+});
+sc("LT4", "Channel allowlist", "later", function () {
+  var S = Seq(), W = S.W;
+  as(W, "priya", "slack"); goView(W, { k: "app", tab: "home" });
+  W.home.priya = [{ t: "sec", md: "Acme Slack ↔ Acme workspace · connected by Priya Shah" }, { t: "div" }, sk({ title: "Channels where Layerpath answers", lines: ["An admin picks the channels."], chips: [] })];
+  laterStep(S, 4, { cap: "An admin could pick the channels where the bot answers." });
+  W.home.priya[2] = sk({ title: "Channels where Layerpath answers", lines: ["An admin picks the channels."], chips: ["#customer-training"] });
+  laterStep(S, 4, { cap: "The bot would then answer in the picked channels." });
+  return S.steps;
+});
+sc("LT5", "Credit pool", "later", function () {
+  var S = Seq(), W = S.W;
+  as(W, "sam", "slack");
+  var m = post(W, "customer-training", "sam", "{@Layerpath} make a training tour from these", 3);
+  openThread(W, "customer-training", m.id);
+  rep(W, m.id, M("lp", { blocks: startedBlocks() }));
+  rep(W, m.id, M("lp", { cont: true, blocks: [sk({ title: "Credit check", lines: ["Acme's AI credits are checked before each job."] })] }));
+  laterStep(S, 5, { cap: "A company pool of AI credits would be checked before each job (AI credits aren't enforced today)." });
+  W.thr[m.id].replies[1].blocks = [sk({ title: "Out of credits", lines: ["An \"out of credits\" message. Its copy isn't written yet."], bars: true })];
+  laterStep(S, 5, { cap: "When the pool is empty, people get an out of credits message." });
+  return S.steps;
+});
+sc("LT6", "Free agent seats", "later", function () {
+  var S = Seq(), W = S.W;
+  as(W, "priya", "slack"); goView(W, { k: "app", tab: "home" });
+  W.home.priya = [{ t: "sec", md: "Connected as priya@acme.com · Owner in Acme" }, { t: "div" }, sk({ title: "V1 today", lines: ["On a Free workspace only the Owner can use the agent: Free has 1 creator seat, the Owner's (flag for Vinay)."] })];
+  laterStep(S, 6, { cap: "Today, in V1, only the Owner can use the agent on a Free workspace." });
+  W.home.priya[2] = sk({ title: "Free agent seats", lines: ["Agent seats for Slack users on Free. A Later decision."], bars: true });
+  laterStep(S, 6, { cap: "Free agent seats for Slack users on Free are a decision still to make." });
+  return S.steps;
+});
+sc("LT7", "Slack Marketplace listing", "later", function () {
+  var S = Seq(), W = S.W;
+  as(W, "priya", "chrome");
+  BR(W).tabs = [T.sketch(URLS.market, sk({ title: "Layerpath in the Slack Marketplace", lines: ["A public listing for the one Layerpath app."], bars: true }))];
+  laterStep(S, 7, { cap: "Layerpath could be listed in the Slack Marketplace." });
+  setPage(W, { block: sk({ title: "Before a listing", lines: ["V1 already moves the bot from Socket Mode to HTTP events and interactivity, which a Marketplace listing requires (8.1)."] }) });
+  laterStep(S, 7, { cap: "V1 already moves the bot to HTTP, which a listing requires." });
+  return S.steps;
+});
+
+/* ============================================================
+   Rendering: Slack
+   ============================================================ */
+var UI = { oaOpen: { v1: true }, planClosed: false, front: null };
+function vis(m, viewer) { return !m.only || m.only === viewer; }
+function avatar(key, size) {
+  size = size || 36;
+  var st = 'width:' + size + 'px;height:' + size + 'px;';
+  if (key === "lp") return '<span class="av lpav" style="' + st + '">' + LP_LOGO + "</span>";
+  if (key === "slackbot") return '<span class="av sbav" style="' + st + '">' + SLACKBOT + "</span>";
+  var p = P[key];
+  return '<span class="av" style="' + st + "background:" + p.col + ";font-size:" + Math.round(size * 0.38) + 'px">' + esc(initials(p.name)) + "</span>";
+}
+function actor(from, viewer) {
+  var vt = teamOf(viewer);
+  if (from === "lp") return { name: "Layerpath", bot: true, ext: vt !== "Acme" ? "Acme" : "" };
+  if (from === "slackbot") return { name: "Slackbot", bot: false };
+  var t = teamOf(from);
+  return { name: P[from].name, bot: false, ext: t !== vt ? t : "" };
+}
+function orgColor(o) { return o === "Globex" ? "#0f766e" : "#9a3412"; }
+function shots(n) { var h = ""; for (var i = 0; i < n; i++) h += '<span class="shot s' + (i + 1) + '"><b></b><i></i><i></i><i></i><u></u></span>'; return h; }
+function findMsg(W, id) { for (var c in W.chan) { var l = W.chan[c]; for (var i = 0; i < l.length; i++) if (l[i].id === id) return l[i]; } return null; }
+function replyCount(W, id) { var t = W.thr[id]; return t ? t.replies.filter(function (r) { return !r.only; }).length : 0; }
+
+function msgHTML(m, ctx) {
+  var a = actor(m.from, ctx.viewer);
+  var cont = m.cont && !m.only;
+  var eph = m.only ? '<div class="eph">' + I.eye + "<span>Only visible to you</span></div>" : "";
+  var head = cont ? "" : '<div class="m-head"><span class="m-name">' + esc(a.name) + "</span>" + (a.bot ? '<span class="appb">APP</span>' : "") + (a.ext ? '<span class="extorg" title="' + esc(a.ext) + '" style="background:' + orgColor(a.ext) + '">' + esc(a.ext[0]) + "</span>" : "") + '<span class="m-time">' + esc(m.time || "") + "</span></div>";
+  var body = "";
+  if (m.text) body += '<div class="m-text">' + md(m.text) + "</div>";
+  if (m.files) body += '<div class="files">' + shots(m.files) + "</div>";
+  if (m.blocks) body += '<div class="blocks">' + blocksHTML(m.blocks) + "</div>";
+  var rep = "";
+  if (ctx.replies) rep = '<div class="m-replies">' + avatar("lp", 20) + '<span class="rc">' + ctx.replies + (ctx.replies === 1 ? " reply" : " replies") + '</span><span class="rl">Last reply today</span></div>';
+  return '<div class="msg' + (cont ? " cont" : "") + '" data-mid="' + m.id + '">' + eph + '<div class="m-row"><div class="m-gut">' + (cont ? "" : avatar(m.from, 36)) + '</div><div class="m-body">' + head + body + rep + "</div></div></div>";
+}
+function blocksHTML(bl) { return (bl || []).map(blockHTML).join(""); }
+function blockHTML(b) {
+  switch (b.t) {
+    case "sec": return '<div class="bk-sec"><div class="bk-text">' + md(b.md) + "</div>" + (b.acc ? '<div class="bk-acc">' + elHTML(b.acc) + "</div>" : "") + "</div>";
+    case "ctx": return '<div class="bk-ctx">' + md(b.md) + "</div>";
+    case "act": return '<div class="bk-act">' + b.els.map(elHTML).join("") + "</div>";
+    case "div": return '<div class="bk-div"></div>';
+    case "hdr": return '<div class="bk-hdr">' + esc(b.text) + "</div>";
+    case "quote": return '<div class="bk-quote">' + md(b.md) + "</div>";
+    case "plan": return planHTML(b);
+    case "video": return videoHTML(b);
+    case "sketch": return sketchHTML(b);
+  }
+  return "";
+}
+function elHTML(e) {
+  if (e.sel) return '<span class="bk-select' + nx(e.k) + '"' + dk(e.k) + "><span>" + esc(e.sel) + "</span>" + I.chev + "</span>";
+  var cls = "bk-btn" + (e.s === "primary" ? " primary" : e.s === "danger" ? " danger" : "");
+  return '<button type="button" class="' + cls + nx(e.k) + '"' + dk(e.k) + ">" + esc(e.b) + "</button>";
+}
+function spinDelay() { return ' style="animation-delay:-' + (Date.now() % 900) + 'ms"'; }
+function planHTML(b) {
+  var head = '<div class="plan-head" data-ui="plan"><span class="pi ' + (b.done ? "ok" : "spin") + '"' + (b.done ? "" : spinDelay()) + ">" + (b.done ? CHECKC : "") + "</span><span>" + esc(b.title) + '</span><span class="chev">' + I.chev + "</span></div>";
+  var rows = b.tasks.map(function (t) {
+    var c = t.st === "complete" ? "dot" : t.st === "in_progress" ? "spin" : "";
+    return '<div class="plan-row"><span class="pi ' + c + '"' + (c === "spin" ? spinDelay() : "") + "></span><span>" + esc(t.title) + "</span></div>";
+  }).join("");
+  return '<div class="bk-plan' + (UI.planClosed ? " closed" : "") + '">' + head + '<div class="plan-list">' + rows + "</div></div>";
+}
+function videoHTML(b) {
+  var th;
+  if (b.kind === "build") th = '<div class="v-thumb build"><div class="vt">Creating your tour</div><div class="vs">from your 3 screenshots</div><div class="vshot"></div><div class="vpill">Video</div></div>';
+  else th = '<div class="v-thumb tour"><div class="vt">' + esc(b.tour) + '</div><div class="vs">' + esc(b.len) + '</div><div class="vb">Start tour</div><div class="vshot"></div><div class="vpill">Video</div></div>';
+  return '<div class="bk-video"><div class="v-desc">' + esc(b.desc) + '</div><div class="v-title"><span>' + esc(b.title) + "</span>" + I.caret + "</div>" + th + "</div>";
+}
+function sketchHTML(b) {
+  var h = '<div class="sketch"><div class="sk-tag">Later, not in V1 · sketch</div>';
+  if (b.title) h += '<div class="sk-t">' + esc(b.title) + "</div>";
+  (b.lines || []).forEach(function (l) { h += '<div class="sk-l">' + md(l) + "</div>"; });
+  (b.opts || []).forEach(function (o) { h += '<div class="sk-o"><span class="sk-r' + (o.sq ? " sq" : "") + (o.on ? " on" : "") + '"></span><span>' + esc(o.label) + "</span></div>"; });
+  if (b.chips) h += '<div class="sk-chips">' + (b.chips.length ? b.chips.map(function (c) { return "<span>" + esc(c) + "</span>"; }).join("") : '<span class="empty">Pick channels</span>') + "</div>";
+  if (b.bars) h += '<div class="sk-bars"><i></i><i></i></div>';
+  return h + "</div>";
+}
+function composerHTML(c, ph) {
+  var has = !!(c && c.text);
+  return '<div class="cmp"><div class="cmp-box' + (has ? " has" : "") + '"><div class="cmp-tools">' + I.bold + I.ital + I.strike + I.linkic + I.list + I.codeic + '</div><div class="cmp-text">' + (has ? md(c.text) : '<span class="ph">' + esc(ph) + "</span>") + "</div>" + (c && c.files ? '<div class="cmp-files files">' + shots(c.files) + "</div>" : "") + '<div class="cmp-bar">' + I.plus + I.aa + I.smile + I.at + '<button type="button" class="cmp-send' + (has ? " on" + nx("send") : "") + '"' + (has ? dk("send") : "") + ">" + I.send + "</button></div></div></div>";
+}
+function sideHTML(W, u, cfg) {
+  var v = u.view;
+  function act(key) { return viewKey(v) === key; }
+  function un(key) { return (u.unread || []).indexOf(key) >= 0; }
+  function item(key, icon, label) {
+    return '<div class="sd-i' + (act(key) ? " on" : "") + (un(key) ? " un" : "") + nx("side:" + key) + '"' + dk("side:" + key) + ">" + icon + '<span class="lbl">' + label + "</span>" + (un(key) ? '<span class="badge">1</span>' : "") + "</div>";
+  }
+  var h = '<div class="sd-head"><span class="sd-ws">' + esc(cfg.ws) + I.chev + '</span><span class="sd-cmp">' + I.compose + '</span></div><div class="sd-scroll">';
+  h += '<div class="sd-i">' + I.dms + '<span class="lbl">Threads</span></div><div class="sd-i">' + I.people + '<span class="lbl">Huddles</span></div><div class="sd-i">' + I.send + '<span class="lbl">Drafts &amp; sent</span></div>';
+  h += '<div class="sd-sec">' + I.caret + "Channels</div>";
+  cfg.chans.forEach(function (c) { h += item("ch:" + c, c === "shared-globex" ? I.shared : I.hash, esc(c)); });
+  h += '<div class="sd-sec">' + I.caret + "Direct messages</div>";
+  cfg.dms.forEach(function (d) {
+    if (d === "slackbot") h += item("dm:slackbot", avatar("slackbot", 18), "Slackbot");
+    else h += item("dm:" + d, avatar(d, 18), esc(P[d].name) + (d === W.as ? ' <span class="you">you</span>' : "") + (d === W.as && cfg.guest ? ' <span class="gst">guest</span>' : ""));
+  });
+  if (cfg.apps && W.installed) { h += '<div class="sd-sec">' + I.caret + "Apps</div>" + item("app", avatar("lp", 18), "Layerpath"); }
+  return h + "</div>";
+}
+function channelHTML(W, u, id) {
+  var shared = id === "shared-globex";
+  var list = (W.chan[id] || []).filter(function (m) { return vis(m, W.as); });
+  var mem = { "general": 58, "customer-training": 24, "shared-globex": 9 }[id] || 12;
+  var stackKeys = shared ? ["priya", "tom", "sam"] : ["priya", "sam", "maya"];
+  var h = '<div class="ch-head"><div class="ch-title">' + (shared ? I.shared : I.hash) + "<span>" + esc(id) + '</span><span class="chev">' + I.chev + '</span></div><div class="ch-r">';
+  if (shared) h += '<span class="orgs" title="Acme and Globex"><i style="background:#9a3412">A</i><i style="background:#0f766e">G</i></span>';
+  h += '<span class="ch-mem"><span class="stack">' + stackKeys.map(function (k) { return avatar(k, 20); }).join("") + "</span>" + mem + "</span></div></div>";
+  h += '<div class="ch-tabs"><span class="on">' + I.dms + "Messages</span><span>" + I.files + "Files</span><span>" + I.plus + "</span></div>";
+  h += '<div class="msgs" data-scroll="bottom"><div class="day"><span>Today</span></div>' + list.map(function (m) { return msgHTML(m, { viewer: W.as, replies: replyCount(W, m.id) }); }).join("") + "</div>";
+  return h + composerHTML(u.composer, "Message #" + id);
+}
+function appHTML(W, u) {
+  var tabName = u.view.tab || "home";
+  var names = { home: "Home", messages: "Messages", about: "About" };
+  var tabs = ["home", "messages", "about"].map(function (t) {
+    return '<span class="' + (t === tabName ? "on" : "") + nx("tab:" + t) + '"' + dk("tab:" + t) + ">" + names[t] + (t === "messages" && u.msgDot ? '<i class="tdot"></i>' : "") + "</span>";
+  }).join("");
+  var body;
+  if (tabName === "home") body = '<div class="home" data-scroll="top"><div class="home-in">' + blocksHTML(W.home[W.as] || []) + "</div></div>";
+  else if (tabName === "messages") body = '<div class="msgs" data-scroll="bottom"><div class="day"><span>Today</span></div>' + (W.dm["app:" + W.as] || []).map(function (m) { return msgHTML(m, { viewer: W.as }); }).join("") + "</div>" + composerHTML(null, "Message Layerpath");
+  else body = '<div class="about"><div class="ab-h">' + avatar("lp", 72) + '<div><div class="ab-n">Layerpath</div><div class="ab-d">Make interactive tours from screenshots, a Loom or a YouTube link, right in Slack.</div></div></div></div>';
+  return '<div class="ch-head"><div class="ch-title">' + avatar("lp", 24) + '<span>Layerpath</span><span class="chev">' + I.chev + '</span></div></div><div class="ch-tabs atabs">' + tabs + "</div>" + body;
+}
+function dmHTML(W, id) {
+  var list = W.dm[(id === "slackbot" ? "slackbot:" : "dm:") + W.as] || [];
+  return '<div class="ch-head"><div class="ch-title">' + avatar(id === "slackbot" ? "slackbot" : id, 24) + "<span>" + (id === "slackbot" ? "Slackbot" : esc(P[id].name)) + '</span><span class="chev">' + I.chev + '</span></div></div><div class="ch-tabs"><span class="on">' + I.dms + "Messages</span><span>" + I.plus + '</span></div><div class="msgs" data-scroll="bottom"><div class="day"><span>Today</span></div>' + list.map(function (m) { return msgHTML(m, { viewer: W.as }); }).join("") + "</div>" + composerHTML(null, "Message " + (id === "slackbot" ? "Slackbot" : P[id].name));
+}
+function threadHTML(W, u) {
+  var t = W.thr[u.thread] || { replies: [], status: "" };
+  var parent = findMsg(W, u.thread);
+  var reps = t.replies.filter(function (m) { return vis(m, W.as); });
+  var n = replyCount(W, u.thread);
+  return '<div class="th"><div class="th-head"><div><b>Thread</b><span class="thc"># ' + esc(u.threadCh) + "</span></div>" + I.x + '</div><div class="th-scroll" data-scroll="bottom">' + (parent ? msgHTML(parent, { viewer: W.as }) : "") + '<div class="th-div"><span>' + (n ? n + (n === 1 ? " reply" : " replies") : "") + "</span></div>" + reps.map(function (m) { return msgHTML(m, { viewer: W.as }); }).join("") + (t.status ? '<div class="th-status">' + avatar("lp", 18) + "<span><b>Layerpath</b> " + esc(t.status) + "</span></div>" : "") + "</div>" + composerHTML(null, "Reply…") + "</div>";
+}
+function modalHTML(mo) {
+  return '<div class="smod-back"><div class="smod" role="dialog"><div class="smod-h"><span>' + esc(mo.title) + '</span><span class="x">' + I.x + '</span></div><div class="smod-b">' + md(mo.text) + '</div><div class="smod-f"><button type="button" class="bk-btn">Cancel</button><button type="button" class="bk-btn ' + (mo.style || "primary") + nx(mo.k) + '"' + dk(mo.k) + ">" + esc(mo.confirm) + "</button></div></div></div>";
+}
+function slackHTML(W) {
+  var who = W.as, u = W.ui[who] || U(W, who), cfg = cfgFor(who), v = u.view;
+  var main = v.k === "app" ? appHTML(W, u) : v.k === "dm" ? dmHTML(W, v.id) : channelHTML(W, u, v.id);
+  var thread = v.k === "ch" && u.thread && u.threadCh === v.id ? threadHTML(W, u) : "";
+  function ri(icon, label, on) { return '<div class="sl-ri' + (on ? " on" : "") + '"><span class="bx">' + icon + "</span><span>" + label + "</span></div>"; }
+  return '<div class="sl"><div class="sl-top">' + TRAFFIC + '<div class="nav">' + I.left + I.right + I.clock + '</div><div class="sl-search">' + I.search + "<span>Search " + esc(cfg.ws) + '</span></div><div class="nav">' + I.help + "</div></div>" +
+    '<div class="sl-body"><div class="sl-rail"><div class="sl-wsic" style="background:' + cfg.wcol + '">' + cfg.init + "</div>" + ri(I.home, "Home", true) + ri(I.dms, "DMs") + ri(I.bell, "Activity") + ri(I.files, "Files") + ri(I.more, "More") + '<div class="sp"></div><div class="sl-me">' + avatar(who, 32) + "<i></i></div></div>" +
+    '<div class="sl-side">' + sideHTML(W, u, cfg) + '</div><div class="sl-main">' + main + "</div>" + thread + "</div>" + (u.modal ? modalHTML(u.modal) : "") + "</div>";
+}
+
+/* ============================================================
+   Rendering: Chrome and pages
+   ============================================================ */
+function urlHTML(u) {
+  if (!u) return '<span class="ph">Search Google or type a URL</span>';
+  var i = u.search(/[\/?]/);
+  return i < 0 ? "<b>" + esc(u) + "</b>" : "<b>" + esc(u.slice(0, i)) + "</b>" + esc(u.slice(i));
+}
+function chromeHTML(b, who) {
+  var t = b.tabs[b.active] || b.tabs[0];
+  var tabs = b.tabs.map(function (x, i) { return '<div class="ctab' + (i === b.active ? " on" : "") + '">' + (FAV[x.fav] || FAV.newtab) + '<span class="ct">' + esc(x.title) + '</span><span class="cx">' + I.x + "</span></div>"; }).join("");
+  return '<div class="cr"><div class="cr-strip">' + TRAFFIC + '<div class="ctabs">' + tabs + '<span class="cplus">' + I.plus + "</span></div></div>" +
+    '<div class="cr-bar"><div class="cnav">' + I.back + I.fwd + I.reload + '</div><div class="omni">' + (t.url ? I.tune : I.search) + '<span class="url">' + urlHTML(t.url) + "</span>" + I.star + '</div><span class="cprof" style="background:' + P[who].col + '">' + esc(P[who].name[0]) + '</span><span class="ckeb">' + I.kebab + "</span></div>" +
+    '<div class="cr-page" data-scroll="top">' + pageHTML(t.page) + "</div></div>";
+}
+function pageHTML(p) {
+  switch (p.kind) {
+    case "newtab": return '<div class="nt"><div class="nt-g"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div><div class="nt-s">' + I.search + "<span>Search Google or type a URL</span></div></div>";
+    case "lp-settings": return lpShell(settingsHTML(p), p, "settings");
+    case "projects": return lpShell(projectsHTML(), p, "projects");
+    case "editor": return editorHTML(p);
+    case "oauth": return oauthHTML(p);
+    case "auth": return authHTML(p);
+    case "google": return googleHTML(p);
+    case "cw": return cwHTML(p);
+    case "done": return doneHTML(p);
+    case "conn": return connHTML(p);
+    case "invite": return inviteHTML(p);
+    case "web": return webHTML();
+    case "sketch": return '<div class="skpage">' + sketchHTML(p.block) + "</div>";
+  }
+  return "";
+}
+function lpAv(k) { return '<span class="lpav2">' + esc(lpEmail(k)[0]) + "</span>"; }
+function lpShell(inner, p, active) {
+  var u = P[p.user || "priya"];
+  var nav = [["home", "Home", I.home], ["projects", "Projects", I.folder], ["playlists", "Playlists", I.play], ["brand", "Brand memory", I.brand], ["insights", "Insights", I.chart]];
+  return '<div class="lp lpd"><aside class="lps"><div class="lps-box"><div style="padding:4px 4px 0">' + LPFULL + '</div><div class="lps-ws"><span class="lps-wsav">A</span><div class="lps-wsn"><b>Acme</b><small>' + esc(p.plan || "Team") + "</small></div>" + I.updown + "</div></div>" +
+    '<div class="lps-nav">' + nav.map(function (n) { return '<div class="lps-i' + (active === n[0] ? " on" : "") + '">' + n[2] + "<span>" + n[1] + "</span></div>"; }).join("") + "</div>" +
+    '<div class="lps-foot"><div class="lps-i' + (active === "settings" ? " on" : "") + '">' + I.gear + '<span>Settings</span></div><div class="lps-user">' + lpAv(p.user || "priya") + "<div><b>" + esc(u.name) + "</b><small>" + esc(lpEmail(p.user || "priya")) + "</small></div></div></div></aside>" +
+    '<main class="lpm"><div class="lpm-top"></div><div class="lpm-c">' + inner + "</div></main>" + (p.dialog ? lpDialogHTML() : "") + "</div>";
+}
+function settingsHTML(p) {
+  var tabs = [["general", "General"], ["members", "Members"], ["integrations", "Integrations"], ["plan", "Plan"], ["domain", "Custom domain"]];
+  var nav = '<nav class="lpt">' + tabs.map(function (t) { return '<span class="lpt-i' + (p.tab === t[0] ? " on" : "") + nx("lp-tab-" + t[0]) + '"' + dk("lp-tab-" + t[0]) + ">" + t[1] + "</span>"; }).join("") + "</nav>";
+  var body = "";
+  if (p.tab === "general") body = '<div class="lp-card"><div class="lp-lbl">Workspace name</div><div class="lp-field">Acme</div></div>';
+  else if (p.tab === "integrations") body = integHTML(p);
+  else if (p.tab === "members") body = membersHTML(p);
+  else if (p.tab === "plan") body = '<div class="lp-card plan-card"><div class="pt">Free plan</div><div class="ps">Usage</div><div class="pr"><span>Creator seats</span><b>1 of 1</b></div><span class="lp-btn primary">Upgrade</span></div>';
+  return '<div class="lp-h1">Settings</div>' + nav + body;
+}
+function addToSlack(k) { return '<button type="button" class="ats' + nx(k) + '"' + dk(k) + ">" + SLACK_LOGO + "<span>Add to <b>Slack</b></span></button>"; }
+function integHTML(p) {
+  var c = p.card || "idle", status = "", cta = "";
+  if (c === "connected") status = '<div class="int-st"><span class="dot"></span><span>Connected to Acme (Slack) · by Priya Shah on 2 Oct · 2 people connected ·</span> <span class="int-dis' + nx("lp-disconnect") + '"' + dk("lp-disconnect") + ">Disconnect</span></div>";
+  else {
+    if (c === "notconn") status = '<div class="int-st off"><span class="dot"></span><span>Not connected</span></div>';
+    cta = addToSlack("lp-add-slack");
+  }
+  var notice = p.notice ? '<div class="lp-notice">' + I.info + "<span>" + esc(p.notice) + "</span></div>" : "";
+  return notice + '<div class="int-card"><div class="int-ic">' + SLACK_LOGO + '</div><div class="int-b"><div class="int-t">Slack</div><div class="int-d">Make interactive tours from screenshots, a Loom or a YouTube link, right in Slack.</div>' + status + "</div>" + (cta ? '<div class="int-cta">' + cta + "</div>" : "") + "</div>" + (p.sketch ? '<div style="max-width:780px;margin-top:14px">' + sketchHTML(p.sketch) + "</div>" : "");
+}
+function lpDialogHTML() {
+  return '<div class="lpdlg-back"><div class="lpdlg" role="dialog"><h3>Disconnect Layerpath from Acme\'s Slack?</h3><p>Nobody at Acme will be able to make tours in Slack. Existing tours stay in the Acme workspace.</p><div class="lpdlg-f"><button type="button" class="ghost-btn">Cancel</button><button type="button" class="danger-btn' + nx("lpd-confirm") + '"' + dk("lpd-confirm") + ">Disconnect</button></div></div></div>";
+}
+function membersHTML(p) {
+  var rows = p.rows || members();
+  function n(roles) { return rows.filter(function (r) { return roles.indexOf(r.role) >= 0; }).length; }
+  function stat(v, l) { return '<div class="ms"><b>' + v + "</b><span>" + l + " " + I.info + "</span></div>"; }
+  var tr = rows.map(function (r) {
+    var role = r.role === "Owner" ? "Owner" : '<span class="rsel' + nx("mem-role-" + r.key) + '"' + dk("mem-role-" + r.key) + "><span>" + r.role + "</span>" + I.chev + "</span>" +
+      (p.menu === r.key ? '<div class="rmenu">' + ["Admin", "Editor", "Viewer"].map(function (x) { var k = "mem-" + x.toLowerCase(); return '<div class="' + (x === r.role ? "on" : "") + nx(k) + '"' + dk(k) + ">" + x + "</div>"; }).join("") + "</div>" : "");
+    var del = r.role === "Owner" ? "" : '<span class="mdel' + nx("mem-del-" + r.key) + '"' + dk("mem-del-" + r.key) + ">Delete</span>";
+    return "<tr><td>" + esc(P[r.key].name) + "</td><td>" + esc(lpEmail(r.key)) + '</td><td class="rc">' + role + '</td><td><span class="mst">' + I.check + "Active</span></td><td>" + r.created + "</td><td>" + del + "</td></tr>";
+  }).join("");
+  return '<div class="mstats">' + stat(n(["Owner", "Admin"]), "Admin") + stat(n(["Editor"]) + (p.extraEditors || 0), "Editors") + stat(n(["Viewer"]), "Viewers") + stat(0, "Invites") + "</div>" +
+    '<div class="mtabs"><span class="t on">Members</span><span class="t">Pending invitations</span><span class="sp"></span><span class="lp-btn primary">Invite member</span></div>' +
+    '<table class="mtable"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Created</th><th>Action</th></tr></thead><tbody>' + tr + "</tbody></table>" + (p.pages ? '<div class="mpag">Page 1 of ' + p.pages + "</div>" : "");
+}
+function projectsHTML() {
+  var cards = [[TOURS.sam.title, "Just now", ""], ["Log a customer call", "1d ago", "b"], ["Merge duplicate contacts", "2d ago", "c"]];
+  return '<div class="lp-h1">Projects</div><div class="pgrid">' + cards.map(function (c, i) {
+    return '<div class="pcard' + (i === 0 ? " new" : "") + '"><div class="pthumb ' + c[2] + '"><b>' + esc(c[0]) + '</b><i></i></div><div class="pinfo"><div class="pt">' + esc(c[0]) + '</div><div class="pm"><span class="pav">S</span><span>Sam</span><span>·</span><span>' + c[1] + "</span>" + (i === 0 ? '<span class="ptip">Created by Sam Lee</span>' : "") + "</div></div></div>";
+  }).join("") + "</div>";
+}
+function editorHTML(p) {
+  var steps = p.steps.map(function (s, i) { return '<div class="lpe-st' + (i === 0 ? " on" : "") + '"><span>' + (i + 1) + "</span><i></i></div>"; }).join("");
+  return '<div class="lp lpe"><div class="lpe-top"><span class="lpe-back' + nx("ed-back") + '"' + dk("ed-back") + ">" + I.back + "</span><b>" + esc(p.title) + '</b><span class="lpe-saved">Saved</span><span class="sp"></span><span class="lp-btn">Preview</span><span class="lp-btn primary">Share</span></div>' +
+    '<div class="lpe-body"><div class="lpe-steps">' + steps + '</div><div class="lpe-canvas"><div class="lpe-shot"><span class="bar" style="top:52px;width:180px"></span><span class="bar" style="top:80px;width:260px"></span><span class="bar" style="top:108px;width:120px;background:#6cc2ad"></span><span class="lpe-hot"></span><span class="lpe-call">' + esc(p.steps[0]) + "</span></div></div></div></div>";
+}
+var SCOPE_GROUPS = [
+  { id: "v0", sec: "view", icon: I.dms, t: "Content and info about channels & conversations", rows: ["View messages that directly mention @Layerpath in conversations that the app is in", "View messages and other content in public channels that Layerpath has been added to", "View messages and other content in private channels that Layerpath has been added to", "View messages and other content in direct messages that Layerpath has been added to", "View messages and other content in group direct messages that Layerpath has been added to", "View basic information about direct messages that Layerpath has been added to", "View files shared in channels and conversations that Layerpath has been added to", "View URLs in messages", "View emoji reactions and their associated content in channels and conversations that Layerpath has been added to"] },
+  { id: "v1", sec: "view", icon: I.people, t: "Content and info about your workspace", rows: ["View people in a workspace", "View email addresses of people in a workspace"] },
+  { id: "d0", sec: "do", icon: I.compose, t: "Perform actions in channels & conversations", rows: ["Start direct messages with people", "Send messages as @Layerpath", "Send messages to channels @Layerpath isn't a member of", "Upload, edit, and delete files as Layerpath", "Show previews of URLs in messages", "Embed video player URLs in messages and app surfaces", "Add and edit emoji reactions"] }
+];
+function oauthHTML(p) {
+  var ws = p.ws || "Acme", wcol = ws === "Acme" ? "#9a3412" : "#0f766e";
+  function grp(g) {
+    var open = !!UI.oaOpen[g.id];
+    return '<div class="oa-g"><div class="oa-gh" data-ui="oa:' + g.id + '"><span class="gi">' + g.icon + "</span><span>" + esc(g.t) + '</span><span class="chev' + (open ? " up" : "") + '">' + I.chev + "</span></div>" + (open ? '<div class="oa-gr">' + g.rows.map(function (r) { return "<div>" + esc(r) + "</div>"; }).join("") + "</div>" : "") + "</div>";
+  }
+  var foot;
+  if (p.mode === "request") foot = '<div class="oa-req">' + I.info + "<span>An admin needs to approve this app before it can be installed in " + esc(ws) + '.</span></div><div class="oa-f"><button type="button" class="oa-btn">Cancel</button><button type="button" class="oa-btn go' + nx("oa-request") + '"' + dk("oa-request") + ">Request to install</button></div>";
+  else if (p.mode === "reason") foot = '<div class="oa-reason"><label>Reason for the request</label><div class="oa-ta">To make interactive training tours in #customer-training.</div></div><div class="oa-f"><button type="button" class="oa-btn">Cancel</button><button type="button" class="oa-btn go' + nx("oa-submit") + '"' + dk("oa-submit") + ">Submit request</button></div>";
+  else if (p.mode === "sent") foot = '<div class="oa-sent">' + I.check + "<span>Your request was sent to " + esc(ws) + "'s admins.</span></div>";
+  else foot = '<div class="oa-f"><button type="button" class="oa-btn' + nx("oa-cancel") + '"' + dk("oa-cancel") + '>Cancel</button><button type="button" class="oa-btn go' + nx("oa-allow") + '"' + dk("oa-allow") + ">Allow</button></div>";
+  return '<div class="oa"><div class="oa-top"><span class="oa-logo">' + SLACK_LOGO + '<span>slack</span></span><span class="oa-sw"><span class="wi" style="background:' + wcol + '">' + esc(ws[0]) + "</span><span><b>" + esc(ws) + "</b><small>" + esc(ws.toLowerCase()) + ".slack.com</small></span>" + I.chev + "</span></div>" +
+    '<div class="oa-c"><div class="oa-ic"><span class="ai">' + LP_LOGO + '</span><span class="dots"><i></i><i></i><i></i></span><span class="ai" style="background:' + wcol + '">' + esc(ws[0]) + "</span></div>" +
+    "<h1>Layerpath is requesting permission to access the " + esc(ws) + " Slack workspace</h1>" +
+    "<h2>What will Layerpath be able to view?</h2>" + SCOPE_GROUPS.filter(function (g) { return g.sec === "view"; }).map(grp).join("") +
+    "<h2>What will Layerpath be able to do?</h2>" + SCOPE_GROUPS.filter(function (g) { return g.sec === "do"; }).map(grp).join("") + foot + "</div></div>";
+}
+function lpWrap(inner, foot) { return '<div class="lp lpa"><div class="lpa-in"><div class="lpa-col">' + inner + "</div>" + (foot ? '<div class="auth-foot">By continuing, you agree to our <a>Terms of Service &amp; Privacy Policy</a></div>' : "") + "</div></div>"; }
+var LOGO_ROW = '<div class="auth-logo">' + LPFULL + "</div>";
+function authForm(o) {
+  var h = '<button type="button" class="g-btn' + nx(o.gk) + '"' + dk(o.gk) + ">" + GOOGLE_G + "<span>Continue with Google</span></button>" + '<div class="or">or</div>';
+  h += '<div class="inp' + (o.email ? " v" : "") + '"><span class="ib">' + I.mail + "</span><span>" + esc(o.email || "you@email.com") + "</span></div>";
+  if (o.pw) h += '<div class="inp v pw"><span class="ib">' + I.lock + "</span><span>••••••••••••••</span></div><div class=\"pwok\">Strong password.</div>";
+  var label = o.type === "signup" ? (o.pw ? "Sign up with password" : "Sign up with magic link") : (o.pw ? "Sign in with password" : "Sign in with magic link");
+  h += '<button type="button" class="sub-btn' + nx(o.sk) + '"' + dk(o.sk) + ">" + label + "</button>";
+  h += '<a class="tog">' + (o.pw ? "Use magic link instead" : "Use password instead") + "</a>";
+  return h;
+}
+function authHTML(p) {
+  var h = (p.banner ? '<div class="auth-banner">' + SLACK_LOGO + "<span>" + esc(p.banner) + "</span></div>" : "") + LOGO_ROW +
+    "<h1>Create every product<br>walkthrough you'll need.</h1><p class=\"sub\">Sign in to your Layerpath account.</p>" + authForm({ type: "signin", gk: "auth-google" }) +
+    '<div class="auth-alt">New to Layerpath? <a>Sign up</a></div>';
+  return lpWrap(h, true);
+}
+function googleHTML(p) {
+  return '<div class="gpage"><div class="gcard"><div class="gtop">' + GOOGLE_G + '<span>Sign in with Google</span></div><div class="gbody"><div class="gleft"><h1>Choose an account</h1><p>to continue to <a>Layerpath</a></p></div><div class="gright">' +
+    p.accounts.map(function (a, i) { return '<div class="gacc' + nx("g-acc-" + i) + '"' + dk("g-acc-" + i) + '><span class="gav" style="background:' + a.col + '">' + esc(a.name[0]) + "</span><div><b>" + esc(a.name) + "</b><small>" + esc(a.email) + "</small></div></div>"; }).join("") +
+    '<div class="gacc"><span class="gav o">' + I.user + "</span><div><b>Use another account</b></div></div></div></div></div></div>";
+}
+function cwHTML(p) {
+  var opts = ["Acme · Team · 14 creator seats", "Priya's workspace · Personal · Free"];
+  var body;
+  if (p.mode === "none" || p.mode === "create") {
+    body = '<p class="lpa-p">You\'re not an Owner or Admin of a workspace yet.</p>' + (p.mode === "none"
+      ? '<button type="button" class="sub-btn' + nx("cw-create") + '"' + dk("cw-create") + ">Create a workspace for Acme</button>"
+      : '<div class="inp v"><span class="ib">' + I.folder + "</span><span>Acme</span></div>" + '<button type="button" class="sub-btn' + nx("cw-create-connect") + '"' + dk("cw-create-connect") + ">Create and connect</button>");
+  } else if (p.mode === "errLinked") {
+    body = '<div class="lpa-alert">Acme\'s Slack is already connected to the Globex workspace by Jane Doe. Ask Jane to disconnect it first.</div><div class="lpa-btns" style="margin-top:16px"><button type="button" class="sub-btn' + nx("cw-back") + '"' + dk("cw-back") + ">Back to Integrations</button></div>";
+  } else {
+    body = '<div class="cw-list">' + opts.map(function (o, i) { return '<div class="cw-opt' + (p.sel === i ? " on" : "") + nx("cw-r" + i) + '"' + dk("cw-r" + i) + '><span class="radio"></span><span>' + esc(o) + "</span></div>"; }).join("") + "</div>" +
+      '<p class="lpa-note">This workspace will own every tour made in Acme\'s Slack, and its plan limits apply.</p>' +
+      '<div class="lpa-btns"><button type="button" class="sub-btn' + (p.sel < 0 ? " dim" : "") + nx("cw-connect") + '"' + dk("cw-connect") + '>Connect</button><button type="button" class="ghost-btn">Cancel</button></div>';
+  }
+  var dlg = p.mode === "replace" ? '<div class="lpdlg-back"><div class="lpdlg" role="dialog"><p style="color:#e7eaee">Acme is connected to the Slack workspace \'Acme Old\'. Replace it? People there will lose access to Layerpath in Slack.</p><div class="lpdlg-f"><button type="button" class="ghost-btn">Cancel</button><button type="button" class="danger-btn' + nx("cw-replace") + '"' + dk("cw-replace") + ">Replace</button></div></div></div>" : "";
+  return '<div style="position:relative;height:100%">' + lpWrap(LOGO_ROW + '<h1 class="lpa-h">Connect Acme\'s Slack to a Layerpath workspace</h1>' + body) + dlg + "</div>";
+}
+function doneHTML(p) {
+  return lpWrap(LOGO_ROW + '<h1 class="lpa-h">Layerpath is in Acme\'s Slack ✓</h1>' + (p.newWs ? '<p class="lpa-p">You\'re the only person in Acme so far. Invite your team in Members, or they can ask for access in Slack.</p>' : '<p class="lpa-p">We matched 2 of 3 people who can make tours to their Slack accounts by email. Others connect the first time they use it.</p>') +
+    '<div class="lpa-box">Add @Layerpath to a channel: type <code>/invite @Layerpath</code> in it.</div><div class="lpa-btns"><button type="button" class="sub-btn' + nx("done-open-slack") + '"' + dk("done-open-slack") + '>Open Slack</button><button type="button" class="ghost-btn' + nx("done-back") + '"' + dk("done-back") + ">Back to Integrations</button></div>");
+}
+function connHTML(p) {
+  var h;
+  if (p.mode === "confirm") h = '<h1 class="lpa-h">Connect your Slack account to Layerpath</h1><div class="sc-pair"><div class="sc-side">' + SLACK_LOGO + '<span>Maya Cruz · Acme Slack</span></div><span class="sc-link">' + I.linkic + '</span><div class="sc-side">' + lpAv("maya") + '<span>maya.cruz@gmail.com</span></div></div><button type="button" class="sub-btn' + nx("sc-connect") + '"' + dk("sc-connect") + '>Connect</button><a class="tog">Use another account</a>';
+  else if (p.mode === "ok") h = '<div class="okc">' + OKBIG + '</div><h1 class="lpa-h" style="margin-bottom:4px">You\'re connected.</h1><p class="lpa-p c">You can go back to Slack.</p><button type="button" class="sub-btn' + nx("sc-open-slack") + '"' + dk("sc-open-slack") + ">Open Slack</button>";
+  else if (p.mode === "viewer") h = '<div class="okc">' + OKBIG + '</div><h1 class="lpa-h" style="margin-bottom:4px">You\'re connected.</h1><p class="lpa-p c">You\'re a Viewer in Acme, so you can watch tours but can\'t make them. Go back to Slack to ask to become an editor.</p><button type="button" class="sub-btn' + nx("sc-open-slack") + '"' + dk("sc-open-slack") + ">Open Slack</button>";
+  else if (p.mode === "notin") h = '<h1 class="lpa-h sm">Connected, but this account isn\'t in Acme\'s workspace yet.</h1><button type="button" class="sub-btn' + nx("sc-ask") + '"' + dk("sc-ask") + ">Ask for access</button>";
+  else if (p.mode === "expired") h = '<h1 class="lpa-h sm" style="margin-bottom:4px">This link has expired.</h1><p class="lpa-p c">Go back to Slack and press Connect again.</p><button type="button" class="sub-btn' + nx("sc-open-slack") + '"' + dk("sc-open-slack") + ">Open Slack</button>";
+  else h = '<h1 class="lpa-h sm" style="margin-bottom:4px">This Slack account is connected to sam@acme.com.</h1><p class="lpa-p c">Disconnect it in Slack\'s Home tab first.</p><button type="button" class="sub-btn' + nx("sc-open-slack") + '"' + dk("sc-open-slack") + ">Open Slack</button>";
+  return lpWrap(LOGO_ROW + h);
+}
+function inviteHTML(p) {
+  var card = p.mode === "accept"
+    ? '<div style="width:380px"><button type="button" class="acc-btn' + nx("inv-accept") + '"' + dk("inv-accept") + ">Accept</button></div>"
+    : '<div class="inv-card">' + authForm({ type: "signup", email: "dev@acme.com", pw: true, sk: "inv-signup" }) + "</div>";
+  return '<div class="lp inv"><div class="inv-c"><span class="shine">' + LP_LOGO + "</span><h2>Welcome to Layerpath</h2><h1>Priya Shah has invited you to join the Acme</h1>" + card + "</div></div>";
+}
+function webHTML() {
+  return '<div class="web"><div class="web-nav">' + LPFULL + '</div><div class="web-hero"><div class="web-pair"><span class="lpx">' + LP_LOGO + '</span><span class="plus">+</span><span class="b">' + SLACK_LOGO + '</span></div><h1>Layerpath for Slack</h1><p class="web-p">Make interactive tours from screenshots, a Loom or a YouTube link, right in Slack.</p>' + addToSlack("web-add") + "</div></div>";
+}
+
+/* ============================================================
+   Engine
+   ============================================================ */
+var CUR = { sc: null, steps: [], i: 0, opts: { P5: { plan: "free" } } };
+var TIMERS = [];
+var LAST = {};
+var animating = false;
+var desk = $("#desk"), winSlack = $("#winSlack"), winChrome = $("#winChrome");
+
+function clearTimers() { TIMERS.forEach(clearTimeout); TIMERS = []; animating = false; $("#swap").classList.remove("show"); desk.querySelectorAll(".newtab-tip").forEach(function (t) { t.parentNode.removeChild(t); }); }
+function fitDesk() {
+  var st = $("#stage");
+  SCALE = Math.min(st.clientWidth / 1180, st.clientHeight / 720);
+  if (!(SCALE > 0)) SCALE = 1;
+  desk.style.setProperty("--s", SCALE.toFixed(4));
+}
+function setFront(f, animate) {
+  UI.front = f;
+  var fw = f === "slack" ? winSlack : winChrome, bw = f === "slack" ? winChrome : winSlack;
+  fw.classList.add("front"); fw.classList.remove("back");
+  bw.classList.add("back"); bw.classList.remove("front", "raise");
+  if (animate) { fw.classList.remove("raise"); void fw.offsetWidth; fw.classList.add("raise"); }
+  else fw.classList.remove("raise");
+  renderDock();
+}
+function renderDock() {
+  $("#dock").innerHTML = '<div class="dk' + nx("dock:slack") + '" data-k="dock:slack" title="Slack"><span class="slk">' + SLACK_LOGO + '</span><i></i></div><div class="dk' + nx("dock:chrome") + '" data-k="dock:chrome" title="Chrome"><span class="chr"></span><i></i></div>';
+}
+function ensureVisible(el) {
+  var c = el.parentElement;
+  while (c && !c.hasAttribute("data-scroll")) c = c.parentElement;
+  if (!c) return;
+  var cr = c.getBoundingClientRect(), er = el.getBoundingClientRect();
+  if (er.bottom > cr.bottom - 8) c.scrollTop += (er.bottom - cr.bottom) / SCALE + 16;
+  else if (er.top < cr.top + 8) c.scrollTop -= (cr.top - er.top) / SCALE + 16;
+}
+function focusMsg(id) {
+  var el = desk.querySelector('.win.front [data-mid="' + id + '"]');
+  if (!el) return;
+  var c = el.parentElement;
+  while (c && !c.hasAttribute("data-scroll")) c = c.parentElement;
+  if (!c) return;
+  c.scrollTop += (el.getBoundingClientRect().top - c.getBoundingClientRect().top) / SCALE - 4;
+}
+function showSwap(who) {
+  var s = $("#swap"), p = P[who];
+  s.innerHTML = '<span class="pav" style="background:' + p.col + '">' + esc(initials(p.name)) + "</span><span>Now on " + esc(p.name) + "'s computer</span>";
+  s.classList.remove("show"); void s.offsetWidth; s.classList.add("show");
+}
+function showNewTabTip() {
+  var tabs = winChrome.querySelectorAll(".ctab");
+  var t = tabs[tabs.length - 1];
+  if (!t) return;
+  t.classList.add("fresh");
+  var dr = desk.getBoundingClientRect(), tr = t.getBoundingClientRect();
+  var tip = document.createElement("div");
+  tip.className = "newtab-tip";
+  tip.textContent = "Opened in a new tab";
+  tip.style.left = ((tr.left - dr.left) / SCALE + 10) + "px";
+  tip.style.top = ((tr.bottom - dr.top) / SCALE + 6) + "px";
+  desk.appendChild(tip);
+  TIMERS.push(setTimeout(function () { if (tip.parentNode) tip.parentNode.removeChild(tip); }, 2700));
+}
+function draw(st, step, o) {
+  CURVIEW = st.as;
+  var b = st.br[st.as] || BR(st, st.as);
+  if (!st.ui[st.as]) U(st, st.as);
+  var asChanged = LAST.as !== undefined && LAST.as !== st.as;
+  winSlack.innerHTML = slackHTML(st);
+  winChrome.innerHTML = chromeHTML(b, st.as);
+  var frontChanged = LAST.front !== st.front;
+  setFront(st.front, o.anim && frontChanged && !asChanged);
+  if (o.anim && asChanged) showSwap(st.as);
+  if (o.anim && !asChanged && LAST.tabs !== undefined && b.tabs.length > LAST.tabs) showNewTabTip();
+  LAST = { as: st.as, front: st.front, tabs: b.tabs.length };
+  desk.classList.toggle("later", !!step.later);
+  desk.querySelectorAll('[data-scroll="bottom"]').forEach(function (e) { e.scrollTop = e.scrollHeight; });
+  desk.querySelectorAll('[data-scroll="top"]').forEach(function (e) { e.scrollTop = 0; });
+  if (step.focus) focusMsg(step.focus);
+  var t = desk.querySelector(".nx");
+  if (t) ensureVisible(t);
+  var p = P[st.as];
+  $("#persona").innerHTML = '<span class="pav" style="background:' + p.col + '">' + esc(initials(p.name)) + "</span><span><b>" + esc(p.name) + "</b> · " + esc(step.chip || p.chip) + "</span>";
+  $("#persona").title = p.name + " · " + (step.chip || p.chip);
+}
+function markNext(ready) {
+  var btn = $("#btnNext");
+  var hasTarget = !!(NEXT && desk.querySelector('[data-k="' + NEXT + '"]'));
+  btn.classList.toggle("nx", ready && !hasTarget);
+}
+function show(i, dir) {
+  clearTimers();
+  CUR.i = i;
+  var step = CUR.steps[i];
+  NEXT = step.next || null;
+  var animate = dir > 0 && step.states.length > 1;
+  draw(animate ? step.states[0] : step.states[step.states.length - 1], step, { anim: dir !== 0 });
+  if (animate) {
+    animating = true;
+    var k = 1;
+    var tick = function () {
+      draw(step.states[k], step, { anim: false });
+      k++;
+      if (k < step.states.length) TIMERS.push(setTimeout(tick, step.delays[k] || 800));
+      else { animating = false; markNext(true); }
+    };
+    TIMERS.push(setTimeout(tick, step.delays[1] || 800));
+    markNext(false);
+  } else markNext(true);
+  $("#caption").innerHTML = (step.later ? '<span class="lt">Later, not in V1</span>' : "") + esc(step.cap);
+  $("#counter").textContent = "Step " + (i + 1) + " of " + CUR.steps.length;
+  $("#btnBack").disabled = i === 0;
+  var last = i === CUR.steps.length - 1;
+  var idx = SCEN.indexOf(CUR.sc);
+  $("#btnNext").textContent = last ? (idx < SCEN.length - 1 ? "Next scenario" : "Done") : "Next";
+  $("#btnNext").disabled = last && idx === SCEN.length - 1;
+  $("#howBody").innerHTML = "<div>" + md(step.how || "No new build work in this step.") + "</div>";
+  $("#sumCopy").innerHTML = step.copy ? '<span class="copyflag">Copy: Kripa to approve</span>' : "";
+}
+function next() {
+  if (CUR.i < CUR.steps.length - 1) show(CUR.i + 1, 1);
+  else { var idx = SCEN.indexOf(CUR.sc); if (idx < SCEN.length - 1) openScenario(SCEN[idx + 1].code); }
+}
+function back() { if (CUR.i > 0) show(CUR.i - 1, -1); }
+function buildSteps(s) { return s.build(CUR.opts[s.code] || {}); }
+function openScenario(code, keepStep) {
+  var s = SCEN.filter(function (x) { return x.code === code; })[0] || SCEN[0];
+  CUR.sc = s;
+  CUR.steps = buildSteps(s);
+  UI.oaOpen = { v1: true }; UI.planClosed = false;
+  LAST = {};
+  renderRail(); renderHead();
+  if (location.hash !== "#" + s.code) history.replaceState(null, "", "#" + s.code);
+  show(keepStep != null ? Math.min(keepStep, CUR.steps.length - 1) : 0, 0);
+}
+var GROUPS = [["admin", "Admin"], ["people", "People"], ["day", "Day to day"], ["leaving", "Leaving"], ["later", "Later (not in V1)"]];
+var COUNTS = {};
+function renderRail() {
+  var h = "";
+  GROUPS.forEach(function (g) {
+    h += '<h4 class="' + (g[0] === "later" ? "lt" : "") + '">' + g[1] + "</h4>";
+    SCEN.filter(function (s) { return s.group === g[0]; }).forEach(function (s) {
+      h += '<a class="ri' + (s.group === "later" ? " lt" : "") + (CUR.sc === s ? " on" : "") + '" href="#' + s.code + '" data-sc="' + s.code + '"><span class="c">' + s.code + "</span><span>" + esc(s.title) + '</span><span class="n">' + (COUNTS[s.code] || "") + "</span></a>";
+    });
+  });
+  $("#rail").innerHTML = h;
+}
+function renderHead() {
+  var s = CUR.sc;
+  $("#scCode").textContent = s.code;
+  $("#scCode").className = "code" + (s.group === "later" ? " lt" : "");
+  $("#scTitle").textContent = s.title;
+  var tools = "";
+  if (s.code === "P5") {
+    var cur = (CUR.opts.P5 && CUR.opts.P5.plan) || "free";
+    tools = '<span>Acme\'s plan here:</span><span class="seg">' + [["free", "Free"], ["pro", "Pro, 3 of 3 used"], ["team", "Team, 14 of 14 used"]].map(function (x) { return '<button type="button" class="' + (cur === x[0] ? "on" : "") + '" data-ui="p5:' + x[0] + '">' + x[1] + "</button>"; }).join("") + "</span>";
+  }
+  $("#scTools").innerHTML = tools;
+}
+
+/* clicks */
+document.addEventListener("click", function (e) {
+  var ri = e.target.closest(".ri");
+  if (ri) { e.preventDefault(); openScenario(ri.getAttribute("data-sc")); return; }
+  var ui = e.target.closest("[data-ui]");
+  if (ui && (desk.contains(ui) || $("#scTools").contains(ui))) {
+    var u = ui.getAttribute("data-ui");
+    if (u.indexOf("oa:") === 0) { var id = u.slice(3); UI.oaOpen[id] = !UI.oaOpen[id]; redrawCurrent(); return; }
+    if (u === "plan") { UI.planClosed = !UI.planClosed; redrawCurrent(); return; }
+    if (u.indexOf("p5:") === 0) { CUR.opts.P5 = { plan: u.slice(3) }; var keep = CUR.i; CUR.steps = buildSteps(CUR.sc); LAST = {}; renderHead(); show(keep, 0); return; }
+  }
+  var w = e.target.closest(".win");
+  if (w && w.classList.contains("back")) { setFront(w === winSlack ? "slack" : "chrome", true); return; }
+  var t = e.target.closest("[data-k]");
+  if (!t || !desk.contains(t)) return;
+  var k = t.getAttribute("data-k");
+  if (k === NEXT) { e.preventDefault(); next(); return; }
+  if (k.indexOf("dock:") === 0) { setFront(k.slice(5), true); return; }
+  var target = desk.querySelector(".nx") || $("#btnNext");
+  target.classList.remove("hint"); void target.offsetWidth; target.classList.add("hint");
+});
+function redrawCurrent() {
+  var step = CUR.steps[CUR.i];
+  var keepFront = UI.front;
+  var st = step.states[step.states.length - 1];
+  if (animating) return;
+  draw(st, step, { anim: false });
+  if (keepFront && keepFront !== st.front) setFront(keepFront, false);
+  markNext(true);
+}
+$("#btnNext").addEventListener("click", next);
+$("#btnBack").addEventListener("click", back);
+$("#btnRestart").addEventListener("click", function () { openScenario(CUR.sc.code); });
+document.addEventListener("keydown", function (e) {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  var tag = (e.target.tagName || "").toLowerCase();
+  if (tag === "input" || tag === "textarea") return;
+  if (e.key === "ArrowRight") { e.preventDefault(); next(); }
+  else if (e.key === "ArrowLeft") { e.preventDefault(); back(); }
+});
+window.addEventListener("hashchange", function () {
+  var code = location.hash.slice(1).toUpperCase();
+  if (CUR.sc && code === CUR.sc.code) return;
+  if (SCEN.some(function (s) { return s.code === code; })) openScenario(code);
+});
+if (window.ResizeObserver) new ResizeObserver(fitDesk).observe($("#stage"));
+window.addEventListener("resize", fitDesk);
+
+/* self-test for checking every step: window.__demo.selfTest() */
+function selfTest() {
+  var problems = [], total = 0;
+  var saveSc = CUR.sc ? CUR.sc.code : "A1", saveI = CUR.i, saveOpts = clone(CUR.opts);
+  SCEN.forEach(function (s) {
+    var variants = s.code === "P5" ? ["free", "pro", "team"] : [null];
+    variants.forEach(function (v) {
+      if (v) CUR.opts.P5 = { plan: v };
+      var steps;
+      try { steps = buildSteps(s); } catch (err) { problems.push(s.code + ": build failed: " + err.message); return; }
+      CUR.sc = s; CUR.steps = steps;
+      steps.forEach(function (step, i) {
+        total++;
+        try {
+          NEXT = step.next || null;
+          step.states.forEach(function (st) { LAST = {}; draw(st, step, { anim: false }); });
+          if (!step.cap) problems.push(s.code + " step " + (i + 1) + ": no caption");
+          if (/\u2014/.test(step.cap)) problems.push(s.code + " step " + (i + 1) + ": em dash in caption");
+          if (step.next) {
+            var el = desk.querySelector('[data-k="' + step.next + '"]');
+            if (!el) problems.push(s.code + (v ? "/" + v : "") + " step " + (i + 1) + ": target '" + step.next + "' not found");
+            else {
+              var win = el.closest(".win");
+              if (win && !win.classList.contains("front")) problems.push(s.code + " step " + (i + 1) + ": target '" + step.next + "' is in the back window");
+              if (!el.classList.contains("nx")) problems.push(s.code + " step " + (i + 1) + ": target not pulsing");
+            }
+          }
+          var txt = desk.textContent;
+          if (/\u2014/.test(txt)) problems.push(s.code + " step " + (i + 1) + ": em dash on screen");
+          if (/\u2019/.test(txt)) problems.push(s.code + " step " + (i + 1) + ": curly apostrophe on screen");
+        } catch (err) { problems.push(s.code + " step " + (i + 1) + ": render error: " + err.message); }
+      });
+    });
+  });
+  CUR.opts = saveOpts;
+  openScenario(saveSc, saveI);
+  return { scenarios: SCEN.length, steps: total, problems: problems };
+}
+window.__demo = {
+  selfTest: selfTest,
+  list: function () { return SCEN.map(function (s) { return s.code + " " + s.title + " (" + COUNTS[s.code] + ")"; }); },
+  open: openScenario, next: next, back: back,
+  state: function () { return { sc: CUR.sc.code, i: CUR.i, n: CUR.steps.length, next: NEXT }; }
+};
+
+/* boot */
+SCEN.forEach(function (s) { COUNTS[s.code] = buildSteps(s).length; });
+fitDesk();
+var startCode = location.hash.slice(1).toUpperCase();
+openScenario(SCEN.some(function (s) { return s.code === startCode; }) ? startCode : "A1");
+})();
+</script>
+</body>
+</html>
