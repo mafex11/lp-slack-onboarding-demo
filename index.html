@@ -19,7 +19,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 .topbar .t{font-weight:700;font-size:15px}
 .topbar .note{font-size:12px;color:#a9b3bd}
 .topbar .sp{flex:1}
-.chip-later{font-size:12px;font-weight:700;color:#5a2c00;background:#ffd38a;border-radius:999px;padding:3px 10px}
+.chip-later{font-size:12px;font-weight:700;color:#5a2c00;background:#ffd38a;border-radius:999px;padding:3px 10px;white-space:nowrap}
 .app{display:flex;height:calc(100vh - 46px)}
 .rail{width:244px;flex:none;overflow-y:auto;background:#fff;border-right:1px solid var(--line);padding:6px 8px 24px}
 .rail h4{margin:14px 8px 4px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -672,9 +672,11 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 .wo-foot .rf{color:#1264a3;cursor:pointer;border-radius:4px;padding:0 2px}
 .wo-foot .sp{flex:1}
 .wo-btn{height:28px;padding:0 10px;border-radius:6px;border:1px solid rgba(29,28,29,.3);background:#fff;font:700 13px Lato,sans-serif;color:#1d1c1d;white-space:nowrap}
-.wo-btn.more{width:28px;padding:0;display:grid;place-items:center}
-.wo-btn.more .ic{width:14px;height:14px}
-.wo-menu{position:absolute;right:8px;bottom:44px;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.18);padding:5px;z-index:5;min-width:170px}
+.wo.hov{box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.wo-hov{position:absolute;top:7px;right:7px;z-index:4;display:flex;gap:1px;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.1);padding:2px}
+.wo-hov>span{width:28px;height:28px;display:grid;place-items:center;border-radius:6px;color:#616061}
+.wo-hov>span .ic{width:15px;height:15px}
+.wo-menu{position:absolute;right:8px;top:44px;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.18);padding:5px;z-index:5;min-width:170px}
 .wo-menu div{padding:6px 12px;border-radius:5px;font-size:14px;cursor:pointer}
 .wo.upd{animation:woupd 1.4s ease}
 @keyframes woupd{0%{box-shadow:0 0 0 0 rgba(242,199,68,0)}30%{box-shadow:0 0 0 4px rgba(242,199,68,.75)}100%{box-shadow:0 0 0 0 rgba(242,199,68,0)}}
@@ -962,8 +964,22 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 .int-link{color:#72e9d3;text-decoration:underline;font-size:13px}
 
 @media (max-width: 1100px){ .topbar .note{display:none} }
-@media (max-width: 820px){ .legend .bd{display:none} .rail{width:190px} .doc{padding:16px} .gl tbody th{width:96px} }
-@media (max-width: 640px){ .rail{display:none} .persona{display:none} }
+@media (max-width: 820px){ .legend .bd{display:none} .rail{width:190px} .doc{padding:16px} .gl tbody th{width:96px} .row1{flex-wrap:wrap;row-gap:6px} .caption{flex:1 1 100%} .ctrls{margin-left:auto} }
+@media (max-width: 640px){
+  .rail{display:none} .persona{display:none}
+  html,body{overflow-x:hidden}
+  .topbar{padding:0 10px;gap:8px;min-width:0} .topbar .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+  .main{padding:8px 8px}
+  .schead{flex-wrap:wrap;min-width:0} .schead .st{white-space:normal;min-width:0}
+  .row1{flex-wrap:wrap;gap:8px}
+  .caption{flex:1 1 100%;min-width:0;font-size:14px}
+  .ctrls{flex:1 1 100%;min-width:0;flex-wrap:wrap;justify-content:flex-end;gap:6px}
+  .ctrls button{padding:0 10px}
+  .ctrls #counter{min-width:0}
+  .doc{padding:14px 12px}
+  .gl{display:block;overflow-x:auto}
+  .doc .cols{grid-template-columns:1fr}
+}
 @media (prefers-reduced-motion: reduce){
   .ldr .cd,.ldr .dots i,.rx .ld,.wo.upd{animation:none}
   .ldr .cd{opacity:.5}
@@ -982,7 +998,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
   <span class="t">Layerpath in Slack and ChatGPT · Onboarding (V1)</span>
   <span class="note">2 Oct spec, checked against dev bffc798d8 on 12 Oct 2026</span>
   <span class="sp"></span>
-  <span class="legend" aria-label="Badges"><span class="bd live" title="This screen works like this in beta today">Live today</span><span class="bd build" title="Part of the V1 plan, not built yet">To build</span><span class="chip-later">Later = not in V1</span></span>
+  <span class="legend" aria-label="Badges"><span class="bd live" title="This screen works like this in beta today">Live today</span><span class="bd build" title="Part of the V1 plan, not built yet">To build</span><span class="bd mix" title="Some of this step works today, some is to build; How this is built says which">Partly live</span><span class="chip-later">Later = not in V1</span></span>
 </header>
 <div class="app">
   <nav class="rail" id="rail" aria-label="Scenarios"></nav>
@@ -1106,6 +1122,8 @@ var I = {
   reload: sv('<path d="M16 10a6 6 0 1 1-1.8-4.3M16 3.5v3.6h-3.6"/>', null, 1.8),
   tune: sv('<path d="M3.5 6.5h8M15 6.5h1.5M3.5 13.5H5M8.5 13.5h8"/><circle cx="13.2" cy="6.5" r="1.8"/><circle cx="6.8" cy="13.5" r="1.8"/>'),
   star: sv('<path d="m10 3.4 2 4.2 4.6.6-3.3 3.2.8 4.6L10 13.8 5.9 16l.8-4.6-3.3-3.2 4.6-.6z"/>'),
+  extlink: sv('<path d="M11.5 3.5h5v5M16.5 3.5 9.5 10.5M14.5 11.5v5h-11v-11h5"/>'),
+  eyeOff: sv('<path d="M3 3l14 14M8.2 4.7A8.6 8.6 0 0 1 10 4.4c5.4 0 8.4 5.6 8.4 5.6a14 14 0 0 1-2.3 3M12.9 15a7.6 7.6 0 0 1-2.9.6C4.6 15.6 1.6 10 1.6 10a14.3 14.3 0 0 1 3.3-3.9"/>'),
   kebab: '<svg class="ic" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="4.5" r="1.5" fill="currentColor"/><circle cx="10" cy="10" r="1.5" fill="currentColor"/><circle cx="10" cy="15.5" r="1.5" fill="currentColor"/></svg>',
   info: sv('<circle cx="10" cy="10" r="7.2"/><path d="M10 9v4.6M10 6.4v.1"/>'),
   check: sv('<circle cx="10" cy="10" r="7.2"/><path d="m6.8 10.2 2.2 2.2 4.2-4.4"/>'),
@@ -1296,7 +1314,7 @@ var READY_LINE = "your tour is ready. Reply here and I can shorten the steps, ch
 /* The model's one-line ack with create_tour's estimate (buildEstimate.ts); the words are the model's */
 function ackMsg(who, what, o) { return M("lp", ext({ text: "On it, " + P[who].first + ". I'm building the " + (what ? what + " " : "") + "tour from your 3 screenshots, and it should take about a minute." }, o)); }
 function tourData(t) { return { title: t.title, sub: t.sub, steps: t.steps.slice(), n: t.steps.length, c1: t.c1, c2: t.c2, acc: t.acc }; }
-/* workObject.ts tourEntity: title, "Interactive tour", the wide cover, "N steps · M mins", who asked, created, updated, Open tour and Make video, Edit in Layerpath in its menu */
+/* workObject.ts tourEntity: title, "Interactive tour", the wide cover, "N steps · M mins", who asked, created, updated (Slack's card shows neither who nor the dates), Open tour and Make video, Edit in Layerpath in its menu */
 function woBlock(tour, who, o) {
   o = o || {};
   return ext(tourData(tour), { t: "wo", by: who, created: o.created || "Today at 10:44", updated: o.updated || "", asOf: o.asOf || "today at 10:44", kp: o.kp || "wo-", flash: false });
@@ -1376,7 +1394,7 @@ function welcomeToday(name) {
 }
 /* slackTours.ts: the first five as cards in one message, then See all tours in Layerpath */
 function toursBlocks() {
-  var rows = [[TOURS.sam, "made today at 10:44 by you"], [TOURS.maya, "made yesterday at 4:02 PM by Maya Cruz"], [TOURS.pitch, "made Oct 9 at 11:30 AM by you"], [TOURS.report, "made Oct 6 at 3:15 PM by you"]];
+  var rows = [[TOURS.sam, "made today at 10:44 AM by you"], [TOURS.maya, "made yesterday at 4:02 PM by Maya Cruz"], [TOURS.pitch, "made Oct 9 at 11:30 AM by you"], [TOURS.report, "made Oct 6 at 3:15 PM by you"]];
   return [{ t: "sec", md: "Here are your tours, newest first." }, { t: "tours", rows: rows.map(function (r, i) { return ext(tourData(r[0]), { line: lengthLine(r[0].steps.length).split(" · ")[0] + " · Published · " + r[1], k: "tl-open" + i }); }) },
     { t: "act", els: [{ b: "See all tours in Layerpath", k: "tl-all" }] }];
 }
@@ -1441,7 +1459,7 @@ var H = {
   oauth: "Drawn by Slack (4.3). One public app, \"Layerpath\", with OAuth distribution and the redirect URL `https://app.layerpath.com/api/integrations/slack/oauth/callback`. Scopes as today, plus the new `users:read.email` (\"View email addresses of people in a workspace\") (8.1).",
   callback: "`GET /api/integrations/slack/oauth/callback` exchanged the code (`oauth.v2.access`), stored a PENDING `SlackInstallation` (with `botTokenEncrypted`) and redirected to `/integrations/slack/connect-workspace`. Connect calls `POST /api/integrations/slack/connect-workspace` (4.4, 8.2).",
   done: "`SlackInstallation` becomes ACTIVE with its `workspaceId` (unique: one Slack ↔ one Layerpath workspace, D7). The installer gets a `SlackUserLink` with `linkedVia: CONNECT`. Page: `/integrations/slack/done`. Open Slack is `slack://app?team=T&id=A&tab=home` (4.5, 8.2).",
-  card: "Live today: the progress message goes and the ready line tags the person, carrying the tour's Slack Work Object (`src/workObject.ts`): title, \"Interactive tour\", the 16:9 cover drawn as the player's intro (`src/cover.ts`), \"N steps · M mins\", who asked and when, Open tour and Make video, Edit in Layerpath in its menu. 🎬 replaces the loading reaction. To build: the tour is created as the person in Acme's workspace, with Acme's brand memory, voice and plan (6). Today every tour lands in the one shared Layerpath account.",
+  card: "Live today: the progress message goes and the ready line tags the person, carrying the tour's Slack Work Object (`src/workObject.ts`). Slack draws it as on beta on 8 and 9 Oct: title, \"Interactive tour in Layerpath\", Description \"N steps · M mins\", the 16:9 cover drawn as the player's intro (`src/cover.ts`), \"As of …\", Open tour and Make video. With the pointer over the card, Slack adds Refresh by the time and a small bar at the top right whose ⋮ menu holds Edit in Layerpath (8 Oct screenshot; nobody has opened that menu on beta yet, so its contents are unverified). The agent also sends who asked and when (`created_by`, `date_created`), which Slack's card doesn't show. 🎬 replaces the loading reaction. To build: the tour is created as the person in Acme's workspace, with Acme's brand memory, voice and plan (6). Today every tour lands in the one shared Layerpath account.",
   build: "Live today: the model's one-line ack with create_tour's estimate, then one streamed message (`src/slackStream.ts`): the bold heading, a tip (`src/proactive.ts`), the task timeline, and Watch it build (`src/liveBuild.ts`), whose looping picture is drawn by `src/liveThumb.ts`. The loading status by the reply box rotates its own words. 👀 then the loading reaction go on the person's message (`src/slackReactions.ts`). Tours start at once on Auto: the options message is off unless `AGENT_SLACK_CREATE_OPTIONS=true`.",
   panel: "Live today: a click on the card sends `entity_details_requested`; the agent answers with the share player's embed page (`surface=slack-panel`) and Slack opens its side panel with the tour playing. On the `layerpath` app the panel is the ChatGPT studio's own page with a Play and Edit switch (`src/studioPanel.ts`, `AGENT_SLACK_PANEL_EDITOR`). Slack allows this embed only for an app that isn't distributed, in its own workspace; a distributed app needs Slack's embeds pilot (see the decisions).",
   later: function (n) { return "Spec section 9, item " + n + ". Not in V1 and not designed yet: this is only a sketch of the one line in the spec."; }
@@ -1467,7 +1485,7 @@ var GLANCE_HTML = '<div class="doc"><h2>Slack vs ChatGPT at a glance</h2>'
   + '<tr><th><span class="bd build">To build</span></th><td><ul><li>OAuth install of one public app; HTTP events in place of Socket Mode</li><li>Per-person linking, access requests, the new Home tab</li><li>Integrations tab in Settings</li><li>Marketplace submission, and Slack\'s embeds pilot for the side panel</li></ul></td><td><ul><li>OAuth sign-in and sign-up, with a workspace pick</li><li>Tours in each person\'s own workspace</li><li>Integrations rows, reconnect prompts</li><li>Our own "what can you do" card; the widget\'s CSP set</li><li>Plugin directory submission</li></ul></td></tr>'
   + '<tr><th>Review time</th><td>About a week, two at most (guess on the 12 Oct call).</td><td>Over two weeks (guess on the 12 Oct call).</td></tr>'
   + '</tbody></table>'
-  + '<h3>How to read the demo</h3><p>Every step carries a badge: <span class="bd live">Live today</span> means the screen looks and works like this on beta now (checked against dev bffc798d8, 12 Oct). <span class="bd build">To build</span> means it is part of the V1 plan and not built yet. <span class="bd later">Later</span> means not in V1. In the list on the left, a half green, half blue dot marks a scenario that mixes both. Open <a class="jump" href="#K1">K1</a> for the decisions.</p></div>';
+  + '<h3>How to read the demo</h3><p>Every step carries a badge: <span class="bd live">Live today</span> means the screen looks and works like this on beta now (checked against dev bffc798d8, 12 Oct). <span class="bd build">To build</span> means it is part of the V1 plan and not built yet. <span class="bd mix">Partly live</span> means the screen is today\'s but the step also says something V1 adds (a person linked by email, a role, a tour made as that person); How this is built under each step says which part is which. <span class="bd later">Later</span> means not in V1. In the list on the left, a half green, half blue dot marks a scenario that mixes both. Open <a class="jump" href="#K1">K1</a> for the decisions.</p></div>';
 
 var DECIDE_HTML = '<div class="doc"><h2>Decisions for Karnesh</h2>'
   + '<p class="lede">One line each, with the option this demo recommends. The demo is drawn with the recommended options.</p><ol class="dl">'
@@ -1536,20 +1554,21 @@ sc("T2", "Change it in the thread", "today", function () {
   var r = sendTh(W, "10:51 AM");
   r.rx = ["eyes", "loading"];
   var cm = rep(W, m.id, changeMsg("Rearranging the steps", "Moving the steps into place…", false, { time: "10:51 AM" }));
-  W.thr[m.id].status = "is editing the project…";
-  S.step({ cap: "One streamed message shows the change running, with its own status by the reply box.", focus: cm.id, chip: chip, how: "Live today: `slackStream.ts` changeChunks, the heading in bold and the phrase as Slack's own task row; a plain message edited in place when Slack won't stream." });
+  W.thr[m.id].status = "is rearranging the steps…";
+  S.step({ cap: "One streamed message shows the change running, with its own status by the reply box.", focus: cm.id, chip: chip, how: "Live today: `slackStream.ts` changeChunks, the heading in bold and the phrase as Slack's own task row; a plain message edited in place when Slack won't stream. The heading, row and loading status are the reorder's own words (`EDIT_PHRASES.reorder` in `src/editPhrases.ts`)." });
   cm.blocks[0].tasks[0].st = "complete";
   W.thr[m.id].status = "";
   r.rx = ["eyes", "clapper"];
   rep(W, m.id, M("lp", { cont: true, time: "10:52 AM", text: "The tour is down to 4 steps: I removed \"Pick the pipeline stage\". The voiceover on the other steps still matches." }));
   var four = TOURS.sam.steps.filter(function (x) { return x !== "Pick the pipeline stage"; });
-  updateCards(W, TOURS.sam.title, { n: 4, steps: four, asOf: "today at 10:52", updated: "Today at 10:52", flash: true });
-  S.step({ cap: "Layerpath says what changed, and the card above updates in place: 4 steps and an Updated date. He checks #general.", next: "side:ch:general", focus: card.id, chip: chip, how: "Live today: every message the tour's card is on is kept with the tour (`cards`, the newest 10) and updated with `chat.update`, newest first, the cover drawn once (`src/workObject.ts`)." });
+  updateCards(W, TOURS.sam.title, { n: 4, steps: four, asOf: "today at 10:52", flash: true });
+  S.step({ cap: "Layerpath says what changed, and the card above updates in place: 4 steps, as of 10:52. He checks #general.", next: "side:ch:general", focus: card.id, chip: chip, how: "Live today: every message the tour's card is on is kept with the tour (`cards`, the newest 10) and updated with `chat.update`, newest first, the cover drawn once (`src/workObject.ts`)." });
   updateCards(W, TOURS.sam.title, { flash: false });
   W.thr[g.id].replies[1].blocks[0].flash = true;
+  W.thr[g.id].replies[1].blocks[0].hover = true;
   goView(W, { k: "ch", id: "general" });
   openThread(W, "general", g.id);
-  S.step({ cap: "The card he shared in #general earlier shows the change too, with no new message.", next: "wog-refresh", chip: chip, how: "Live today: the same update reaches each kept card, in any channel. A card Slack says is gone is let go, and the rest still update." });
+  S.step({ cap: "The card he shared in #general earlier shows the change too, with no new message. With the pointer over it, Slack shows Refresh.", next: "wog-refresh", chip: chip, how: "Live today: the same update reaches each kept card, in any channel. A card Slack says is gone is let go, and the rest still update. Refresh, and the bar at the card's top right, show only while the pointer is over the card (8 Oct screenshot)." });
   W.thr[g.id].replies[1].blocks[0].flash = false;
   W.thr[g.id].replies[1].blocks[0].asOf = "today at 10:55";
   S.step({ cap: "Anyone can press Refresh: Layerpath reads the tour again and updates that card's own message.", chip: chip, how: "Live today: Slack sends `link_shared` with `is_unfurl_refresh`; the agent reads the tour (never publishing it) and answers with `chat.update` on the card's message (`AGENT_SLACK_CARD_REFRESH`, update by default since 9 Oct)." });
@@ -1730,12 +1749,12 @@ sc("P1", "Sam (email match)", "people", function () {
   var S = Seq(), W = S.W;
   as(W, "sam", "slack");
   compose(W, "{@Layerpath} make a training tour from these", 3);
-  S.step({ st: "live", cap: "Sam's Slack email matches his Layerpath account, and he asks Layerpath for a tour in #customer-training.", next: "send", how: "Live today: mentioning the bot with screenshots. To build: " + H.event });
+  S.step({ st: "mix", cap: "Sam's Slack email matches his Layerpath account, and he asks Layerpath for a tour in #customer-training.", next: "send", how: "Live today: mentioning the bot with screenshots. To build: " + H.event });
   var m = send(W);
   rep(W, m.id, M("lp", { only: "sam", text: "You're connected as sam@acme.com, Editor in Acme. Not you? Disconnect in Layerpath's Home tab." }));
   S.step({ cap: "Layerpath matches his Slack email, links him, and tells him once, privately.", copy: true,
     how: "`resolve` returns `email_linked`: Slack's profile email (`users:read.email`) exactly matches an active member of Acme, so a `SlackUserLink` is created with `linkedVia: EMAIL`. The note shows once, privately, and is skipped if `disconnectedAt` is set (5, 8.2, 8.4)." });
-  var sm = buildTour(S, W, m.id, { st: "live", cap: "Then today's flow: a one-line reply, and the tour builds live in one streamed message. To build: it's made as Sam, in Acme's workspace.", how: H.build + " To build: " + H.token }, TOURS.sam, { what: "training" });
+  var sm = buildTour(S, W, m.id, { st: "mix", cap: "Then today's flow: a one-line reply, and the tour builds live in one streamed message. To build: it's made as Sam, in Acme's workspace.", how: H.build + " To build: " + H.token }, TOURS.sam, { what: "training" });
   var rm = finishCard(W, m.id, sm, TOURS.sam, "sam");
   S.step({ st: "live", cap: "The progress gives way to the ready line and the tour's card, then Sam opens Layerpath under Apps.", next: "side:app", focus: rm.id, how: H.card });
   W.home.sam = homeLinked("sam", "Editor", TL.sam);
@@ -1748,7 +1767,7 @@ sc("P2", "Maya (Connect with another email)", "people", function () {
   var S = Seq(), W = S.W;
   as(W, "maya", "slack");
   compose(W, "{@Layerpath} can you turn these into a tour for the support team?", 3);
-  S.step({ st: "live", cap: "Maya's Layerpath account is maya.cruz@gmail.com, so her Slack email matches nobody, and she asks for a tour.", next: "send", how: "Live today: the mention. To build: " + H.event });
+  S.step({ st: "mix", cap: "Maya's Layerpath account is maya.cruz@gmail.com, so her Slack email matches nobody, and she asks for a tour.", next: "send", how: "Live today: the mention. To build: " + H.event });
   var m = send(W);
   rep(W, m.id, M("lp", { only: "maya", blocks: connectPrompt() }));
   S.step({ cap: "With no link and no email match, Layerpath replies privately with two choices and holds her request for 30 minutes.", next: "e-connect", copy: true,
@@ -1767,7 +1786,7 @@ sc("P2", "Maya (Connect with another email)", "people", function () {
   W.front = "slack";
   rep(W, m.id, M("lp", { time: "10:44 AM", text: "Thanks Maya, you're connected. Making your tour now." }));
   S.step({ cap: "In the thread, Layerpath thanks her and picks up the held request.", copy: true, how: "The agent runs the held request because it's under 30 minutes old (5.1, 8.3)." });
-  var sm = buildTour(S, W, m.id, { st: "live", cap: "The normal flow runs, as today: the tour builds live in the thread. To build: it's made as Maya, in Acme's workspace.", how: H.build + " To build: " + H.token }, TOURS.maya, { noAck: true, time: "10:44 AM" });
+  var sm = buildTour(S, W, m.id, { st: "mix", cap: "The normal flow runs, as today: the tour builds live in the thread. To build: it's made as Maya, in Acme's workspace.", how: H.build + " To build: " + H.token }, TOURS.maya, { noAck: true, time: "10:44 AM" });
   var rm = finishCard(W, m.id, sm, TOURS.maya, "maya");
   S.step({ st: "live", cap: "Her tour is ready, on today's card.", focus: rm.id, how: H.card });
   S.restore(saved); tab(W, T.conn({ mode: "ok" })); W.front = "slack";
@@ -1927,14 +1946,15 @@ sc("D1", "A tour as yourself", "day", function () {
   var S = Seq(), W = S.W;
   as(W, "sam", "slack");
   compose(W, "{@Layerpath} make a tour of creating a deal from these", 3);
-  S.step({ st: "live", cap: "Sam is already linked, so his request goes straight through.", next: "send", how: "Live today: the mention. To build: " + H.event });
+  S.step({ st: "mix", cap: "Sam is already linked, so his request goes straight through.", next: "send", how: "Live today: the mention. To build: " + H.event });
   var m = send(W);
-  var sm = buildTour(S, W, m.id, { st: "live", cap: "No options card and no extra note: the tour starts at once on Auto and builds live in the thread. To build: it's made as Sam, with Acme's brand memory, voice and plan.", how: H.build + " To build: `resolve` returns `linked`; his role and membership are re-read from Layerpath, cached at most 60 s (5). " + H.token }, TOURS.sam, { what: "deal" });
+  var sm = buildTour(S, W, m.id, { st: "mix", cap: "No options card and no extra note: the tour starts at once on Auto and builds live in the thread. To build: it's made as Sam, with Acme's brand memory, voice and plan.", how: H.build + " To build: `resolve` returns `linked`; his role and membership are re-read from Layerpath, cached at most 60 s (5). " + H.token }, TOURS.sam, { what: "deal" });
   var rm = finishCard(W, m.id, sm, TOURS.sam, "sam");
-  S.step({ st: "live", cap: "On the finished card, Edit in Layerpath sits in the card's menu, and he opens the menu.", next: "wo-more", focus: rm.id, how: H.card + " Slack shows at most two of a Work Object's actions on the card, so Edit in Layerpath goes in its menu. Every change, and a video, is asked for in the thread." });
+  rm.blocks[0].hover = true;
+  S.step({ st: "live", cap: "With the pointer over the finished card, Slack shows a small bar at its top right. Edit in Layerpath is in its menu, and he opens the menu.", next: "wo-more", focus: rm.id, how: H.card + " Slack shows at most two of a Work Object's actions in the card's footer and puts the rest in its menu (docs.slack.dev/messaging/work-objects-implementation, quoted in the 8 Oct review), so Edit in Layerpath, sent in `overflow_actions`, goes there. The 8 Oct screenshot shows the menu button on hover; the open menu is drawn here as a guess. If Slack doesn't list it, Edit in Layerpath is still reachable from the side panel's Edit (our app only) and from Layerpath itself. Every change, and a video, is asked for in the thread." });
   rm.blocks[0].menuOpen = true;
-  S.step({ st: "live", cap: "He picks Edit in Layerpath.", next: "wo-edit", focus: rm.id, how: "Live today: `open_wo_editor`, a link button (`workObject.ts` cardActions)." });
-  rm.blocks[0].menuOpen = false;
+  S.step({ st: "live", cap: "He picks Edit in Layerpath.", next: "wo-edit", focus: rm.id, how: "Live today in the code: `open_wo_editor`, a link button (`workObject.ts` cardActions). Unverified on beta: how Slack draws the open menu." });
+  rm.blocks[0].menuOpen = false; rm.blocks[0].hover = false;
   tab(W, T.editor(TOURS.sam));
   S.step({ st: "live", cap: "The editor opens in a new Layerpath tab, and Sam goes back to his projects.", next: "ed-back", how: "Live today: Edit in Layerpath opens `/projects/<id>/tour/edit` in a Layerpath tab. If the browser is signed in as another account, Layerpath shows its existing account or no-access page (6)." });
   navTab(W, T.projects());
@@ -1952,28 +1972,28 @@ sc("D2", "Changes on someone else's card", "day", function () {
   rep(W, m.id, ackMsg("sam", "training", { time: "10:40 AM" }));
   var card = rep(W, m.id, M("lp", { cont: true, time: "10:41 AM", text: "{@Sam} " + READY_LINE, blocks: [woBlock(TOURS.sam, "sam", { created: "Today at 10:41", asOf: "today at 10:41" })] }));
   composeTh(W, "make the steps shorter");
-  S.step({ st: "live", cap: "Maya, linked as an Editor, opens Sam's thread and asks for a change in a reply.", next: "th-send", focus: card.id, chip: chip, how: "Live today: cards have no one-tap changes any more; every change is a reply in the thread, and the card's only tap is Make video. To build: a reply runs as whoever wrote it, with their own role (5.5): resolve Maya, then a token for (Maya, Acme) (8.2)." });
+  S.step({ st: "mix", cap: "Maya, linked as an Editor, opens Sam's thread and asks for a change in a reply.", next: "th-send", focus: card.id, chip: chip, how: "Live today: cards have no one-tap changes any more; every change is a reply in the thread, and the card's only tap is Make video. To build: a reply runs as whoever wrote it, with their own role (5.5): resolve Maya, then a token for (Maya, Acme) (8.2)." });
   var r = sendTh(W, "10:47 AM");
   r.rx = ["eyes", "loading"];
   var cm = rep(W, m.id, changeMsg("Making every step shorter", "Trimming each callout to the essentials…", false, { time: "10:47 AM" }));
   W.thr[m.id].status = "is shortening the steps…";
-  S.step({ st: "live", cap: "The change shows today's streamed progress. To build: it runs as Maya, with her own role.", focus: cm.id, chip: chip, how: "Live today: a change posts one progress message, its heading in bold and the phrase as a task row, streamed (`slackStream.ts` changeChunks), with its own loading status by the reply box. To build: " + H.token });
+  S.step({ st: "mix", cap: "The change shows today's streamed progress. To build: it runs as Maya, with her own role.", focus: cm.id, chip: chip, how: "Live today: a change posts one progress message, its heading in bold and the phrase as a task row, streamed (`slackStream.ts` changeChunks), with its own loading status by the reply box. To build: " + H.token });
   cm.blocks[0].tasks[0].st = "complete";
   W.thr[m.id].status = "";
   r.rx = ["eyes", "clapper"];
   rep(W, m.id, M("lp", { cont: true, time: "10:48 AM", text: "Every callout is shorter now, and each step says the same in fewer words. The voiceover still has the old wording on steps 3 and 4. Want me to redo it to match?" }));
-  updateCards(W, TOURS.sam.title, { asOf: "today at 10:48", updated: "Today at 10:48", flash: true });
-  S.step({ st: "live", cap: "Layerpath says what changed, and the card above updates in place: same message, new Updated date.", focus: card.id, chip: chip, how: "Live today: the reply is the model's own words. Every message the tour's card is on is updated with `chat.update` (`workObject.ts` cards, the newest 10), so no second card is posted. When more than six messages have gone by, the card is posted again further down (`threadActivity.ts`)." });
+  updateCards(W, TOURS.sam.title, { asOf: "today at 10:48", flash: true });
+  S.step({ st: "live", cap: "Layerpath says what changed, and the card above updates in place: the same message, now as of 10:48.", focus: card.id, chip: chip, how: "Live today: the reply is the model's own words. Every message the tour's card is on is updated with `chat.update` (`workObject.ts` cards, the newest 10), so no second card is posted. When more than six messages have gone by, the card is posted again further down (`threadActivity.ts`)." });
   updateCards(W, TOURS.sam.title, { flash: false });
   as(W, "dev", "slack");
   openThread(W, "customer-training", m.id);
-  S.step({ st: "live", cap: "Dev isn't linked, and he presses Make video on the same card.", next: "wo-video", focus: card.id, how: "Live today: Make video (`tour_make_video`) starts the export as the request of whoever tapped it. To build: `resolve` runs for the presser first." });
+  S.step({ st: "mix", cap: "Dev isn't linked, and he presses Make video on the same card.", next: "wo-video", focus: card.id, how: "Live today: Make video (`tour_make_video`) starts the export as the request of whoever tapped it. To build: `resolve` runs for the presser first." });
   rep(W, m.id, M("lp", { only: "dev", time: "10:49 AM", blocks: connectPrompt() }));
   S.step({ cap: "It acts as the presser, so Dev gets the Connect prompt.", copy: true, how: "`resolve` returns `not_linked` for Dev (5.5)." });
   as(W, "omar", "slack");
   openThread(W, "customer-training", m.id);
   composeTh(W, "add a voiceover");
-  S.step({ st: "live", cap: "Omar is a Viewer, and he asks for a change in the same thread.", next: "th-send", how: "Live today: any reply in the thread reaches the bot. To build: the checks in section 5 run first (5.5)." });
+  S.step({ st: "mix", cap: "Omar is a Viewer, and he asks for a change in the same thread.", next: "th-send", how: "Live today: any reply in the thread reaches the bot. To build: the checks in section 5 run first (5.5)." });
   sendTh(W, "10:50 AM");
   rep(W, m.id, M("lp", { only: "omar", time: "10:50 AM", blocks: viewerMsg() }));
   S.step({ cap: "The checks run first, so Omar gets the Viewer message and nothing changes.", copy: true, how: "`resolve` returns `viewer`, so the change never starts (5.5). \"You can't change this tour. Ask Sam or an Admin in Acme.\" is only for an Editor whom Layerpath refuses for that tour." });
@@ -1985,14 +2005,14 @@ sc("D3", "The Free publish limit", "day", function () {
   as(W, "priya", "slack");
   var chip = "priya@acme.com · Owner of Acme, on Free in this scenario";
   compose(W, "{@Layerpath} make a tour of inviting a teammate from these", 3);
-  S.step({ st: "live", cap: "Suppose Acme is on Free with 3 tours published, where only the Owner can use the agent, so this is Priya.", next: "send", chip: chip, how: "Live today: the mention. To build: " + H.event + " On Free only the Owner can use the agent (flag for Vinay, section 2)." });
+  S.step({ st: "mix", cap: "Suppose Acme is on Free with 3 tours published, where only the Owner can use the agent, so this is Priya.", next: "send", chip: chip, how: "Live today: the mention. To build: " + H.event + " On Free only the Owner can use the agent (flag for Vinay, section 2)." });
   var m = send(W);
   var sm = buildTour(S, W, m.id, { st: "live", cap: "The tour is made as today.", chip: chip, how: H.build + " To build: `resolve` returns `linked`, role Owner (5). " + H.token }, TOURS.priya, { what: "" });
   finishCard(W, m.id, sm, TOURS.priya, "priya", { draft: true });
   S.step({ st: "live", cap: "It's kept as a draft: the progress becomes the draft card with the plan's message and Edit in Layerpath, in today's words.", chip: chip, focus: sm.id,
     how: "Live today: the publish cap is today's (`publishedProjectSlots.ts`, 8.2 Reuse), and so are its message and the draft card (`slackCard.ts` resultBlocks). A draft never becomes a Work Object, since it has no share link. The video export limit and the voice languages on Free also use today's messages (6, D8)." });
   return S.steps;
-});
+}, "mix");
 
 /* ---------------- Leaving ---------------- */
 sc("L1", "Disconnect", "leaving", function () {
@@ -2075,7 +2095,7 @@ function gptStart(W, who, tabs) { W.gpt = true; as(W, who, "chrome"); var b = BR
 function closeTab(W, i) { var b = BR(W); b.tabs.splice(i, 1); b.active = 0; W.front = "chrome"; }
 var GPTH = {
   today: "Live today: the studio connector (`apps/agent/src/mcp.ts` with `?surface=chatgpt&studio=1`), added by URL in our work ChatGPT. A secret path in the URL is its only lock, and every tour lands in the one shared Layerpath account.",
-  oauth: "To build: our own OAuth 2.1 for the studio connector, as the MCP authorization spec asks: protected-resource metadata, the authorization code with PKCE (S256), and ChatGPT registering itself as a client (CIMD, or DCR). ChatGPT starts it on Connect or on the first tool call (developers.openai.com/apps-sdk/build/auth, seen 12 Oct 2026). Reuse: `apps/mcp/src/oauth` on dev already has the metadata, an authorize and consent flow bound to one user and one workspace, PKCE and rotating refresh tokens (built for the dark MCP beta, with pre-registered clients and no DCR).",
+  oauth: "To build: our own OAuth 2.1 for the studio connector, as the MCP authorization spec asks: protected-resource metadata, the authorization code with PKCE (S256), and ChatGPT registering itself as a client (CIMD, or DCR). ChatGPT starts it on the first tool call (developers.openai.com/apps-sdk/build/auth, seen 12 Oct 2026); whether Connect on the listing starts it earlier is unverified, and the demo draws it at Connect. Reuse: `apps/mcp/src/oauth` on dev already has the metadata, an authorize and consent flow bound to one user and one workspace, PKCE and rotating refresh tokens (built for the dark MCP beta, with pre-registered clients and no DCR).",
   grant: "Each grant binds one Layerpath user, one client (ChatGPT) and one workspace, with short-lived access tokens and rotating refresh tokens (`docs/mcp-contextual-demo-reading-spec.md`, OAuth connection and Workspace selection).",
   tenancy: "To build in the agent: every studio tool reads and writes as the token's user, in the token's workspace, under Layerpath's own permission and plan checks, in place of today's one shared account; `search_tours`, Home's recent tours and the cards show only that workspace's tours."
 };
@@ -2087,7 +2107,7 @@ sc("C1", "New to Layerpath: find, connect, sign up", "gpt", function () {
   curPage(W).modal = { state: "connect" };
   S.step({ cap: "ChatGPT shows Layerpath's listing, and she presses Connect.", next: "gp-connect", copy: true, how: "Drawn by ChatGPT; the words are our listing's (Madhu sets up the profile). " + GPTH.oauth });
   tab(W, T.gptSignin());
-  S.step({ cap: "Connect opens Layerpath's sign-in in a new tab, with a line saying why. She has no account, so she picks Sign up.", next: "auth-signup", copy: true, how: "To build: `GET /oauth/authorize` with ChatGPT's client, its redirect URI, the PKCE challenge and a state; signed out, it shows the normal sign-in page with a banner. The page and its words are today's, the banner aside. Whether ChatGPT opens a tab or a pop-up is ChatGPT's (unverified)." });
+  S.step({ cap: "Connect opens Layerpath's sign-in in a new tab, with a line saying why. She has no account, so she picks Sign up.", next: "auth-signup", copy: true, how: "To build: `GET /oauth/authorize` with ChatGPT's client, its redirect URI, the PKCE challenge and a state; signed out, it shows the normal sign-in page with a banner. The page and its words are today's, the banner aside. Whether ChatGPT opens a tab or a pop-up is ChatGPT's (unverified). Also unverified: that Connect starts the sign-in at once; OpenAI's docs only say ChatGPT starts it on the first tool call, so it may come at her first @Layerpath request instead (same pages)." });
   navTab(W, T.gptSignup());
   S.step({ cap: "Layerpath's normal sign-up, with the same banner. She continues with Google.", next: "auth-google", copy: true, how: "Live today: the sign-up page (`app/(auth)/signup`), unchanged. To build: the banner, and going back to the authorize step after sign-up. Today's page says \"walkthrough\", which the copy rules don't allow (flag for Kripa)." });
   navTab(W, T.google([GA.nina]));
@@ -2429,12 +2449,17 @@ function streamHTML(b) {
 function woHTML(b) {
   var kp = b.kp || "wo-";
   function k(x) { return nx(kp + x) + '" data-k="' + kp + x; }
-  var h = '<div class="wo-lbl">Layerpath ' + I.caret + '</div><div class="wo' + (b.flash ? " upd" : "") + '">';
-  h += '<div class="wo-h' + k("open") + '">' + avatar("lp", 34) + '<div class="wo-hw"><div class="wo-t">' + esc(b.title) + '</div><div class="wo-s">Interactive tour in Layerpath</div></div></div>';
+  /* At rest (8 and 9 Oct screenshots): title, subtitle, Description, cover, "As of …", Open tour, Make video.
+     created_by and date_created are sent but Slack's card doesn't show them. With the pointer over the card
+     (8 Oct, slack-04-panel.png) Slack adds a small bar at the top right (open, share, hide, ⋮), Refresh by the time,
+     and the subtitle reads "Preview in Slack". */
+  var hov = !!(b.hover || b.menuOpen);
+  var h = '<div class="wo-lbl">Layerpath ' + I.caret + '</div><div class="wo' + (b.flash ? " upd" : "") + (hov ? " hov" : "") + '">';
+  h += '<div class="wo-h' + k("open") + '">' + avatar("lp", 34) + '<div class="wo-hw"><div class="wo-t">' + esc(b.title) + '</div><div class="wo-s">' + (hov ? "Preview in Slack" : "Interactive tour in Layerpath") + "</div></div></div>";
+  if (hov) h += '<div class="wo-hov" aria-label="Card actions"><span title="Open link">' + I.extlink + '</span><span title="Share">' + I.fwd + '</span><span title="Hide preview">' + I.eyeOff + '</span><span class="' + nx(kp + "more") + '" data-k="' + kp + 'more" role="button" aria-label="More actions">' + I.kebab + "</span></div>";
   h += '<div class="wo-f"><div class="wo-fl">Description</div><div class="wo-fv">' + esc(lengthLine(b.n)) + "</div></div>";
   h += '<div class="wo-cv">' + cover16(b) + "</div>";
-  h += '<div class="wo-fields"><div><div class="wo-fl">Creator</div><span class="mention">@' + esc(P[b.by] ? P[b.by].name : "Layerpath") + '</span></div><div><div class="wo-fl">Created</div><div class="wo-fv">' + esc(b.created) + "</div></div>" + (b.updated ? '<div><div class="wo-fl">Updated</div><div class="wo-fv">' + esc(b.updated) + "</div></div>" : "") + "</div>";
-  h += '<div class="wo-foot"><span>As of ' + esc(b.asOf) + '</span><span class="rf' + k("refresh") + '">Refresh</span><span class="acts"><button type="button" class="wo-btn' + k("tour") + '">Open tour</button><button type="button" class="wo-btn' + k("video") + '">Make video</button><button type="button" class="wo-btn more' + k("more") + '" aria-label="More actions">' + I.more + "</button></span></div>";
+  h += '<div class="wo-foot"><span>As of ' + esc(b.asOf) + "</span>" + (hov ? '<span class="rf' + k("refresh") + '">Refresh</span>' : "") + '<span class="acts"><button type="button" class="wo-btn' + k("tour") + '">Open tour</button><button type="button" class="wo-btn' + k("video") + '">Make video</button></span></div>';
   if (b.menuOpen) h += '<div class="wo-menu"><div class="' + nx(kp + "edit") + '" data-k="' + kp + 'edit">Edit in Layerpath</div></div>';
   return h + "</div>";
 }
@@ -2994,7 +3019,7 @@ function markNext(ready) {
   btn.classList.toggle("nx", ready && !hasTarget);
 }
 function stepStatus(step) { return step.later ? "later" : (step.st || (CUR.sc && CUR.sc.st) || "build"); }
-var BADGE = { live: '<span class="bd live">Live today</span>', build: '<span class="bd build">To build</span>', later: '<span class="lt">Later, not in V1</span>', mix: '<span class="bd mix">Partly live</span>', info: "" };
+var BADGE = { live: '<span class="bd live">Live today</span>', build: '<span class="bd build">To build</span>', later: '<span class="lt">Later, not in V1</span>', mix: '<span class="bd mix" title="Some of this step works today, some is to build; How this is built says which">Partly live</span>', info: "" };
 function show(i, dir) {
   clearTimers();
   CUR.i = i;
@@ -3025,6 +3050,8 @@ function show(i, dir) {
   } else markNext(true);
   $("#caption").innerHTML = (BADGE[stepStatus(step)] || "") + esc(step.cap);
   $("#counter").textContent = "Step " + (i + 1) + " of " + CUR.steps.length;
+  var want = "#" + CUR.sc.code + (i > 0 ? "-" + (i + 1) : "");
+  if (location.hash !== want) history.replaceState(null, "", want);
   $("#btnBack").disabled = i === 0;
   var last = i === CUR.steps.length - 1;
   var idx = SCEN.indexOf(CUR.sc);
@@ -3046,7 +3073,6 @@ function openScenario(code, keepStep) {
   UI.oaOpen = { v1: true }; UI.planClosed = false;
   LAST = {};
   renderRail(); renderHead();
-  if (location.hash !== "#" + s.code) history.replaceState(null, "", "#" + s.code);
   show(keepStep != null ? Math.min(keepStep, CUR.steps.length - 1) : 0, 0);
 }
 var GROUPS = [["start", "Start here"], ["today", "Slack · live today"], ["admin", "Slack · admin install"], ["people", "Slack · people"], ["day", "Slack · day to day"], ["leaving", "Slack · leaving"], ["gpt", "ChatGPT"], ["later", "Later (not in V1)"]];
@@ -3119,10 +3145,19 @@ document.addEventListener("keydown", function (e) {
   if (e.key === "ArrowRight") { e.preventDefault(); next(); }
   else if (e.key === "ArrowLeft") { e.preventDefault(); back(); }
 });
+/* #T1 opens a scenario, #T1-3 its third step */
+function parseHash() {
+  var m = /^#?([A-Za-z]+\d+)(?:-(\d+))?$/.exec(location.hash || "");
+  if (!m) return null;
+  var code = m[1].toUpperCase();
+  if (!SCEN.some(function (s) { return s.code === code; })) return null;
+  return { code: code, i: m[2] ? Math.max(0, parseInt(m[2], 10) - 1) : 0 };
+}
 window.addEventListener("hashchange", function () {
-  var code = location.hash.slice(1).toUpperCase();
-  if (CUR.sc && code === CUR.sc.code) return;
-  if (SCEN.some(function (s) { return s.code === code; })) openScenario(code);
+  var h = parseHash();
+  if (!h) return;
+  if (CUR.sc && h.code === CUR.sc.code) { if (h.i !== CUR.i && h.i < CUR.steps.length) show(h.i, 0); return; }
+  openScenario(h.code, h.i);
 });
 if (window.ResizeObserver) new ResizeObserver(fitDesk).observe($("#stage"));
 window.addEventListener("resize", fitDesk);
@@ -3183,11 +3218,11 @@ SCEN.forEach(function (s) {
   COUNTS[s.code] = steps.length;
   steps.forEach(function (st) { seen[st.later ? "later" : (st.st || s.st)] = 1; });
   var keys = Object.keys(seen);
-  SST[s.code] = keys.length === 1 ? keys[0] : (seen.live && seen.build ? "mix" : keys[0]);
+  SST[s.code] = keys.length === 1 ? keys[0] : (seen.mix || (seen.live && seen.build) ? "mix" : keys[0]);
 });
 fitDesk();
-var startCode = location.hash.slice(1).toUpperCase();
-openScenario(SCEN.some(function (s) { return s.code === startCode; }) ? startCode : "G1");
+var start = parseHash();
+openScenario(start ? start.code : "G1", start ? start.i : 0);
 })();
 </script>
 </body>
