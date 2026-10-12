@@ -596,7 +596,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 .ri .sd{width:9px;height:9px;border-radius:50%;flex:none;align-self:center;margin-left:auto}
 .ri .sd.live{background:#1a7f37}.ri .sd.build{background:#2156c4}.ri .sd.mix{background:linear-gradient(90deg,#1a7f37 0 50%,#2156c4 50% 100%)}.ri .sd.later{background:var(--later)}.ri .sd.info{background:#8b949e}
 .ri .n{margin-left:6px}
-.rail h4.gp{color:#0f6e5c}
+.rail h4.gpt-h{color:#0f6e5c}
 /* overview panels (O1, O2) */
 .pbox{position:absolute;inset:0;overflow:auto;display:none;padding:6px 4px 18px}
 .stage.pm .desk{display:none}
@@ -3081,7 +3081,7 @@ var SST_LABEL = { live: "Live today", build: "To build", mix: "Partly live: some
 function renderRail() {
   var h = "";
   GROUPS.forEach(function (g) {
-    h += '<h4 class="' + (g[0] === "later" ? "lt" : g[0] === "gpt" ? "gp" : "") + '">' + g[1] + "</h4>";
+    h += '<h4 class="' + (g[0] === "later" ? "lt" : g[0] === "gpt" ? "gpt-h" : "") + '">' + g[1] + "</h4>";
     SCEN.filter(function (s) { return s.group === g[0]; }).forEach(function (s) {
       var st = SST[s.code] || s.st;
       h += '<a class="ri' + (s.group === "later" ? " lt" : "") + (CUR.sc === s ? " on" : "") + '" href="#' + s.code + '" data-sc="' + s.code + '"' + (CUR.sc === s ? ' aria-current="page"' : "") + '><span class="c">' + s.code + "</span><span>" + esc(s.title) + '</span><span class="sd ' + st + '" title="' + esc(SST_LABEL[st] || "") + '" aria-label="' + esc(SST_LABEL[st] || "") + '"></span><span class="n">' + (s.group === "start" ? "" : (COUNTS[s.code] || "")) + "</span></a>";
