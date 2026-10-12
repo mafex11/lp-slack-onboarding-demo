@@ -2599,7 +2599,7 @@ function studioHTML(o, panel) {
   } else if (t && o.tab !== "home") {
     top += '<span class="sto-pill title"><span>' + esc(ready ? t.title : "Your new tour") + "</span><small>" + esc(ready ? lengthLine(t.n).split(" · ")[0] + " · Ready" : "Creating · " + (o.stageText || "Putting your tour together")) + "</small></span>";
     top += '<span class="sto-sp"></span><span class="sto-pill dim">' + I.undo + "Undo</span>" + (o.tab === "editor" ? '<span class="sto-pill' + (ready ? "" : " dim") + '">' + I.palette + "Theme</span>" : "") + (panel ? "" : '<span class="sto-pill' + (ready ? "" : " dim") + '">' + I.playc + "Play</span>") + '<span class="sto-pill' + (ready ? "" : " dim") + '">' + I.download + 'Export video</span><span class="sto-pill ' + (panel ? "teal" : "white") + (ready ? "" : " dim") + '">' + I.linkic + "Copy link</span>";
-  } else top += '<span class="sto-pill">Layerpath studio</span><span class="sto-sp"></span>';
+  } else top += '<span class="sto-pill">Layerpath</span><span class="sto-sp"></span>';
   var body = o.tab === "home" ? studioHome(o) : o.tab === "play" ? studioPlay(o) : studioEditor(o);
   var ttl = panel && t ? '<div class="sto-ttl"><b>' + esc(t.title) + "</b><small>" + esc(lengthLine(t.n).split(" · ")[0] + " · Ready") + "</small></div>" : "";
   return '<div class="sto">' + ttl + '<div class="sto-top">' + top + "</div>" + body + "</div>";
