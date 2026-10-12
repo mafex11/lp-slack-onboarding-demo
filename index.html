@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Layerpath in Slack · Onboarding (V1)</title>
+<title>Layerpath in Slack and ChatGPT · Onboarding (V1)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap">
@@ -584,6 +584,391 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 .gacc b{display:block;font-weight:500;font-size:14px}
 .gacc small{display:block;font-size:12.5px;color:#444}
 
+/* ===================== Live today / To build badges ===================== */
+.bd{display:inline-block;font-size:11px;font-weight:800;line-height:1.35;border-radius:4px;padding:1px 6px;margin-right:6px;vertical-align:1px;white-space:nowrap;color:#fff}
+.bd.live{background:#1a7f37}
+.bd.build{background:#2156c4}
+.bd.mix{background:linear-gradient(90deg,#1a7f37 0 50%,#2156c4 50% 100%)}
+.bd.later{background:var(--later)}
+.legend{display:flex;gap:6px;align-items:center}
+.legend .bd{margin:0;font-size:12px;padding:3px 10px;border-radius:999px}
+#scBadge .bd{margin:0 0 0 2px}
+.ri .sd{width:9px;height:9px;border-radius:50%;flex:none;align-self:center;margin-left:auto}
+.ri .sd.live{background:#1a7f37}.ri .sd.build{background:#2156c4}.ri .sd.mix{background:linear-gradient(90deg,#1a7f37 0 50%,#2156c4 50% 100%)}.ri .sd.later{background:var(--later)}.ri .sd.info{background:#8b949e}
+.ri .n{margin-left:6px}
+.rail h4.gp{color:#0f6e5c}
+/* overview panels (O1, O2) */
+.pbox{position:absolute;inset:0;overflow:auto;display:none;padding:6px 4px 18px}
+.stage.pm .desk{display:none}
+.stage.pm .pbox{display:block}
+.doc{max-width:1060px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 28px 26px;font-size:14px;line-height:1.5;color:#1b1f24}
+.doc h2{margin:0 0 4px;font-size:21px}
+.doc h3{margin:20px 0 8px;font-size:15px}
+.doc .lede{color:#4a535c;margin:0 0 14px}
+.gl{width:100%;border-collapse:collapse;font-size:13.5px}
+.gl th,.gl td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid #e6e9ed}
+.gl thead th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5d6670;background:#f6f7f9}
+.gl tbody th{width:150px;color:#38414a;font-weight:700}
+.gl td .bd{margin-right:4px}
+.gl ul{margin:0;padding-left:18px}
+.dl{margin:0;padding-left:0;list-style:none;counter-reset:d}
+.dl li{counter-increment:d;display:grid;grid-template-columns:30px 1fr;gap:2px 8px;padding:9px 0;border-bottom:1px solid #eceff2}
+.dl li:before{content:counter(d);font:700 12px/22px ui-monospace,Menlo,monospace;color:#fff;background:#1b1f24;border-radius:6px;text-align:center;height:22px;grid-row:span 2}
+.dl b{font-weight:700}
+.dl .rec{color:#0b5d3b}
+.dl .rec:before{content:"Recommended: ";font-weight:700}
+.dl .why{grid-column:2;color:#5d6670;font-size:12.5px}
+.doc .src{font-size:12.5px;color:#4a535c}
+.doc .src li{margin:3px 0}
+.doc a{color:#1264a3}
+.doc .jump{display:inline-block;font:600 12px ui-monospace,Menlo,monospace;background:#eef1f4;border-radius:5px;padding:1px 6px;color:#1b1f24;text-decoration:none}
+.doc .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.doc .box{border:1px solid #e6e9ed;border-radius:10px;padding:10px 14px}
+.doc .box ul{margin:4px 0 0;padding-left:18px}
+
+/* ===================== Slack today (origin/dev) ===================== */
+.sl-body{position:relative}
+.rxs{display:flex;gap:4px;margin-top:5px;flex-wrap:wrap}
+.rx{display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:12px;background:#f1f1f1;font-size:12px;color:#1d1c1d}
+.rx .e{font-size:13px;line-height:1}
+.rx .ld{width:12px;height:12px;border:2px solid #d5d5d5;border-top-color:#616061;border-radius:50%;animation:spin .9s linear infinite}
+.stm{margin:3px 0 2px}
+.stm-h{font-weight:900;margin:2px 0}
+.stm-tip{font-style:italic;margin:2px 0 6px}
+.stm-row{display:flex;align-items:center;gap:8px;color:#616061;font-size:14.5px;padding:2px 0}
+.stm-row .pi{width:15px;height:15px}
+.stm-row .pi.ok svg{width:15px;height:15px}
+.bk-live{margin:8px 0 2px}
+.v-desc{color:#1d1c1d}
+.ldr{width:248px;height:195px;border-radius:6px;overflow:hidden;position:relative;background:linear-gradient(180deg,#f4f6f9,#e6eaef);cursor:pointer}
+.ldr .cd{position:absolute;left:50%;top:10px;width:180px;height:96px;margin-left:-90px;border-radius:8px;background:#fff;box-shadow:0 6px 18px rgba(20,30,40,.16);overflow:hidden;animation:ldcard 6.6s linear infinite}
+.ldr .cd .mk{opacity:.5}
+.ldr .cd:nth-child(2){animation-delay:-1.65s}.ldr .cd:nth-child(3){animation-delay:-3.3s}.ldr .cd:nth-child(4){animation-delay:-4.95s}
+@keyframes ldcard{0%{transform:translateY(-12px) scale(.86);opacity:0;z-index:1}5%,25%{transform:translateY(0) scale(.895);opacity:.3;z-index:1}30%,50%{transform:translateY(17px) scale(.93);opacity:.55;z-index:2}55%,75%{transform:translateY(34px) scale(.965);opacity:.8;z-index:3}80%,94%{transform:translateY(52px) scale(1);opacity:1;z-index:4}100%{transform:translateY(90px) scale(1.02);opacity:0;z-index:4}}
+.ldr .dots{position:absolute;left:0;right:0;top:134px;display:flex;justify-content:center;gap:6px;z-index:6}
+.ldr .dots i{width:7px;height:7px;border-radius:50%;background:#1d1c1d;animation:ldot 1.2s ease-in-out infinite}
+.ldr .dots i:nth-child(2){animation-delay:.14s}.ldr .dots i:nth-child(3){animation-delay:.28s}
+@keyframes ldot{0%,60%,100%{transform:none}30%{transform:translateY(-6px)}}
+.ldr .lt{position:absolute;left:0;right:0;top:147px;text-align:center;font:700 17px/1.2 Georgia,"Times New Roman",serif;color:#1d1c1d;z-index:6;text-shadow:0 0 10px #fff,0 0 4px #fff}
+.ldr .vp{position:absolute;left:10px;bottom:10px;z-index:7;background:rgba(25,28,32,.85);color:#fff;border-radius:6px;padding:4px 9px;font:700 12px Lato,sans-serif;display:flex;gap:6px;align-items:center}
+.ldr .vp:before{content:"";border-left:8px solid #fff;border-top:5px solid transparent;border-bottom:5px solid transparent}
+.wo-lbl{display:flex;align-items:center;gap:4px;color:#616061;font-size:13px;margin:6px 0 4px}
+.wo-lbl .ic{width:11px;height:11px}
+.wo{position:relative;border:1px solid #dcdcdc;border-radius:8px;max-width:340px;background:#fff}
+.wo-h{display:flex;gap:10px;align-items:center;padding:11px 12px 4px;cursor:pointer;border-radius:8px 8px 0 0}
+.wo-h .av{border-radius:8px}
+.wo-hw{min-width:0}
+.wo-t{font-weight:900;font-size:15px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wo-s{font-size:12.5px;color:#616061}
+.wo-f{padding:4px 12px 0}
+.wo-fl{font-size:12.5px;color:#616061}
+.wo-fv{font-size:14.5px}
+.wo-cv{display:block;margin:8px 12px 4px;border-radius:6px;overflow:hidden;cursor:pointer}
+.wo-fields{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;padding:6px 12px 2px}
+.wo-fields .mention{font-size:14px}
+.wo-foot{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:8px 10px 10px 12px;margin-top:6px;border-top:1px solid #eee;font-size:12.5px;color:#616061}
+.wo-foot>span:first-child{white-space:nowrap}
+.wo-foot .acts{display:flex;gap:6px;margin-left:auto}
+.wo-foot .rf{color:#1264a3;cursor:pointer;border-radius:4px;padding:0 2px}
+.wo-foot .sp{flex:1}
+.wo-btn{height:28px;padding:0 10px;border-radius:6px;border:1px solid rgba(29,28,29,.3);background:#fff;font:700 13px Lato,sans-serif;color:#1d1c1d;white-space:nowrap}
+.wo-btn.more{width:28px;padding:0;display:grid;place-items:center}
+.wo-btn.more .ic{width:14px;height:14px}
+.wo-menu{position:absolute;right:8px;bottom:44px;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.18);padding:5px;z-index:5;min-width:170px}
+.wo-menu div{padding:6px 12px;border-radius:5px;font-size:14px;cursor:pointer}
+.wo.upd{animation:woupd 1.4s ease}
+@keyframes woupd{0%{box-shadow:0 0 0 0 rgba(242,199,68,0)}30%{box-shadow:0 0 0 4px rgba(242,199,68,.75)}100%{box-shadow:0 0 0 0 rgba(242,199,68,0)}}
+.c16{position:relative;width:100%;aspect-ratio:16/9;background:linear-gradient(120deg,var(--c1,#2f3fd0),var(--c2,#5b6cf0));overflow:hidden;color:#fff;font-family:Inter,system-ui,sans-serif;container-type:inline-size}
+.c16 .lg{position:absolute;left:6%;top:15%;width:7.5%;aspect-ratio:1;border-radius:22%;overflow:hidden}
+.c16 .lg svg{width:100%;height:100%;display:block}
+.c16 .tt{position:absolute;left:6%;top:29%;width:44%;font-weight:700;font-size:5.6cqw;line-height:1.14;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.c16 .ss{position:absolute;left:6%;top:57%;width:42%;font-size:2.7cqw;opacity:.9;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.c16 .ln{position:absolute;left:6%;top:72%;font-size:2.5cqw;opacity:.9}
+.c16 .stb{position:absolute;left:6%;top:80%;background:#fff;color:#111;border-radius:1.6cqw;padding:1.1cqw 2.2cqw;font-weight:700;font-size:2.7cqw;display:flex;align-items:center;gap:1.2cqw}
+.c16 .stb:before{content:"";width:2.4cqw;height:2.4cqw;border-radius:50%;background:var(--c1,#2f3fd0)}
+.c16 .shw{position:absolute;left:54%;top:19%;width:60%;height:76%;border-radius:1.4cqw 0 0 0;overflow:hidden;box-shadow:0 2cqw 5cqw rgba(0,0,0,.3);background:#fff}
+.mk{position:absolute;inset:0;background:#f6f7f9;overflow:hidden}
+.mk i{position:absolute;display:block}
+.sp-panel{position:absolute;left:0;top:0;bottom:0;right:0;z-index:8;background:#1a1d21;display:flex;flex-direction:column;box-shadow:6px 0 22px rgba(0,0,0,.35)}
+.sp-panel.th-open{right:408px}
+.sp-h{height:50px;flex:none;display:flex;align-items:center;gap:10px;padding:0 16px;color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
+.sp-h .av{border-radius:5px}
+.sp-h b{display:block;font-size:14px;line-height:1.2}
+.sp-h small{display:block;font-size:12px;color:#c9ccd1}
+.sp-h .sp{flex:1}
+.sp-h .ic{width:16px;height:16px;color:#c9ccd1}
+.sp-b{flex:1;min-height:0;position:relative}
+.sg-prompts{display:flex;gap:6px;flex-wrap:wrap;padding:4px 18px 8px}
+.sg-prompts span{border:1px solid #d6d6d6;border-radius:14px;padding:3px 11px;font-size:13px;color:#1d1c1d;background:#fff}
+.hp{width:100%;max-width:520px;aspect-ratio:16/9;border-radius:8px;overflow:hidden;position:relative;background:#0f3a2f;margin:6px 0 14px;border:1px solid #e2e2e2}
+.hp .hl{position:absolute;left:6%;top:36%;width:32%;color:#fff;font:700 21px/1.12 Inter,system-ui,sans-serif}
+.hp .hl:before{content:"";display:block;width:34px;height:5px;border-radius:3px;background:#41e1c4;margin-bottom:10px}
+.hp .hw{position:absolute;left:38%;top:7%;right:-2%;bottom:-4%;background:#fff;border-radius:12px 0 0 0;padding:14px 16px;font:13px/1.35 Lato,sans-serif;color:#1d1c1d;overflow:hidden}
+.hp .hw .bar{height:8px;border-radius:4px;background:#e4e7eb;margin:8px 0}
+.tl-row{display:flex;gap:12px;align-items:flex-start;margin:8px 0}
+.tl-row .tw{flex:1;min-width:0}
+.tl-row .tt2{font-weight:700}
+.tl-row .tm{color:#616061;font-size:14px}
+.tl-row .th2{width:84px;height:56px;border-radius:6px;overflow:hidden;position:relative;flex:none;border:1px solid #e2e2e2}
+.vf{margin:6px 0}
+.vf .vt{color:#616061;font-size:13px;display:flex;gap:4px;align-items:center}
+.vf .vt .ic{width:11px;height:11px}
+.vf .vb{position:relative;width:300px;aspect-ratio:16/9;border-radius:8px;overflow:hidden;margin-top:4px}
+.vf .vb .pl{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.72);color:#fff;border-radius:6px;padding:3px 9px;font:700 12px Lato,sans-serif}
+.th .cmp-box.has{border-color:#8d8d8d}
+
+/* ===================== Layerpath studio (card/studio, dark) ===================== */
+.sto{position:absolute;inset:0;display:flex;flex-direction:column;gap:10px;padding:12px 14px;background:#101213;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:14px 14px;color:#e7eaee;font:13px/1.4 Inter,system-ui,-apple-system,sans-serif;overflow:hidden}
+.sto .ic{width:15px;height:15px;flex:none}
+.sto-top{display:flex;align-items:center;gap:7px;flex:none;min-width:0}
+.sto-seg{display:inline-flex;background:#17191b;border:1px solid #2a2e33;border-radius:12px;padding:3px;flex:none}
+.sto-seg span{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:9px;color:#7f8a95;font-weight:500;cursor:default}
+.sto-seg span.on{background:#2a2e33;color:#fff}
+.sto-pill{display:inline-flex;align-items:center;gap:6px;height:31px;padding:0 11px;border-radius:12px;background:#17191b;border:1px solid #2a2e33;color:#e7eaee;font-weight:500;white-space:nowrap;flex:none}
+.sto-pill.white{background:#fff;color:#111;border-color:#fff}
+.sto-pill.teal{background:#199f86;color:#fff;border-color:#199f86}
+.sto-pill.dim{color:#59636d}
+.sto-pill.title{flex:0 1 auto;min-width:0;overflow:hidden}
+.sto-pill.title span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.sto-pill.title small{color:#8f9aa5;white-space:nowrap}
+.sto-sp{flex:1}
+.sto-ttl{display:flex;align-items:baseline;gap:10px;min-width:0;line-height:1.25;flex:none;margin-bottom:-4px}
+.sto-ttl b{font-size:15px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sto-ttl small{color:#8f9aa5}
+.sto-body{flex:1;min-height:0;display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.sto-src{display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:none}
+.sto-tile{border-radius:16px;border:1px solid #2a2e33;padding:13px 15px;min-height:98px;position:relative;overflow:hidden}
+.sto-tile.up{background:radial-gradient(circle at 85% 130%,rgba(196,98,45,.42),transparent 62%),#16181a}
+.sto-tile.ln{background:radial-gradient(circle at 5% 130%,rgba(25,159,134,.36),transparent 62%),#16181a}
+.sto-oh{display:flex;gap:10px;align-items:flex-start}
+.sto-oh .oi{color:#e9783e}
+.sto-tile.ln .sto-oh .oi{color:#41e1c4}
+.sto-oh b{display:block;color:#fff;font-size:14px;font-weight:600}
+.sto-oh .s{color:#9ba7b3;font-size:12.5px}
+.sto-btn{display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:12px;border:1px solid #3a3f45;background:#1f2326;color:#fff;font-weight:600;margin-top:10px;font-size:12.5px}
+.sto-btn.brand{background:#199f86;border-color:#199f86}
+.sto-row{display:flex;gap:8px;margin-top:10px}
+.sto-in{flex:1;height:32px;border-radius:12px;background:#1f2326;border:1px solid #2a2e33;display:flex;align-items:center;padding:0 10px;color:#73808c;min-width:0;white-space:nowrap;overflow:hidden}
+.sto-in.v{color:#e7eaee}
+.sto-row .sto-btn{margin-top:0}
+.sto-files{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.sto-files span{font-size:11.5px;background:#1f2326;border:1px solid #2a2e33;border-radius:8px;padding:2px 7px;color:#d2d6da}
+.sto-h3{font-size:13.5px;color:#fff;margin:0 0 6px;font-weight:600}
+.sto-picks{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px}
+.sto-pk{display:flex;align-items:center;gap:10px;color:#9ba7b3}
+.sto-pk .lb{width:86px;flex:none}
+.sto-sg{display:inline-flex;border:1px solid #2a2e33;border-radius:10px;padding:2px;background:#16181a}
+.sto-sg span{padding:3px 9px;border-radius:8px;color:#9ba7b3}
+.sto-sg span.on{background:#2a2e33;color:#fff}
+.sto-chips{display:flex;gap:6px;flex-wrap:wrap}
+.sto-chip{display:inline-flex;gap:6px;align-items:center;height:28px;padding:0 11px;border-radius:14px;border:1px solid #2a2e33;background:#16181a;color:#d2d6da}
+.sto-chip:before{content:"\2726";color:#e9783e;font-size:11px}
+.sto-muted{color:#8f9aa5}
+.sto-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.sto-tour{border:1px solid #2a2e33;border-radius:12px;overflow:hidden;background:#16181a}
+.sto-tour .cv{position:relative;aspect-ratio:16/9;overflow:hidden}
+.sto-tour .chip{position:absolute;right:6px;top:6px;background:rgba(20,22,24,.82);color:#fff;border-radius:10px;padding:2px 7px;font-size:10.5px;z-index:2}
+.sto-tour .tb{padding:6px 9px 8px}
+.sto-tour .tb b{display:block;font-weight:500;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sto-tour .tb small{color:#8f9aa5}
+.sto-ed{flex:1;min-height:0;display:flex;gap:12px}
+.sto-strip{width:116px;flex:none;display:flex;flex-direction:column;gap:8px;overflow:hidden;background:rgba(255,255,255,.035);border-radius:12px;padding:6px}
+.sto-th{position:relative;aspect-ratio:16/10;border-radius:8px;overflow:hidden;border:2px solid transparent;flex:none}
+.sto-th.on{border-color:#fff}
+.sto-th .no{position:absolute;left:4px;bottom:4px;width:18px;height:18px;border-radius:50%;background:#111;color:#fff;font-size:10.5px;display:grid;place-items:center;z-index:2}
+.sto-th .vo{position:absolute;right:4px;bottom:4px;background:rgba(20,22,24,.82);color:#fff;border-radius:6px;padding:1px 5px;font-size:9.5px;z-index:2}
+.sto-th.ghost{background:#17191b;border:1px dashed #2f3439}
+.sto-cv{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.sto-canvas{position:relative;flex:1;min-height:0;border-radius:12px;overflow:hidden;background:#17191b}
+.sto-canvas .empty{position:absolute;inset:0;display:grid;place-items:center;color:#8f9aa5}
+.sto-hot{position:absolute;width:20px;height:20px;border-radius:50%;background:rgba(25,159,134,.9);box-shadow:0 0 0 7px rgba(25,159,134,.3);z-index:3}
+.sto-call{position:absolute;background:#fff;color:#111;border-radius:10px;padding:8px 12px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:48%;z-index:3}
+.sto-foot{display:flex;gap:10px;align-items:center;flex:none;flex-wrap:wrap}
+.sto-fp{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 12px;border-radius:12px;background:#fff;color:#111;font-weight:500}
+.sto-fp small{color:#777}
+.sto-fp .dot{width:7px;height:7px;border-radius:50%;background:#27b358}
+.sto-steps{display:inline-flex;gap:4px;align-items:center;height:30px;padding:0 6px;border-radius:12px;background:#17191b;border:1px solid #2a2e33}
+.sto-steps span{padding:2px 8px;border-radius:8px;color:#6f7a85}
+.sto-steps span.done{color:#9ba7b3}
+.sto-steps span.on{background:#2a2e33;color:#fff}
+.sto-ready{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:#9ba7b3}
+.sto-play{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.sto-pf{width:min(100%,640px);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 16px 40px rgba(0,0,0,.4)}
+.sto-bar{height:38px;display:flex;align-items:center;gap:10px;padding:0 12px;color:#444;background:#fff;font-size:12px}
+.sto-bar .prog{flex:1;display:flex;gap:4px}
+.sto-bar .prog i{flex:1;height:4px;border-radius:2px;background:#ddd}
+.sto-bar .prog i.on{background:#111}
+.sto-made{background:#111;color:#fff;border-radius:12px;padding:4px 10px;font-size:11px;white-space:nowrap}
+
+/* ===================== ChatGPT (drawn generically) ===================== */
+.desk.gpt #winSlack{display:none}
+.desk.gpt #winChrome{left:30px;top:16px;width:1120px;height:660px}
+.gp{height:100%;display:flex;background:#212121;color:#ececec;font:14px/1.5 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;position:relative}
+.gp .ic{width:16px;height:16px;flex:none}
+.gp-side{width:196px;flex:none;background:#181818;padding:10px 8px;display:flex;flex-direction:column;gap:1px;font-size:13.5px}
+.gp-logo{display:flex;align-items:center;gap:8px;padding:4px 8px 10px}
+.gp-logo svg{width:22px;height:22px}
+.gp-si{display:flex;align-items:center;gap:9px;padding:6px 9px;border-radius:9px;color:#ececec}
+.gp-si.on{background:#2a2a2a}
+.gp-sh{color:#8f8f8f;font-size:12px;padding:12px 9px 4px}
+.gp-sc{padding:5px 9px;border-radius:8px;color:#cfcfcf;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gp-user{margin-top:auto;display:flex;align-items:center;gap:8px;padding:8px;font-size:13px}
+.gp-user .ua{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:12px}
+.gp-main{flex:1;min-width:0;display:flex;flex-direction:column;position:relative}
+.gp-top{height:46px;flex:none;display:flex;align-items:center;padding:0 16px;gap:6px;font-size:16px;font-weight:600}
+.gp-top .ic{width:13px;height:13px;color:#9b9b9b}
+.gp-scroll{flex:1;min-height:0;overflow-y:auto}
+.gp-col{max-width:660px;margin:0 auto;padding:4px 20px 18px}
+.gp-hello{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:26px;font-weight:500;padding-bottom:40px}
+.gp-u{display:flex;flex-direction:column;align-items:flex-end;margin:12px 0}
+.gp-u .b{background:#303030;border-radius:18px;padding:8px 14px;max-width:82%}
+.gp-files{display:flex;gap:6px;justify-content:flex-end;margin-bottom:6px}
+.gp-files .shot{width:74px;height:50px;border-color:#3a3a3a}
+.gp-a{margin:10px 0;color:#ececec}
+.gp-a p{margin:0 0 10px}
+.gp-tool{display:flex;align-items:center;gap:8px;color:#9b9b9b;font-size:13px;margin:10px 0 6px}
+.gp-tool .ti{width:16px;height:16px;border-radius:4px;overflow:hidden}
+.gp-tool .ti svg{width:16px;height:16px;display:block}
+.gp-w{position:relative;margin:4px 0 12px}
+.gp-comp{flex:none;padding:6px 20px 14px;position:relative}
+.gp-box{max-width:660px;margin:0 auto;background:#303030;border-radius:26px;padding:9px 10px 9px 16px;display:flex;align-items:center;gap:10px;min-height:50px}
+.gp-box .ph{color:#9b9b9b;flex:1}
+.gp-box .tx{flex:1;color:#ececec}
+.gp-box .plus{color:#cfcfcf}
+.gp-at{background:rgba(110,160,255,.18);color:#9cc0ff;border-radius:6px;padding:1px 6px;font-weight:600}
+.gp-send{width:32px;height:32px;border-radius:50%;background:#ececec;color:#111;display:grid;place-items:center;border:0;flex:none}
+.gp-send.off{background:#5d5d5d;color:#2a2a2a}
+.gp-send .ic{width:15px;height:15px}
+.gp-pick{position:absolute;left:50%;bottom:72px;transform:translateX(-50%);width:380px;background:#2f2f2f;border:1px solid #3d3d3d;border-radius:14px;padding:6px;box-shadow:0 12px 30px rgba(0,0,0,.4);z-index:3}
+.gp-pick .pi2{display:flex;gap:10px;align-items:center;padding:7px 9px;border-radius:9px}
+.gp-pick .pi2 .ico{width:28px;height:28px;border-radius:7px;overflow:hidden;flex:none;display:grid;place-items:center;font-weight:800;font-size:12px}
+.gp-pick .pi2 .ico svg{width:28px;height:28px;display:block}
+.gp-pick .pi2 small{display:block;color:#9b9b9b;font-size:12px}
+.gp-pick .hd2{color:#9b9b9b;font-size:12px;padding:4px 9px}
+.who{position:absolute;z-index:9;font:700 10.5px/1 system-ui,-apple-system,sans-serif;letter-spacing:.02em;border-radius:5px;padding:4px 7px;pointer-events:none;white-space:nowrap}
+.who.gpt{background:#f2f2f2;color:#111;border:1px solid #9a9a9a}
+.who.lp{background:#199f86;color:#fff}
+.who.gg{background:#fff;color:#1f1f1f;border:1px solid #c4c7c5}
+.gp-pl{padding:16px 30px;overflow:auto;height:100%}
+.gp-pl h1{font-size:25px;margin:2px 0 2px;font-weight:600}
+.gp-pl .sub{color:#9b9b9b}
+.gp-search{height:38px;border-radius:19px;background:#2f2f2f;display:flex;align-items:center;gap:8px;padding:0 14px;color:#9b9b9b;max-width:560px;margin:14px 0 12px}
+.gp-search .v{color:#ececec}
+.gp-cats{display:flex;gap:8px;margin-bottom:12px}
+.gp-cats span{padding:4px 12px;border-radius:16px;background:#2f2f2f;color:#cfcfcf;font-size:13px}
+.gp-cats span.on{background:#ececec;color:#111}
+.gp-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px}
+.gp-card{display:flex;gap:12px;align-items:center;padding:10px;border-radius:12px;cursor:pointer}
+.gp-card:hover{background:#2a2a2a}
+.gp-card .ico,.gp-m .ico{width:44px;height:44px;border-radius:11px;flex:none;display:grid;place-items:center;overflow:hidden;font-weight:800;color:#fff}
+.gp-card .ico svg,.gp-m .ico svg{width:100%;height:100%;display:block}
+.gp-card b{display:block;font-weight:600}
+.gp-card small{color:#9b9b9b;font-size:12.5px}
+.gp-mb{position:absolute;inset:0;background:rgba(0,0,0,.55);display:grid;place-items:center;z-index:10}
+.gp-m{width:540px;background:#2a2a2a;border:1px solid #3a3a3a;border-radius:20px;padding:22px 24px;box-shadow:0 24px 60px rgba(0,0,0,.5);position:relative}
+.gp-m .hd{display:flex;gap:14px;align-items:center}
+.gp-m .ico{width:56px;height:56px;border-radius:14px}
+.gp-m .nm{font-size:19px;font-weight:600}
+.gp-m .by{color:#9b9b9b;font-size:13px}
+.gp-m .hd .sp{flex:1}
+.gp-m p{color:#d6d6d6;margin:14px 0 0}
+.gp-m h4{margin:16px 0 6px;font-size:13px;color:#9b9b9b;font-weight:600}
+.gp-m ul{margin:0;padding-left:18px;color:#d6d6d6}
+.gp-m .x{position:absolute;right:16px;top:14px;color:#9b9b9b}
+.gp-cta{height:36px;padding:0 18px;border-radius:18px;background:#ececec;color:#111;font-weight:600;border:0;white-space:nowrap}
+.gp-cta.ghost{background:transparent;color:#ececec;border:1px solid #5a5a5a}
+.gp-ok{display:inline-flex;align-items:center;gap:6px;color:#8fd19e;font-weight:600;white-space:nowrap}
+.gp-ok .ic{width:15px;height:15px}
+.gp-shots{display:flex;gap:8px;margin-top:12px}
+.gp-shots div{flex:1;aspect-ratio:16/10;border-radius:10px;overflow:hidden;position:relative}
+.gp-toast{position:absolute;left:50%;top:12px;transform:translateX(-50%);background:#ececec;color:#111;border-radius:12px;padding:8px 14px;font-weight:600;z-index:12;display:flex;gap:8px;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.35);white-space:nowrap}
+.gp-toast .ic{width:15px;height:15px;color:#1a7f37}
+.gp-full{position:absolute;inset:0;z-index:10;background:#212121;display:flex;flex-direction:column}
+.gp-fh{height:44px;flex:none;display:flex;align-items:center;gap:10px;padding:0 14px;position:relative}
+.gp-fh .x{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#ececec;cursor:pointer}
+.gp-fh .an{display:flex;align-items:center;gap:8px;font-weight:600}
+.gp-fh .an svg{width:22px;height:22px;border-radius:6px}
+.gp-fb{flex:1;min-height:0;position:relative;margin:0 10px;border-radius:14px;overflow:hidden}
+.gp-fc{flex:none;padding:8px 20px 12px}
+.gp-fc .gp-box{min-height:44px}
+.gp-link{background:#2a2a2a;border:1px solid #3a3a3a;border-radius:16px;padding:14px 16px;display:flex;gap:12px;align-items:center;margin:6px 0 12px;position:relative}
+.gp-link .ico{width:36px;height:36px;border-radius:9px;overflow:hidden;flex:none}
+.gp-link .ico svg{width:36px;height:36px;display:block}
+.gp-link .w{flex:1}
+.gp-link small{display:block;color:#9b9b9b}
+.gp-tbl{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0 12px}
+.gp-tbl th,.gp-tbl td{text-align:left;padding:6px 8px;border-bottom:1px solid #3a3a3a}
+.gp-tbl th{color:#cfcfcf}
+.gp-tbl td:last-child{color:#cfcfcf}
+.gp-btns{display:flex;flex-direction:column;gap:6px;margin:6px 0 12px}
+.gp-btns span{display:block;text-align:center;border-radius:18px;padding:6px;border:1px solid #4a4a4a;color:#ececec}
+.gp-btns span:first-child{background:#ececec;color:#111;border-color:#ececec}
+.gp-a h5{font-size:15px;margin:12px 0 4px}
+.gp-fade{position:relative;max-height:350px;overflow:hidden}
+.gp-fade:after{content:"";position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(transparent,#212121)}
+.gp-cap{display:inline-block;margin:2px 0 6px;font:700 11px system-ui,sans-serif;color:#111;background:#ffd38a;border-radius:4px;padding:2px 7px}
+/* our cards inside ChatGPT (the studio's inline views) */
+.wd{border-radius:20px;border:1px solid #30353a;background:#121416;color:#e7eaee;font:13.5px/1.45 Inter,system-ui,sans-serif;overflow:hidden}
+.wd-add{padding:22px 24px;text-align:center}
+.wd-add h2,.wd-what h2{margin:0 0 6px;font-size:17px;color:#fff;font-weight:600}
+.wd-add p{margin:0 auto 14px;color:#9ba7b3;max-width:440px}
+.wd-btn{display:inline-flex;align-items:center;height:34px;padding:0 16px;border-radius:17px;background:#fff;color:#111;font-weight:600;border:0;white-space:nowrap}
+.wd-btn.sec{background:#1f2326;color:#fff;border:1px solid #30353a}
+.wd-card{display:flex;gap:14px;padding:12px}
+.wd-card .cv{width:230px;flex:none;border-radius:12px;overflow:hidden;position:relative}
+.wd-card .cv .chip{position:absolute;right:6px;top:6px;background:rgba(20,22,24,.82);color:#fff;border-radius:10px;padding:2px 8px;font-size:11px;z-index:2}
+.wd-card h2{margin:6px 0 2px;font-size:16px;color:#fff;font-weight:600;line-height:1.3}
+.wd-meta{color:#9ba7b3;font-size:12.5px}
+.wd-acts{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.wd-what{padding:18px 20px}
+.wd-what .lede2{color:#9ba7b3;margin:0}
+.wd-what ul{list-style:none;margin:12px 0 14px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+.wd-what li{display:flex;gap:10px;align-items:flex-start}
+.wd-what li i{width:28px;height:28px;border-radius:9px;background:#1f2326;border:1px solid #30353a;display:grid;place-items:center;flex:none;color:#41e1c4;font-style:normal}
+.wd-what li i .ic{width:15px;height:15px}
+.wd-what li b{display:block;color:#fff;font-weight:600}
+.wd-what li span{color:#9ba7b3;font-size:12.5px}
+.wd-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.wd-chip{display:inline-flex;gap:6px;align-items:center;height:30px;padding:0 12px;border-radius:15px;border:1px solid #30353a;background:#16181a;color:#d2d6da}
+.wd-chip:before{content:"\2726";color:#e9783e;font-size:11px}
+.wd-car{display:flex;gap:10px;padding:12px;overflow:hidden}
+.wd-tile{width:178px;flex:none;border:1px solid #2a2e33;border-radius:12px;overflow:hidden;background:#16181a}
+.wd-tile .cv{position:relative;aspect-ratio:16/9;overflow:hidden}
+.wd-tile .cv .chip{position:absolute;right:6px;top:6px;background:rgba(20,22,24,.82);color:#fff;border-radius:10px;padding:2px 7px;font-size:10.5px;z-index:2}
+.wd-tile .tb{padding:7px 10px 10px}
+.wd-tile b{display:block;font-weight:500;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wd-tile small{display:block;color:#8f9aa5;margin-bottom:6px}
+.wd-tile .wd-btn{height:28px;font-size:12.5px}
+/* Layerpath consent page for ChatGPT (to build) */
+.cs-pair{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:14px}
+.cs-pair .ai{width:46px;height:46px;border-radius:12px;overflow:hidden}
+.cs-pair .ai svg{width:46px;height:46px;display:block}
+.cs-pair .dots{display:flex;gap:4px}
+.cs-pair .dots i{width:5px;height:5px;border-radius:50%;background:#5b656f}
+.cs-who{display:flex;align-items:center;gap:10px;background:#1c1f22;border:1px solid #2a2e33;border-radius:12px;padding:9px 12px;margin-bottom:12px;font-size:13.5px;color:#d2d6da}
+.cs-who .sp{flex:1}
+.cs-who a{color:#9ba7b3;text-decoration:underline;cursor:pointer}
+.cs-lbl{font-size:13px;color:#9ba7b3;margin:4px 0 6px}
+.cs-can{background:#16181a;border:1px solid #2a2e33;border-radius:12px;padding:10px 14px;margin:12px 0 16px;color:#d2d6da;font-size:13.5px}
+.cs-can ul{margin:4px 0 0;padding-left:18px}
+.cs-btns{display:flex;gap:10px}
+.cs-btns .sub-btn{flex:1}
+.cs-btns .ghost-btn{flex:none}
+.lpa-small{color:#8f9aa5;font-size:12.5px;text-align:center;margin-top:12px}
+.int-rows{margin-top:10px;border-top:1px solid #2a2e33}
+.int-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #2a2e33;font-size:13px;color:#d2d6da}
+.int-row .who2{flex:1;min-width:0}
+.int-row small{color:#8f9aa5}
+.int-link{color:#72e9d3;text-decoration:underline;font-size:13px}
+
+@media (max-width: 1100px){ .topbar .note{display:none} }
+@media (max-width: 820px){ .legend .bd{display:none} .rail{width:190px} .doc{padding:16px} .gl tbody th{width:96px} }
+@media (max-width: 640px){ .rail{display:none} .persona{display:none} }
+@media (prefers-reduced-motion: reduce){
+  .ldr .cd,.ldr .dots i,.rx .ld,.wo.upd{animation:none}
+  .ldr .cd{opacity:.5}
+  .ldr .cd:nth-child(1){transform:translateY(52px);z-index:4}.ldr .cd:nth-child(2){transform:translateY(34px) scale(.965);z-index:3}.ldr .cd:nth-child(3){transform:translateY(17px) scale(.93);z-index:2}.ldr .cd:nth-child(4){transform:scale(.895)}
+}
 @media (prefers-reduced-motion: reduce){
   .nx{animation:none}
   .win.raise,.ctab.fresh,.swap.show,.newtab-tip,.hint{animation:none}
@@ -594,16 +979,16 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 </head>
 <body>
 <header class="topbar">
-  <span class="t">Layerpath in Slack · Onboarding (V1)</span>
-  <span class="note">Built from the 2 Oct 2026 spec</span>
+  <span class="t">Layerpath in Slack and ChatGPT · Onboarding (V1)</span>
+  <span class="note">2 Oct spec, checked against dev bffc798d8 on 12 Oct 2026</span>
   <span class="sp"></span>
-  <span class="chip-later">Later = not in V1</span>
+  <span class="legend" aria-label="Badges"><span class="bd live" title="This screen works like this in beta today">Live today</span><span class="bd build" title="Part of the V1 plan, not built yet">To build</span><span class="chip-later">Later = not in V1</span></span>
 </header>
 <div class="app">
   <nav class="rail" id="rail" aria-label="Scenarios"></nav>
   <main class="main">
     <div class="schead">
-      <span class="code" id="scCode"></span><span class="st" id="scTitle"></span>
+      <span class="code" id="scCode"></span><span class="st" id="scTitle"></span><span id="scBadge"></span>
       <span class="tools" id="scTools"></span>
       <span class="persona" id="persona"></span>
     </div>
@@ -615,6 +1000,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
         <div class="swap" id="swap"></div>
         <div class="later-banner" id="laterBanner">Later, not in V1</div>
       </div>
+      <div class="pbox" id="panelBox" tabindex="-1"></div>
     </div>
     <div class="under">
       <div class="row1">
@@ -672,7 +1058,21 @@ var GOOGLE_G = '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335"
 var SLACKBOT = '<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#fff"/><g transform="translate(9 9) scale(.179)">' + SLACK_LOGO.replace(/<\/?svg[^>]*>/g, "") + "</g></svg>";
 var CHECKC = '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="#616061"/><path d="m6.5 10.2 2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 var OKBIG = '<svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21" fill="rgba(39,179,88,.15)" stroke="#27b358" stroke-width="1.5"/><path d="m14 22.5 5.5 5.5L30.5 17" stroke="#27b358" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+/* A neutral stand-in for ChatGPT's mark (not OpenAI's logo): the demo draws ChatGPT generically. */
+var GPT_LOGO = '<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#f4f4f4"/><g fill="none" stroke="#111" stroke-width="2.6" stroke-linecap="round"><circle cx="20" cy="20" r="6.6"/><path d="M20 7.5v5M20 27.5v5M9.2 13.8l4.3 2.5M26.5 23.7l4.3 2.5M9.2 26.2l4.3-2.5M26.5 16.3l4.3-2.5"/></g></svg>';
 var I = {
+  up: sv('<path d="M10 16V4.5M5.2 9.2 10 4.4l4.8 4.8"/>', null, 2),
+  refresh: sv('<path d="M16 10a6 6 0 1 1-1.8-4.3M16 3.5v3.6h-3.6"/>', null, 1.8),
+  upload: sv('<path d="M10 13V3.8M6.2 7.4 10 3.6l3.8 3.8M3.8 12.6v3.6h12.4v-3.6"/>', null, 1.8),
+  sparkle: sv('<path d="M10 2.8c.6 3.5 1.8 4.7 5.2 5.2-3.4.6-4.6 1.8-5.2 5.2-.6-3.4-1.8-4.6-5.2-5.2 3.4-.5 4.6-1.7 5.2-5.2Z"/>'),
+  pencil: sv('<path d="M13.6 3.8 16.2 6.4 7.4 15.2 4.2 16 5 12.8z"/>'),
+  undo: sv('<path d="M7.5 5.5 3.8 9.2l3.7 3.7M4 9.2h7.6a4.4 4.4 0 0 1 0 8.8H9"/>'),
+  palette: sv('<path d="M10 3a7 7 0 0 0 0 14c1.1 0 1.6-.8 1.3-1.7-.4-1.1.3-2 1.4-2H15a2.6 2.6 0 0 0 2-2.5C17 6.3 13.9 3 10 3Z"/><circle cx="6.6" cy="9" r=".9" fill="currentColor"/><circle cx="9.2" cy="6.4" r=".9" fill="currentColor"/><circle cx="12.8" cy="6.8" r=".9" fill="currentColor"/>'),
+  download: sv('<path d="M10 3.6v9.2M6.2 9.2 10 13l3.8-3.8M3.8 16.4h12.4"/>', null, 1.8),
+  playc: sv('<circle cx="10" cy="10" r="7.2"/><path d="m8.4 7.2 4.2 2.8-4.2 2.8z" fill="currentColor"/>'),
+  stepsic: sv('<path d="M4 6.5h12M4 10h12M4 13.5h8"/>'),
+  globe: sv('<circle cx="10" cy="10" r="7"/><path d="M3 10h14M10 3c2.4 2.6 2.4 11.4 0 14M10 3c-2.4 2.6-2.4 11.4 0 14"/>', null, 1.4),
+  grid: sv('<rect x="3.5" y="3.5" width="5" height="5" rx="1.2"/><rect x="11.5" y="3.5" width="5" height="5" rx="1.2"/><rect x="3.5" y="11.5" width="5" height="5" rx="1.2"/><rect x="11.5" y="11.5" width="5" height="5" rx="1.2"/>'),
   hash: sv('<path d="M8 3 6.5 17M13.5 3 12 17M4 7.5h13M3 12.5h13"/>'),
   shared: sv('<path d="M7.3 3 6.2 12.5M11.8 3l-1.1 9.5M3.4 6.4h10M2.8 10h9.2"/><rect x="11.6" y="11.6" width="4.6" height="4.6" rx="1.2"/><rect x="14" y="14" width="4.4" height="4.4" rx="1.2" fill="currentColor"/>'),
   eye: sv('<path d="M1.6 10s3-5.6 8.4-5.6 8.4 5.6 8.4 5.6-3 5.6-8.4 5.6S1.6 10 1.6 10Z"/><circle cx="10" cy="10" r="2.4" fill="currentColor" stroke="none"/>'),
@@ -728,6 +1128,7 @@ var FAV = {
   lp: '<span class="fav">' + LP_LOGO + "</span>",
   slack: '<span class="fav">' + SLACK_LOGO + "</span>",
   google: '<span class="fav">' + GOOGLE_G + "</span>",
+  gpt: '<span class="fav">' + GPT_LOGO + "</span>",
   newtab: '<span class="fav">' + sv('<circle cx="10" cy="10" r="7"/><path d="M3 10h14M10 3c2.4 2.6 2.4 11.4 0 14M10 3c-2.4 2.6-2.4 11.4 0 14"/>', null, 1.2) + "</span>"
 };
 var LPFULL = '<span class="lpfull">' + LP_LOGO + "<span>Layerpath</span></span>";
@@ -743,7 +1144,8 @@ var P = {
   omar: { name: "Omar Haddad", first: "Omar", email: "omar@acme.com", col: "#a16207", chip: "omar@acme.com · Viewer in Acme" },
   lena: { name: "Lena Ortiz", first: "Lena", email: "lena@contractor.io", col: "#be185d", chip: "lena@contractor.io · single-channel guest in Acme's Slack" },
   tom: { name: "Tom Reed", first: "Tom", email: "tom@globex.com", col: "#475569", chip: "tom@globex.com · Globex, in a Slack Connect channel" },
-  sadmin: { name: "Slack admin", first: "Admin", email: "", col: "#334155", chip: "a Slack admin at Acme (not one of the spec's people)" }
+  sadmin: { name: "Slack admin", first: "Admin", email: "", col: "#334155", chip: "a Slack admin at Acme (not one of the spec's people)" },
+  nina: { name: "Nina Park", first: "Nina", email: "nina@brightdesk.io", col: "#0e7490", chip: "nina@brightdesk.io · ChatGPT user, new to Layerpath" }
 };
 var LPEMAIL = { maya: "maya.cruz@gmail.com" };
 function lpEmail(k) { return LPEMAIL[k] || P[k].email; }
@@ -766,7 +1168,7 @@ function M(from, o) { var m = { id: "m" + (++MID), from: from, time: "10:42 AM" 
 
 function world() {
   return {
-    as: "priya", front: "slack", installed: true,
+    as: "priya", front: "slack", installed: true, gpt: false,
     chan: {
       "general": [M("priya", { text: "Morning all. The new CRM goes live on Monday.", time: "9:12 AM" })],
       "customer-training": [M("priya", { text: "Training tours for the new CRM go in this channel.", time: "9:58 AM" })],
@@ -777,7 +1179,7 @@ function world() {
 }
 function U(W, as) {
   as = as || W.as;
-  if (!W.ui[as]) W.ui[as] = { view: { k: "ch", id: as === "tom" ? "shared-globex" : "customer-training" }, thread: null, threadCh: null, composer: null, modal: null, unread: [], msgDot: false };
+  if (!W.ui[as]) W.ui[as] = { view: { k: "ch", id: as === "tom" ? "shared-globex" : "customer-training" }, thread: null, threadCh: null, composer: null, thc: null, modal: null, panel: null, menu: null, prompts: false, unread: [], msgDot: false };
   return W.ui[as];
 }
 function BR(W, as) {
@@ -810,6 +1212,9 @@ function rep(W, pid, m) { W.thr[pid].replies.push(m); return m; }
 function tab(W, t) { var b = BR(W); b.tabs.push(t); b.active = b.tabs.length - 1; W.front = "chrome"; }
 function navTab(W, t) { var b = BR(W); b.tabs[b.active] = t; W.front = "chrome"; }
 function setPage(W, patch) { var b = BR(W); var t = b.tabs[b.active]; var p = {}; var k; for (k in t.page) p[k] = t.page[k]; for (k in patch) p[k] = patch[k]; t.page = p; }
+function composeTh(W, text) { U(W).thc = { text: text, files: 0 }; }
+function sendTh(W, time) { var u = U(W); var m = M(W.as, { text: u.thc.text, time: time || "10:46 AM" }); W.thr[u.thread].replies.push(m); u.thc = null; return m; }
+function curPage(W) { var b = BR(W); return b.tabs[b.active].page; }
 function dmTo(W, who, m, kind) { var key = (kind || "app") + ":" + who; (W.dm[key] = W.dm[key] || []).push(m); return m; }
 function unread(W, who, key) { var u = U(W, who); if (u.unread.indexOf(key) < 0) u.unread.push(key); }
 
@@ -828,7 +1233,14 @@ var URLS = {
   projects: "app.layerpath.com/dashboard/acme/projects",
   web: "layerpath.com/slack",
   google: "accounts.google.com/v3/signin/accountchooser?client_id=…",
-  market: "slack.com/marketplace/…/layerpath"
+  market: "slack.com/marketplace/…/layerpath",
+  gptPlugins: "chatgpt.com/plugins",
+  gptChat: "chatgpt.com/c/…",
+  gptAuth: "app.layerpath.com/oauth/authorize?response_type=code&client_id=…&redirect_uri=https://chatgpt.com/…&code_challenge=…&state=…",
+  gptSignin: "app.layerpath.com/signin?from=/oauth/authorize…",
+  gptSignup: "app.layerpath.com/signup?from=/oauth/authorize…",
+  apps: "app.layerpath.com/account/connected-apps",
+  ninaProjects: "app.layerpath.com/dashboard/nina/projects"
 };
 function ext(base, extra) { var o = {}; var k; for (k in base) o[k] = base[k]; for (k in (extra || {})) o[k] = extra[k]; return o; }
 var T = {
@@ -843,87 +1255,130 @@ var T = {
   web: function () { return { fav: "lp", title: "Layerpath", url: URLS.web, page: { kind: "web" } }; },
   editor: function (tour) { return { fav: "lp", title: "Layerpath", url: URLS.editor, page: { kind: "editor", title: tour.title, steps: tour.steps } }; },
   projects: function () { return { fav: "lp", title: "Layerpath", url: URLS.projects, page: { kind: "projects", user: "sam" } }; },
-  sketch: function (url, block) { return { fav: url.indexOf("slack.com") === 0 ? "slack" : "lp", title: "Later sketch", url: url, page: { kind: "sketch", block: block } }; }
+  sketch: function (url, block) { return { fav: url.indexOf("slack.com") === 0 ? "slack" : "lp", title: "Later sketch", url: url, page: { kind: "sketch", block: block } }; },
+  gpt: function (extra) { var p = ext({ kind: "gpt", view: "chat", items: [], composer: null, picker: false, modal: null, full: null, toast: "", user: "nina", chats: [] }, extra); return { fav: "gpt", title: "ChatGPT", url: p.view === "plugins" ? URLS.gptPlugins : URLS.gptChat, page: p }; },
+  consent: function (extra) { return { fav: "lp", title: "Layerpath", url: URLS.gptAuth, page: ext({ kind: "consent", user: "nina", ws: ["Nina's workspace · Free"], sel: 0 }, extra) }; },
+  gptSignin: function (extra) { return { fav: "lp", title: "Sign In", url: URLS.gptSignin, page: ext({ kind: "auth", banner: "Sign in to connect ChatGPT", icon: "gpt" }, extra) }; },
+  gptSignup: function (extra) { return { fav: "lp", title: "Sign Up", url: URLS.gptSignup, page: ext({ kind: "auth", type: "signup", banner: "Sign up to connect ChatGPT", icon: "gpt" }, extra) }; },
+  apps: function (extra) { return { fav: "lp", title: "Layerpath", url: URLS.apps, page: ext({ kind: "lp-apps", user: "sam" }, extra) }; },
+  lpProjects: function (extra) { return { fav: "lp", title: "Layerpath", url: URLS.ninaProjects, page: ext({ kind: "projects", user: "nina", ws: "Nina's workspace", wsInit: "N", plan: "Free" }, extra) }; }
 };
 var GA = {
   priya: { name: "Priya Shah", email: "priya@acme.com", col: "#b5542e" },
   mayaWork: { name: "Maya Cruz", email: "maya@acme.com", col: "#7c3aed" },
-  mayaGmail: { name: "Maya Cruz", email: "maya.cruz@gmail.com", col: "#0b8043" }
+  mayaGmail: { name: "Maya Cruz", email: "maya.cruz@gmail.com", col: "#0b8043" },
+  nina: { name: "Nina Park", email: "nina@brightdesk.io", col: "#0e7490" }
 };
 
 /* ============================================================
    Content (spec copy, and the bot's real copy from apps/agent)
    ============================================================ */
 var TOURS = {
-  sam: { title: "Create a new deal", steps: ["Open Deals", "Click New deal", "Fill in the deal details", "Pick the pipeline stage", "Save the deal"] },
-  maya: { title: "Log a customer call", steps: ["Open the contact", "Click Log activity", "Choose Call", "Add your notes", "Save the call"] },
-  priya: { title: "Invite a teammate", steps: ["Open Settings", "Go to Members", "Click Invite member", "Enter their email", "Send the invite"] }
+  sam: { title: "Create a new deal", sub: "Add a deal, pick its stage and save it in the CRM.", steps: ["Open Deals", "Click New deal", "Fill in the deal details", "Pick the pipeline stage", "Save the deal"], c1: "#2f3fd0", c2: "#5d6cf2", acc: "#4f5bd5" },
+  maya: { title: "Log a customer call", sub: "Record a call with a contact and add your notes.", steps: ["Open the contact", "Click Log activity", "Choose Call", "Add your notes", "Save the call"], c1: "#0f766e", c2: "#17a58f", acc: "#0f766e" },
+  priya: { title: "Invite a teammate", sub: "Add someone by email and pick what they can do.", steps: ["Open Settings", "Go to Members", "Click Invite member", "Enter their email", "Send the invite"], c1: "#b5542e", c2: "#e07a45", acc: "#b5542e" },
+  nina: { title: "Sign up for Brightdesk", sub: "Create an account and set up your first desk.", steps: ["Open the sign-up page", "Enter your work email", "Choose a password", "Name your first desk"], c1: "#0e7490", c2: "#25a7c7", acc: "#0e7490" },
+  pitch: { title: "Set up a sales pipeline", sub: "Add the stages your deals move through.", steps: ["Open Pipelines", "Click New pipeline", "Name it", "Add the stages", "Save"], c1: "#6d28d9", c2: "#9b5cf6", acc: "#6d28d9" },
+  report: { title: "Export a monthly report", sub: "Pick a month and download the report.", steps: ["Open Reports", "Pick the month", "Click Export"], c1: "#334155", c2: "#5b6b82", acc: "#334155" }
 };
 var TL = {
   sam: [["Create a new deal", "2 Oct"], ["Log a customer call", "1 Oct"], ["Merge duplicate contacts", "30 Sep"], ["Set up a sales pipeline", "29 Sep"], ["Export a monthly report", "26 Sep"]],
   priya: [["Invite a teammate", "1 Oct"], ["Set up single sign-on", "30 Sep"], ["Create a custom report", "29 Sep"], ["Add a new product", "26 Sep"], ["Turn on email alerts", "24 Sep"]]
 };
 var HOW_TO = "How to use: add @Layerpath to a channel, then mention it with what you want and your screens.";
-var LEAD = "I'm on it. I'll make a tour from your 3 screenshots.";   // slackOptions.ts OPTIONS_COPY.lead
 
-/* slackOptions.ts: optionsBlocks / startedBlocks */
-function optionsBlocks() {
-  function row(label, hint, vals) {
-    return [{ t: "sec", md: "*" + label + "*\n" + hint }, { t: "act", els: vals.map(function (v, i) { return { b: v, s: i === 0 ? "primary" : "" }; }) }];
-  }
-  return [{ t: "sec", md: LEAD + " Pick how you want it, or tap Create tour." }]
-    .concat(row("Steps", "How many steps AI creates.", ["Auto", "Short", "Detailed"]))
-    .concat(row("Voiceover", "Add voiceover during creation.", ["Auto", "On", "Off"]))
-    .concat(row("Tone", "Writing style for callouts and voiceover.", ["Auto", "Clear", "Friendly", "Formal"]))
-    .concat([{ t: "act", els: [{ b: "Create tour", s: "primary", k: "create" }] }, { t: "ctx", md: "It starts by itself in 20s with what's picked." }]);
-}
-function startedBlocks() { return [{ t: "sec", md: LEAD }, { t: "ctx", md: "Steps: Auto · Voiceover: Auto · Tone: Auto" }]; }
-function optionsMsg(o) { return M("lp", ext({ blocks: optionsBlocks() }, o)); }
-
-/* slackCard.ts: resultBlocks */
-function cardBlocks(tour, o) {
+/* ---------- Today's bot (origin/dev bffc798d8, 12 Oct 2026) ---------- */
+/* slackCard.ts lengthLine: a minute per four steps, at least one */
+function lengthLine(n) { var m = Math.max(1, Math.round(n / 4)); return n + " step" + (n === 1 ? "" : "s") + " · " + m + " min" + (m === 1 ? "" : "s"); }
+/* proactive.ts BUILD_TIPS[0] and READY_FALLBACKS[0] (the model writes its own ready line, this is its fallback) */
+var TIP = "Did you know? Once it's ready, ask me here for a version in another language, voiceover included.";
+var READY_LINE = "your tour is ready. Reply here and I can shorten the steps, change the tone or put it in another language.";
+/* The model's one-line ack with create_tour's estimate (buildEstimate.ts); the words are the model's */
+function ackMsg(who, what, o) { return M("lp", ext({ text: "On it, " + P[who].first + ". I'm building the " + (what ? what + " " : "") + "tour from your 3 screenshots, and it should take about a minute." }, o)); }
+function tourData(t) { return { title: t.title, sub: t.sub, steps: t.steps.slice(), n: t.steps.length, c1: t.c1, c2: t.c2, acc: t.acc }; }
+/* workObject.ts tourEntity: title, "Interactive tour", the wide cover, "N steps · M mins", who asked, created, updated, Open tour and Make video, Edit in Layerpath in its menu */
+function woBlock(tour, who, o) {
   o = o || {};
-  var draft = !!o.draft, n = tour.steps.length;
-  var b = [{ t: "sec", md: "*" + tour.title + "*" }, { t: "ctx", md: n + " steps · 1 min" + (o.updated ? " · Updated " + o.updated : "") }];
-  if (!draft) b.push({ t: "video", kind: "tour", desc: "Click through it without leaving Slack", title: "Play the interactive tour", tour: tour.title, len: n + " steps · 1 min" });
-  if (draft) b.push({ t: "sec", md: "Free allows up to 3 published projects at a time. Unpublish another project or upgrade to publish this one." });
-  b.push({ t: "act", els: (draft ? [] : [{ b: "Open tour", s: "primary", k: "card-open" }]).concat([{ b: "Edit in Layerpath", s: draft ? "primary" : "", k: "card-edit" }, { b: "Export video", k: "card-video" }]) });
-  b.push({ t: "act", els: [{ b: "Shorten steps", k: "card-shorter" }, { sel: "Translate", k: "card-translate" }, { b: "Add voiceover", k: "card-voice" }, { b: "Blur private info", k: "card-blur" }] });
-  b.push({ t: "ctx", md: "Tap a change above, or reply in this thread to change anything." + (draft ? "" : " The link stays the same.") });
-  return b;
+  return ext(tourData(tour), { t: "wo", by: who, created: o.created || "Today at 10:44", updated: o.updated || "", asOf: o.asOf || "today at 10:44", kp: o.kp || "wo-", flash: false });
 }
-
-/* slackStream.ts: the plan, its tasks one by one, and the status line by the reply box */
-function buildTour(S, W, pid, meta, tour) {
-  var n = tour.steps.length;
-  var plan = { t: "plan", title: "Working on your tour from your 3 screenshots", tasks: [], done: false };
-  var live = { t: "video", kind: "build", desc: "Opens right here in Slack", title: "Watch it build" };
-  var found = { t: "sec", md: "Found " + n + " steps, from “" + tour.steps[0] + "” to “" + tour.steps[n - 1] + "”." };
-  var sm = M("lp", { cont: true, blocks: [plan] });
+/* slackCard.ts resultBlocks for a draft (the plan's published-tour limit): no Work Object, Edit in Layerpath */
+function draftBlocks(tour) {
+  return [{ t: "sec", md: "*" + tour.title + "*" }, { t: "ctx", md: lengthLine(tour.steps.length) },
+    { t: "sec", md: "Free allows up to 3 published projects at a time. Unpublish another project or upgrade to publish this one." },
+    { t: "act", els: [{ b: "Edit in Layerpath", s: "primary", k: "card-edit" }] },
+    { t: "ctx", md: "Reply in this thread to change anything." }];
+}
+/* slackStream.ts: one streamed message, a bold heading, the tip, a timeline of tasks, then Watch it build (liveBuild.ts) */
+function buildTour(S, W, pid, meta, tour, o) {
+  o = o || {};
+  var n = tour.steps.length, parent = findMsg(W, pid);
+  if (parent) parent.rx = ["eyes", "loading"];
+  if (!o.noAck) rep(W, pid, ackMsg(o.who || W.as, o.what, { time: o.time || "10:42 AM" }));
+  var first = W.thr[pid].replies[W.thr[pid].replies.length - 1];
+  var stream = { t: "stream", head: "Working on your tour from your 3 screenshots", tip: TIP, tasks: [], live: false };
+  var sm = M("lp", { cont: true, blocks: [stream], time: o.time || "10:42 AM" });
   rep(W, pid, sm);
   var R = "Read your 3 screenshots", WS = "Write the steps · " + n + " steps", WC = "Write the callouts", PH = "Place the hotspots";
   var F = [
-    [[[R, "in_progress"]], "is looking closely at every screen…", 0, 0, 0],
-    [[[R, "complete"], ["Write the steps", "in_progress"]], "is working out where each step begins…", 1, 0, 0],
-    [[[R, "complete"], [WS, "complete"], [WC, "in_progress"]], "is finding the right words…", 1, 0, 0],
-    [[[R, "complete"], [WS, "complete"], [WC, "complete"], [PH + " · 1 of " + n, "in_progress"]], "is pinpointing every click…", 1, 1, 0],
-    [[[R, "complete"], [WS, "complete"], [WC, "complete"], [PH + " · 3 of " + n, "in_progress"]], "is lining up the dots…", 1, 1, 0],
-    [[[R, "complete"], [WS, "complete"], [WC, "complete"], [PH, "complete"]], "is adding the final touches…", 1, 1, 1]
+    [[[R, "in_progress"]], "is looking closely at every screen…", 0],
+    [[[R, "complete"], [WS, "complete"], [WC, "in_progress"]], "is finding the right words…", 1],
+    [[[R, "complete"], [WS, "complete"], [WC, "complete"], [PH + " · " + Math.min(2, n) + " of " + n, "in_progress"]], "is pinpointing every click…", 1],
+    [[[R, "complete"], [WS, "complete"], [WC, "complete"], [PH + " · " + (n - 1) + " of " + n, "in_progress"]], "is lining up the dots…", 1],
+    [[[R, "complete"], [WS, "complete"], [WC, "complete"], [PH, "complete"]], "is adding the final touches…", 1]
   ];
   F.forEach(function (f, i) {
-    plan.tasks = f[0].map(function (x) { return { title: x[0], st: x[1] }; });
-    plan.done = !!f[4];
-    sm.blocks = [plan].concat(f[2] ? [live] : []).concat(f[3] ? [found] : []);
+    stream.tasks = f[0].map(function (x) { return { title: x[0], st: x[1] }; });
+    stream.live = !!f[2];
     W.thr[pid].status = f[1];
-    if (i === 0) { meta.focus = sm.id; S.step(meta); } else S.frame(i === 1 ? 900 : 800);
+    if (i === 0) { meta.focus = (first && first.from === "lp" ? first : sm).id; S.step(meta); } else S.frame(i === 1 ? 1200 : 950);
   });
   return sm;
 }
-/* slack.ts readyPing: "<@user> your tour is ready!" */
+/* slack.ts finish: the progress message goes, the ready line tags the person and carries the Work Object; 🎬 on their message */
 function finishCard(W, pid, sm, tour, who, o) {
-  sm.blocks = cardBlocks(tour, o);
-  W.thr[pid].status = "";
-  rep(W, pid, M("lp", { cont: true, text: "{@" + P[who].first + "} your tour is ready!" }));
+  o = o || {};
+  var t = W.thr[pid];
+  t.status = "";
+  var parent = findMsg(W, pid);
+  if (parent) parent.rx = ["eyes", "clapper"];
+  if (o.draft) { sm.blocks = draftBlocks(tour); return rep(W, pid, M("lp", { cont: true, text: "{@" + P[who].first + "} " + READY_LINE })); }
+  t.replies.splice(t.replies.indexOf(sm), 1);
+  return rep(W, pid, M("lp", { cont: true, text: "{@" + P[who].first + "} " + READY_LINE, blocks: [woBlock(tour, who, o)] }));
+}
+/* A change's progress (slack.ts startWorking, slackStream.ts changeChunks): bold heading, one task row */
+function changeMsg(head, line, done, o) { return M("lp", ext({ blocks: [{ t: "stream", head: head, tasks: [{ title: line, st: done ? "complete" : "in_progress" }], live: false }] }, o)); }
+/* Every card of the tour updates in place (workObject.ts cards, chat.update) */
+function updateCards(W, title, patch) {
+  function each(list) { list.forEach(function (m) { (m.blocks || []).forEach(function (b) { if (b.t === "wo" && b.title === title) { for (var k in patch) b[k] = patch[k]; } }); }); }
+  Object.keys(W.chan).forEach(function (c) { each(W.chan[c]); });
+  Object.keys(W.thr).forEach(function (id) { each(W.thr[id].replies); });
+}
+/* slackHome.ts homeBlocks: what it does in four pictures, how to start, two links */
+var HOME_PICS = [
+  ["Drop a Loom, get a tour", "Mention Layerpath with a Loom link and the tour shows up in the thread."],
+  ["Change it by asking", "Reply in the thread with what to change, and Layerpath edits the tour."],
+  ["Plays right in Slack", "Press play on the card and click through the tour right in the thread."],
+  ["Share it anywhere", "Open the tour, edit it in Layerpath or send its share link, which stays the same after every change."]
+];
+function homeToday() {
+  var b = [{ t: "hdr", text: "Make interactive tours without leaving Slack" }, { t: "sec", md: "Layerpath turns your screenshots, screen recordings and Loom videos into interactive tours you can change and share in Slack." }, { t: "div" }];
+  HOME_PICS.forEach(function (p, i) { b.push({ t: "sec", md: p[1] }); b.push({ t: "pic", hl: p[0], i: i }); });
+  return b.concat([{ t: "div" }, { t: "hdr", text: "How to start" },
+    { t: "sec", md: "• In a channel, mention {@Layerpath} with screenshots, a screen recording, or a Loom or YouTube link.\n• Or send them to {@Layerpath} in a direct message.\n• Reply in the tour's thread to change it or to get its share link." },
+    { t: "act", els: [{ b: "Visit layerpath.com" }, { b: "Read help docs" }] }]);
+}
+/* slackWelcome.ts welcomeBlocks: once per person, the first time they open Messages or DM the bot */
+function welcomeToday(name) {
+  return [{ t: "sec", md: "👋 Welcome to Layerpath, " + name + ".\nI turn screenshots, recordings and Loom or YouTube links into interactive tours, right in Slack." },
+    { t: "sec", md: "Mention {@Layerpath} with screenshots or a link, in any channel or here.\nYour tour plays in the thread. Reply there to change anything. The link stays the same." },
+    { t: "ctx", md: "Connected to Layerpath as agent@layerpath.com." },
+    { t: "act", els: [{ b: "Try it with sample screenshots", s: "primary", k: "wl-sample" }] }];
+}
+/* slackTours.ts: the first five as cards in one message, then See all tours in Layerpath */
+function toursBlocks() {
+  var rows = [[TOURS.sam, "made today at 10:44 by you"], [TOURS.maya, "made yesterday at 4:02 PM by Maya Cruz"], [TOURS.pitch, "made Oct 9 at 11:30 AM by you"], [TOURS.report, "made Oct 6 at 3:15 PM by you"]];
+  return [{ t: "sec", md: "Here are your tours, newest first." }, { t: "tours", rows: rows.map(function (r, i) { return ext(tourData(r[0]), { line: lengthLine(r[0].steps.length).split(" · ")[0] + " · Published · " + r[1], k: "tl-open" + i }); }) },
+    { t: "act", els: [{ b: "See all tours in Layerpath", k: "tl-all" }] }];
 }
 
 /* New copy from the spec (Kripa to approve) */
@@ -980,13 +1435,15 @@ function homePending() { return [{ t: "sec", md: "Priya invited you to Acme." },
 var H = {
   event: "Slack sends the mention to `https://agent.layerpath.com/slack/events` (HTTP, not Socket Mode; the signing secret is checked on every request, 8.1). The agent then calls `POST /api/agent/slack/resolve` {team, user, email?} and makes the access decision in section 5 (8.2, 8.3).",
   token: "`POST /api/agent/slack/token` returns a short-lived (10 min) token for (person, workspace). The existing create, edit and export actions run with it, under Layerpath's own permission, seat and limit checks, instead of today's single bot-account session (D5, 8.2, 8.3). Person tokens are never stored by the agent (8.4).",
-  home: "`app_home_opened` → `views.publish`, a different view for each person (5.4). The Home tab is enabled and `app_home_opened` subscribed in the app config (8.1).",
+  home: "To build: `app_home_opened` → `views.publish`, a different view for each person (5.4). The Home tab is enabled and `app_home_opened` subscribed in the app config (8.1). Today's Home tab is the same for everyone: four pictures and how to start (T3).",
   install: "`GET /api/integrations/slack/install` redirects the same tab to Slack with a signed, single-use `state` naming the Layerpath workspace (4.1, 8.2, 8.4).",
   installWeb: "`layerpath.com/slack`: a page headed \"Layerpath for Slack\" with the Slack card sentence and the Add to Slack button, which goes to Slack's OAuth page with no workspace in `state` (4.2).",
   oauth: "Drawn by Slack (4.3). One public app, \"Layerpath\", with OAuth distribution and the redirect URL `https://app.layerpath.com/api/integrations/slack/oauth/callback`. Scopes as today, plus the new `users:read.email` (\"View email addresses of people in a workspace\") (8.1).",
   callback: "`GET /api/integrations/slack/oauth/callback` exchanged the code (`oauth.v2.access`), stored a PENDING `SlackInstallation` (with `botTokenEncrypted`) and redirected to `/integrations/slack/connect-workspace`. Connect calls `POST /api/integrations/slack/connect-workspace` (4.4, 8.2).",
   done: "`SlackInstallation` becomes ACTIVE with its `workspaceId` (unique: one Slack ↔ one Layerpath workspace, D7). The installer gets a `SlackUserLink` with `linkedVia: CONNECT`. Page: `/integrations/slack/done`. Open Slack is `slack://app?team=T&id=A&tab=home` (4.5, 8.2).",
-  card: "Today's card, unchanged (`apps/agent/src/slackCard.ts`), and the ready tag from `slack.ts`. The tour is created in Acme's workspace with Acme's brand memory, voice and plan (6).",
+  card: "Live today: the progress message goes and the ready line tags the person, carrying the tour's Slack Work Object (`src/workObject.ts`): title, \"Interactive tour\", the 16:9 cover drawn as the player's intro (`src/cover.ts`), \"N steps · M mins\", who asked and when, Open tour and Make video, Edit in Layerpath in its menu. 🎬 replaces the loading reaction. To build: the tour is created as the person in Acme's workspace, with Acme's brand memory, voice and plan (6). Today every tour lands in the one shared Layerpath account.",
+  build: "Live today: the model's one-line ack with create_tour's estimate, then one streamed message (`src/slackStream.ts`): the bold heading, a tip (`src/proactive.ts`), the task timeline, and Watch it build (`src/liveBuild.ts`), whose looping picture is drawn by `src/liveThumb.ts`. The loading status by the reply box rotates its own words. 👀 then the loading reaction go on the person's message (`src/slackReactions.ts`). Tours start at once on Auto: the options message is off unless `AGENT_SLACK_CREATE_OPTIONS=true`.",
+  panel: "Live today: a click on the card sends `entity_details_requested`; the agent answers with the share player's embed page (`surface=slack-panel`) and Slack opens its side panel with the tour playing. On the `layerpath` app the panel is the ChatGPT studio's own page with a Play and Edit switch (`src/studioPanel.ts`, `AGENT_SLACK_PANEL_EDITOR`). Slack allows this embed only for an app that isn't distributed, in its own workspace; a distributed app needs Slack's embeds pilot (see the decisions).",
   later: function (n) { return "Spec section 9, item " + n + ". Not in V1 and not designed yet: this is only a sketch of the one line in the spec."; }
 };
 
@@ -994,7 +1451,151 @@ var H = {
    Scenarios (spec section 11)
    ============================================================ */
 var SCEN = [];
-function sc(code, title, group, build) { SCEN.push({ code: code, title: title, group: group, build: build }); }
+function sc(code, title, group, build, st) { SCEN.push({ code: code, title: title, group: group, build: build, st: st || (group === "today" ? "live" : group === "later" ? "later" : group === "start" ? "info" : "build") }); }
+
+/* ---------------- Start here: overview panels ---------------- */
+var GLANCE_HTML = '<div class="doc"><h2>Slack vs ChatGPT at a glance</h2>'
+  + '<p class="lede">Who installs, who signs in, where tours go, and what works on beta today against what V1 adds before we submit. Vinay, 12 Oct: get both ready and submit by Fri 16 Oct; Karnesh owns the release.</p>'
+  + '<table class="gl"><thead><tr><th></th><th>Slack</th><th>ChatGPT</th></tr></thead><tbody>'
+  + '<tr><th>Who installs</th><td>An Owner or Admin of the company\'s Layerpath workspace, once for the whole company: Add to Slack in Settings → Integrations, or on layerpath.com/slack <a class="jump" href="#A1">A1</a> <a class="jump" href="#A2">A2</a>. Where the company\'s Slack needs approval, a Slack admin approves it in Slack <a class="jump" href="#A3">A3</a>.</td><td>Each person, for themselves: Plugins → Layerpath → Connect, inside ChatGPT <a class="jump" href="#C1">C1</a>. Nobody installs it for a team.</td></tr>'
+  + '<tr><th>Who signs in</th><td>The installer, during the install. Everyone else is linked by their Slack email when it matches a member <a class="jump" href="#P1">P1</a>, or presses Connect once and signs in with any email <a class="jump" href="#P2">P2</a>.</td><td>Every person, during Connect: signs in with their Layerpath account <a class="jump" href="#C2">C2</a> or signs up <a class="jump" href="#C1">C1</a>. Without it the plugin does nothing.</td></tr>'
+  + '<tr><th>Who can make tours</th><td>Owners, Admins and Editors of the linked workspace. Viewers and outsiders get one next step: ask to become an editor, or ask for access <a class="jump" href="#P3">P3</a> <a class="jump" href="#P4">P4</a>.</td><td>Anyone who connects, with their role in the workspace they picked: Editor or above makes tours.</td></tr>'
+  + '<tr><th>Where tours go</th><td>The company\'s one Layerpath workspace linked to that Slack (one Slack to one workspace), made as the person, so Projects shows who made each.</td><td>The person\'s own Layerpath account, in the workspace they picked at Connect, and so in their Layerpath dashboard <a class="jump" href="#C3">C3</a>.</td></tr>'
+  + '<tr><th>Sharing</th><td>Everyone in the thread sees the card and can open it in Slack\'s side panel; anyone with the link can open it.</td><td>The share link (Copy link). No team behaviour in V1: nothing is sent to a team or channel from ChatGPT <a class="jump" href="#C7">C7</a>.</td></tr>'
+  + '<tr><th>Managing it</th><td>Layerpath\'s Home tab in Slack for admins, and Settings → Integrations; Disconnect Slack removes it for everyone <a class="jump" href="#L3">L3</a>.</td><td>ChatGPT\'s own plugin page, and Settings → Integrations in Layerpath <a class="jump" href="#C5">C5</a>. A removed or expired sign-in makes ChatGPT ask to connect again <a class="jump" href="#C6">C6</a>.</td></tr>'
+  + '<tr><th><span class="bd live">Live today</span></th><td><ul><li>The bot in our own Slack only (Socket Mode, one token)</li><li>One shared Layerpath account for every tour</li><li>Streamed progress, the Work Object card, the side panel <a class="jump" href="#T1">T1</a></li><li>Changes in the thread, every card updated in place <a class="jump" href="#T2">T2</a></li><li>Home tab and welcome DM <a class="jump" href="#T3">T3</a>, my tours and Make video <a class="jump" href="#T4">T4</a></li></ul></td><td><ul><li>The studio connector in our work ChatGPT, added by URL; a secret path is its only lock, no sign-in</li><li>One shared Layerpath account for every tour</li><li>Studio Home and Editor, upload or a Loom or YouTube link <a class="jump" href="#C3">C3</a></li><li>ChatGPT writes its own answer to "what can you do" <a class="jump" href="#C4">C4</a></li></ul></td></tr>'
+  + '<tr><th><span class="bd build">To build</span></th><td><ul><li>OAuth install of one public app; HTTP events in place of Socket Mode</li><li>Per-person linking, access requests, the new Home tab</li><li>Integrations tab in Settings</li><li>Marketplace submission, and Slack\'s embeds pilot for the side panel</li></ul></td><td><ul><li>OAuth sign-in and sign-up, with a workspace pick</li><li>Tours in each person\'s own workspace</li><li>Integrations rows, reconnect prompts</li><li>Our own "what can you do" card; the widget\'s CSP set</li><li>Plugin directory submission</li></ul></td></tr>'
+  + '<tr><th>Review time</th><td>About a week, two at most (guess on the 12 Oct call).</td><td>Over two weeks (guess on the 12 Oct call).</td></tr>'
+  + '</tbody></table>'
+  + '<h3>How to read the demo</h3><p>Every step carries a badge: <span class="bd live">Live today</span> means the screen looks and works like this on beta now (checked against dev bffc798d8, 12 Oct). <span class="bd build">To build</span> means it is part of the V1 plan and not built yet. <span class="bd later">Later</span> means not in V1. In the list on the left, a half green, half blue dot marks a scenario that mixes both. Open <a class="jump" href="#K1">K1</a> for the decisions.</p></div>';
+
+var DECIDE_HTML = '<div class="doc"><h2>Decisions for Karnesh</h2>'
+  + '<p class="lede">One line each, with the option this demo recommends. The demo is drawn with the recommended options.</p><ol class="dl">'
+  + '<li><b>Slack: who can install it?</b><span class="rec">Owners and Admins of a Layerpath workspace, from Settings → Integrations or layerpath.com/slack; a Slack admin approves it in Slack where the company requires it.</span><span class="why">Settings is already Owner and Admin only. <a class="jump" href="#A1">A1</a> <a class="jump" href="#A3">A3</a></span></li>'
+  + '<li><b>Slack: how are people matched to Layerpath accounts?</b><span class="rec">Automatically when their Slack email matches a member of the workspace, else one Connect with any email.</span><span class="why">Needs the new users:read.email scope. <a class="jump" href="#P1">P1</a> <a class="jump" href="#P2">P2</a></span></li>'
+  + '<li><b>Slack: what do outsiders and Viewers get?</b><span class="rec">Ask for access, or ask to become an editor; admins get a one-tap Invite as Editor or Make Editor, after the seat check. Auto-join by email domain stays Later.</span><span class="why"><a class="jump" href="#P3">P3</a> <a class="jump" href="#P4">P4</a> <a class="jump" href="#P5">P5</a> <a class="jump" href="#LT3">LT3</a></span></li>'
+  + '<li><b>Slack on Free: only the Owner can use the agent (1 creator seat). Ship like that?</b><span class="rec">Yes for V1; decide free agent seats after launch, with Vinay.</span><span class="why"><a class="jump" href="#D3">D3</a> <a class="jump" href="#LT6">LT6</a></span></li>'
+  + '<li><b>Slack side panel once the app is distributed: the tour playing in the panel needs Slack\'s embeds pilot (invite only).</b><span class="rec">Apply to the pilot this week. The card, Open tour and Make video don\'t need it; check what the panel shows without it before submitting.</span><span class="why">docs.slack.dev/messaging/work-objects-embeds, seen 7 Oct 2026. <a class="jump" href="#T1">T1</a></span></li>'
+  + '<li><b>Slack: what goes into this week\'s submission?</b><span class="rec">V1 as drawn in A1 to L3: install, linking, access requests, disconnect, on HTTP events. Everything under Later stays out.</span><span class="why">Socket Mode apps aren\'t allowed in the Marketplace (docs.slack.dev/apis/events-api/using-socket-mode, seen 7 Oct 2026).</span></li>'
+  + '<li><b>ChatGPT: how do people sign in?</b><span class="rec">Our own OAuth: Layerpath\'s sign-in page, then a consent page with the workspace pick, reusing the OAuth server already in apps/mcp. Not "Sign in with ChatGPT", which is a beta for select partners.</span><span class="why">developers.openai.com/apps-sdk/build/auth, seen 12 Oct 2026. <a class="jump" href="#C1">C1</a> <a class="jump" href="#C2">C2</a></span></li>'
+  + '<li><b>ChatGPT: new people with no account?</b><span class="rec">Sign up inside Connect, then straight back to ChatGPT, skipping the /creation page that new sign-ups get today.</span><span class="why"><a class="jump" href="#C1">C1</a></span></li>'
+  + '<li><b>ChatGPT: which workspace do tours go to?</b><span class="rec">The one picked at Connect, asked only when they have more than one; to change it, disconnect and connect again.</span><span class="why"><a class="jump" href="#C2">C2</a> <a class="jump" href="#C7">C7</a></span></li>'
+  + '<li><b>ChatGPT: more than one Layerpath account per person?</b><span class="rec">No, one account per ChatGPT user in V1, even though ChatGPT can add more accounts to a plugin.</span><span class="why"><a class="jump" href="#C7">C7</a></span></li>'
+  + '<li><b>ChatGPT: "what can you do"?</b><span class="rec">Our own card from a new studio tool, with instructions not to repeat it. ChatGPT\'s model still writes a line around it; that can\'t be switched off.</span><span class="why">Vinay\'s issue 1. <a class="jump" href="#C4">C4</a></span></li>'
+  + '<li><b>Integrations tab: who sees what?</b><span class="rec">Settings → Integrations for Owners and Admins, with Slack and every member\'s ChatGPT connection; plus a Connected apps page in each person\'s account menu for their own.</span><span class="why">Settings is Owner and Admin only today, and ChatGPT connections are personal. <a class="jump" href="#C5">C5</a></span></li>'
+  + '<li><b>Claude?</b><span class="rec">Not in this week\'s submission (12 Oct call). Confirm with Vinay, whose message said all three; it reuses the ChatGPT sign-in later.</span><span class="why"><a class="jump" href="#LT8">LT8</a></span></li>'
+  + '<li><b>The old ChatGPT connector, which Vinay\'s personal ChatGPT still reaches?</b><span class="rec">Point its URL at the studio, or switch it off, before submitting.</span><span class="why">Vinay\'s issue 4: the old card in full screen.</span></li>'
+  + '</ol>'
+  + '<div class="cols"><div class="box"><b>Also before submitting (not decisions)</b><ul><li>Set the studio widget\'s CSP so ChatGPT stops showing "CSP off" (Vinay\'s issue 3).</li><li>Plain words instead of raw errors in the card, like <code>{"detail":"MCP Resource not found"}</code> (issue 5).</li><li>Name chapter and section steps by what they are, not "Context", in change lists (issue 6).</li><li>The Home tab\'s pictures and the welcome DM still describe the old in-thread player; today\'s card opens Slack\'s side panel.</li><li>Layerpath\'s sign-in and sign-up pages say "walkthrough", which the copy rules don\'t allow (C1 shows them as they are).</li></ul></div>'
+  + '<div class="box src"><b>Sources (external facts, date seen)</b><ul><li>ChatGPT Plugins page and @ to call a plugin: developers.openai.com/apps-sdk/deploy/connect-chatgpt (12 Oct 2026).</li><li>ChatGPT OAuth (authorization code with PKCE, linking prompt from mcp/www_authenticate, more accounts per plugin): developers.openai.com/apps-sdk/build/auth (12 Oct 2026).</li><li>Plugin directory replacing the app directory on 9 Jul 2026: help.openai.com/en/articles/20001256, search snippet only, the page refused us (12 Oct 2026, unverified).</li><li>"Sign in with ChatGPT" beta for select partners: releases.sh, search snippet (12 Oct 2026, unverified).</li><li>Slack embeds for distributed apps by invitation: docs.slack.dev/messaging/work-objects-embeds (7 Oct 2026).</li><li>No Socket Mode apps in the Slack Marketplace: docs.slack.dev/apis/events-api/using-socket-mode (7 Oct 2026).</li></ul></div></div></div>';
+
+sc("G1", "Slack vs ChatGPT at a glance", "start", function () {
+  var S = Seq();
+  S.step({ panel: GLANCE_HTML, cap: "Start here: how Slack and ChatGPT differ, what works today, and what V1 adds.", how: "Built from the 2 Oct spec, the 12 Oct call with Karnesh and Madhu, Vinay's 12 Oct ChatGPT thread, and today's code on dev (bffc798d8)." });
+  return S.steps;
+});
+sc("K1", "Decisions for Karnesh", "start", function () {
+  var S = Seq();
+  S.step({ panel: DECIDE_HTML, cap: "The open choices, one per line, with the option the demo recommends.", how: "The demo draws each recommended option; the scenario codes jump to where it shows." });
+  return S.steps;
+});
+
+/* ---------------- Slack: live today ---------------- */
+sc("T1", "A tour in Slack today", "today", function () {
+  var S = Seq(), W = S.W;
+  var chip = "sam@acme.com · today: our own Slack only, one shared Layerpath account";
+  as(W, "sam", "slack");
+  compose(W, "{@Layerpath} make a training tour from these", 3);
+  S.step({ cap: "Today, anyone in our own Slack mentions Layerpath with screenshots, a recording, or a Loom or YouTube link.", next: "send", chip: chip, how: "Live today: Socket Mode with one app-level token, in our own Slack workspace only (`src/slackSocket.ts`). No install flow and no per-person linking: every tour is made in the one shared Layerpath account. A message is for the bot in a DM, or when it tags the bot (`routeMessage` in `src/slack.ts`)." });
+  var m = send(W);
+  m.rx = ["eyes"];
+  var sm = buildTour(S, W, m.id, { cap: "👀 goes on his message, the bot says it's on it with a time, and one message streams the progress with a tip and Watch it build.", chip: chip, how: H.build }, TOURS.sam, { what: "training" });
+  var rm = finishCard(W, m.id, sm, TOURS.sam, "sam");
+  S.step({ cap: "The progress message goes; the ready line tags Sam and carries the tour's card. He clicks the card.", next: "wo-open", focus: rm.id, chip: chip, how: H.card + " The ready line is the model's, written for this tour within 9 s, else this fallback (`READY_FALLBACKS`). Refresh is Slack's own: it asks for the card again, and the agent updates the card's message in place." });
+  U(W).panel = { tour: tourData(TOURS.sam), mode: "play" };
+  S.step({ cap: "Slack's side panel opens with the tour playing, beside the thread.", next: "pn-edit", chip: chip, how: H.panel });
+  U(W).panel = { tour: tourData(TOURS.sam), mode: "edit" };
+  S.step({ cap: "On our own Slack app, the panel's Edit side is the studio's Editor for changes by hand; changes in words go in the thread.", chip: chip, how: "Live today on the `layerpath` app only (`AGENT_SLACK_PANEL_EDITOR`): the ChatGPT studio's own page on a signed 10-minute token, renewed by each call for up to 2 hours (`src/studioPanel.ts`). Its calls run the studio connector's Editor tools for this tour only." });
+  return S.steps;
+});
+
+sc("T2", "Change it in the thread", "today", function () {
+  var S = Seq(), W = S.W;
+  var chip = "sam@acme.com · today: one shared Layerpath account";
+  as(W, "sam", "slack");
+  var g = post(W, "general", "sam", "{@Layerpath} share the new deal tour here", 0, "10:46 AM");
+  g.rx = ["eyes"];
+  W.thr[g.id] = { replies: [M("lp", { time: "10:46 AM", text: "Here's the deal tour." }), M("lp", { cont: true, time: "10:46 AM", text: TOURS.sam.title, blocks: [woBlock(TOURS.sam, "sam", { created: "Today at 10:41", asOf: "today at 10:46", kp: "wog-" })] })], status: "" };
+  var m = post(W, "customer-training", "sam", "{@Layerpath} make a training tour from these", 3, "10:40 AM");
+  m.rx = ["eyes", "clapper"];
+  openThread(W, "customer-training", m.id);
+  rep(W, m.id, ackMsg("sam", "training", { time: "10:40 AM" }));
+  var card = rep(W, m.id, M("lp", { cont: true, time: "10:41 AM", text: "{@Sam} " + READY_LINE, blocks: [woBlock(TOURS.sam, "sam", { created: "Today at 10:41", asOf: "today at 10:41" })] }));
+  composeTh(W, "make it 4 steps, drop the pipeline step");
+  S.step({ cap: "Changes are asked for in words: Sam replies in the tour's thread.", next: "th-send", focus: card.id, chip: chip, how: "Live today: replies in the thread become edits, and each thread remembers its tour. Cards posted before 8 Oct still carry one-tap changes, which still work; new cards don't." });
+  var r = sendTh(W, "10:51 AM");
+  r.rx = ["eyes", "loading"];
+  var cm = rep(W, m.id, changeMsg("Rearranging the steps", "Moving the steps into place…", false, { time: "10:51 AM" }));
+  W.thr[m.id].status = "is editing the project…";
+  S.step({ cap: "One streamed message shows the change running, with its own status by the reply box.", focus: cm.id, chip: chip, how: "Live today: `slackStream.ts` changeChunks, the heading in bold and the phrase as Slack's own task row; a plain message edited in place when Slack won't stream." });
+  cm.blocks[0].tasks[0].st = "complete";
+  W.thr[m.id].status = "";
+  r.rx = ["eyes", "clapper"];
+  rep(W, m.id, M("lp", { cont: true, time: "10:52 AM", text: "The tour is down to 4 steps: I removed \"Pick the pipeline stage\". The voiceover on the other steps still matches." }));
+  var four = TOURS.sam.steps.filter(function (x) { return x !== "Pick the pipeline stage"; });
+  updateCards(W, TOURS.sam.title, { n: 4, steps: four, asOf: "today at 10:52", updated: "Today at 10:52", flash: true });
+  S.step({ cap: "Layerpath says what changed, and the card above updates in place: 4 steps and an Updated date. He checks #general.", next: "side:ch:general", focus: card.id, chip: chip, how: "Live today: every message the tour's card is on is kept with the tour (`cards`, the newest 10) and updated with `chat.update`, newest first, the cover drawn once (`src/workObject.ts`)." });
+  updateCards(W, TOURS.sam.title, { flash: false });
+  W.thr[g.id].replies[1].blocks[0].flash = true;
+  goView(W, { k: "ch", id: "general" });
+  openThread(W, "general", g.id);
+  S.step({ cap: "The card he shared in #general earlier shows the change too, with no new message.", next: "wog-refresh", chip: chip, how: "Live today: the same update reaches each kept card, in any channel. A card Slack says is gone is let go, and the rest still update." });
+  W.thr[g.id].replies[1].blocks[0].flash = false;
+  W.thr[g.id].replies[1].blocks[0].asOf = "today at 10:55";
+  S.step({ cap: "Anyone can press Refresh: Layerpath reads the tour again and updates that card's own message.", chip: chip, how: "Live today: Slack sends `link_shared` with `is_unfurl_refresh`; the agent reads the tour (never publishing it) and answers with `chat.update` on the card's message (`AGENT_SLACK_CARD_REFRESH`, update by default since 9 Oct)." });
+  return S.steps;
+});
+
+sc("T3", "Home tab and welcome DM", "today", function () {
+  var S = Seq(), W = S.W;
+  var chip = "sam@acme.com · today: the same Home tab for everyone";
+  as(W, "sam", "slack");
+  W.home.sam = homeToday();
+  goView(W, { k: "app", tab: "home" });
+  U(W).msgDot = true;
+  S.step({ cap: "Today's Home tab is the same for everyone: what Layerpath does in four pictures, how to start, and two links.", next: "tab:messages", chip: chip, how: "Live today: `src/slackHome.ts`, published on `app_home_opened`; the pictures are mocks of the bot's messages (`assets/home`). They still show the old in-thread player (\"Press play on the card\"), while today's card opens Slack's side panel (flag). The Home tab with each person's link, tours and admin rows is to build (P1, A1)." });
+  dmTo(W, "sam", M("lp", { time: "10:30 AM", blocks: welcomeToday("Sam") }));
+  goView(W, { k: "app", tab: "messages" });
+  U(W).prompts = true;
+  S.step({ cap: "The first time he opens Messages, the bot welcomes him once, with Slack's suggested prompts and a sample to try.", next: "wl-sample", chip: chip, how: "Live today: `src/slackWelcome.ts`, once per person (kept in `slack-welcome.json`), with four suggested prompts. \"Connected to Layerpath as …\" names the one shared bot account (`LAYERPATH_BOT_EMAIL`), the same for everyone; the demo shows a stand-in address. To build: each person's own account here." });
+  dmTo(W, "sam", M("lp", { time: "10:31 AM", text: "On it, Sam. I'm building a tour from the 4 sample screenshots, and it should take about a minute." }));
+  dmTo(W, "sam", M("lp", { cont: true, time: "10:31 AM", blocks: [{ t: "stream", head: "Working on your tour from your 4 screenshots", tip: TIP, tasks: [{ title: "Read your 4 screenshots", st: "in_progress" }], live: false }] }));
+  S.step({ cap: "The sample button runs a real request with four bundled screenshots, so he sees the whole flow once.", chip: chip, how: "Live today: `sampleTurn` in `src/slack.ts`, in the welcome's thread, with `assets/sample/*.png` (a made-up app's invite flow)." });
+  return S.steps;
+});
+
+sc("T4", "My tours and a video", "today", function () {
+  var S = Seq(), W = S.W;
+  var chip = "sam@acme.com · today: one shared Layerpath account";
+  as(W, "sam", "slack");
+  compose(W, "{@Layerpath} show my tours", 0);
+  S.step({ cap: "Sam asks to see his tours.", next: "send", chip: chip, how: "Live today: `list_tours` (`src/tourList.ts`). The bot's one account holds every tour, so whose a tour is comes from who asked for it in Slack." });
+  var m = send(W);
+  m.rx = ["eyes"];
+  var lm = rep(W, m.id, M("lp", { time: "10:52 AM", blocks: toursBlocks() }));
+  S.step({ cap: "The newest come back as cards in one message, his own first, and he opens one.", next: "tl-open0", focus: lm.id, chip: chip, how: "Live today: `src/slackTours.ts`: each tour's cover, title and \"N steps · Published · made … by …\", one button, then See all tours in Layerpath. To build: only his workspace's tours." });
+  m.rx = null;
+  var cm = rep(W, m.id, M("lp", { cont: true, time: "10:53 AM", text: TOURS.sam.title, blocks: [woBlock(TOURS.sam, "sam", { asOf: "today at 10:53" })] }));
+  S.step({ cap: "Its card goes up in the thread, and he presses Make video.", next: "wo-video", focus: cm.id, chip: chip, how: "Live today: Open posts the tour's Work Object (the tour's title with the card) and makes it the thread's tour." });
+  var vm = rep(W, m.id, changeMsg("Exporting a video", "Turning the tour into a video…", false, { time: "10:53 AM" }));
+  W.thr[m.id].status = "is exporting the video…";
+  S.step({ cap: "The export shows the same streamed progress as a change.", focus: vm.id, chip: chip, how: "Live today: Make video (`tour_make_video`) starts the same export as asking in the thread, as the request of whoever tapped it; `src/videoSync.ts` keeps it in step with changes." });
+  vm.blocks[0].tasks[0].st = "complete";
+  W.thr[m.id].status = "";
+  var dv = rep(W, m.id, M("lp", { cont: true, time: "10:55 AM", text: "Here's the video version. If this is for a hand-off, I can also give you a written step-by-step guide of the same tour.", blocks: [{ t: "lnk", text: "Download the video" }, ext(tourData(TOURS.sam), { t: "vfile", dur: "0:41" })] }));
+  S.step({ cap: "The video is posted in the thread, with one next step offered.", focus: dv.id, chip: chip, how: "Live today: the line after a video is the model's, else a fallback (`AFTER_VIDEO_FALLBACKS` in `src/proactive.ts`); it never offers a second video." });
+  return S.steps;
+});
 
 /* ---------------- Admin ---------------- */
 sc("A1", "Start in Layerpath", "admin", function () {
@@ -1016,7 +1617,7 @@ sc("A1", "Start in Layerpath", "admin", function () {
   goView(W, { k: "app", tab: "home" }); U(W).msgDot = true;
   S.step({ cap: "Slack opens on Layerpath's Home tab, where Priya sees her own link and, as an admin, the Slack connection.", next: "tab:messages", copy: true, how: H.home + " The admin rows read `SlackInstallation` and the count of `SlackUserLink` rows." });
   goView(W, { k: "app", tab: "messages" });
-  S.step({ cap: "The welcome DM goes only to Priya, and nothing is posted in any channel.", next: "dock:chrome", copy: true, how: "A DM from the agent to the installer (4.5). Each team's bot token is loaded per install by Bolt `authorize`, read from Layerpath, not from env (8.1)." });
+  S.step({ cap: "The welcome DM goes only to Priya, and nothing is posted in any channel.", next: "dock:chrome", copy: true, how: "A DM from the agent to the installer (4.5). Each team's bot token is loaded per install by Bolt `authorize`, read from Layerpath, not from env (8.1). Today's DM welcome is different: once per person, the same for everyone, with a sample to try (T3)." });
   W.front = "chrome";
   S.step({ cap: "Back in the browser, Priya goes back to Integrations.", next: "done-back", how: "Page: `/integrations/slack/done` (8.2)." });
   navTab(W, T.settings("integrations", { card: "connected" }));
@@ -1129,20 +1730,17 @@ sc("P1", "Sam (email match)", "people", function () {
   var S = Seq(), W = S.W;
   as(W, "sam", "slack");
   compose(W, "{@Layerpath} make a training tour from these", 3);
-  S.step({ cap: "Sam's Slack email matches his Layerpath account, and he asks Layerpath for a tour in #customer-training.", next: "send", how: H.event });
+  S.step({ st: "live", cap: "Sam's Slack email matches his Layerpath account, and he asks Layerpath for a tour in #customer-training.", next: "send", how: "Live today: mentioning the bot with screenshots. To build: " + H.event });
   var m = send(W);
   rep(W, m.id, M("lp", { only: "sam", text: "You're connected as sam@acme.com, Editor in Acme. Not you? Disconnect in Layerpath's Home tab." }));
   S.step({ cap: "Layerpath matches his Slack email, links him, and tells him once, privately.", copy: true,
     how: "`resolve` returns `email_linked`: Slack's profile email (`users:read.email`) exactly matches an active member of Acme, so a `SlackUserLink` is created with `linkedVia: EMAIL`. The note shows once, privately, and is skipped if `disconnectedAt` is set (5, 8.2, 8.4)." });
-  var om = rep(W, m.id, optionsMsg());
-  S.step({ cap: "Then the usual options card, and he presses Create tour.", next: "create", how: "Today's options card (`slackOptions.ts`), unchanged." });
-  om.blocks = startedBlocks();
-  var sm = buildTour(S, W, m.id, { cap: "The tour is made as Sam, in Acme's workspace, live in the thread.", how: H.token }, TOURS.sam);
-  finishCard(W, m.id, sm, TOURS.sam, "sam");
-  S.step({ cap: "The finished card and the ready tag, then Sam opens Layerpath under Apps.", next: "side:app", focus: sm.id, how: H.card });
+  var sm = buildTour(S, W, m.id, { st: "live", cap: "Then today's flow: a one-line reply, and the tour builds live in one streamed message. To build: it's made as Sam, in Acme's workspace.", how: H.build + " To build: " + H.token }, TOURS.sam, { what: "training" });
+  var rm = finishCard(W, m.id, sm, TOURS.sam, "sam");
+  S.step({ st: "live", cap: "The progress gives way to the ready line and the tour's card, then Sam opens Layerpath under Apps.", next: "side:app", focus: rm.id, how: H.card });
   W.home.sam = homeLinked("sam", "Editor", TL.sam);
   goView(W, { k: "app", tab: "home" });
-  S.step({ cap: "His Home tab shows who he's connected as, his recent tours, and how to use it.", copy: true, how: H.home + " Recent tours are read with Sam's own token." });
+  S.step({ cap: "His Home tab shows who he's connected as, his recent tours, and how to use it.", copy: true, how: H.home + " Recent tours are read with Sam's own token. Today's Home tab is the same for everyone (four pictures and how to start, see T3)." });
   return S.steps;
 });
 
@@ -1150,7 +1748,7 @@ sc("P2", "Maya (Connect with another email)", "people", function () {
   var S = Seq(), W = S.W;
   as(W, "maya", "slack");
   compose(W, "{@Layerpath} can you turn these into a tour for the support team?", 3);
-  S.step({ cap: "Maya's Layerpath account is maya.cruz@gmail.com, so her Slack email matches nobody, and she asks for a tour.", next: "send", how: H.event });
+  S.step({ st: "live", cap: "Maya's Layerpath account is maya.cruz@gmail.com, so her Slack email matches nobody, and she asks for a tour.", next: "send", how: "Live today: the mention. To build: " + H.event });
   var m = send(W);
   rep(W, m.id, M("lp", { only: "maya", blocks: connectPrompt() }));
   S.step({ cap: "With no link and no email match, Layerpath replies privately with two choices and holds her request for 30 minutes.", next: "e-connect", copy: true,
@@ -1169,12 +1767,9 @@ sc("P2", "Maya (Connect with another email)", "people", function () {
   W.front = "slack";
   rep(W, m.id, M("lp", { time: "10:44 AM", text: "Thanks Maya, you're connected. Making your tour now." }));
   S.step({ cap: "In the thread, Layerpath thanks her and picks up the held request.", copy: true, how: "The agent runs the held request because it's under 30 minutes old (5.1, 8.3)." });
-  var om = rep(W, m.id, optionsMsg({ cont: true, time: "10:44 AM" }));
-  S.step({ cap: "The normal flow runs: the usual options card, and she presses Create tour.", next: "create", how: "Today's options card (`slackOptions.ts`), unchanged." });
-  om.blocks = startedBlocks();
-  var sm = buildTour(S, W, m.id, { cap: "The tour is made as Maya, in Acme's workspace.", how: H.token }, TOURS.maya);
-  finishCard(W, m.id, sm, TOURS.maya, "maya");
-  S.step({ cap: "Her tour is ready.", focus: sm.id, how: H.card });
+  var sm = buildTour(S, W, m.id, { st: "live", cap: "The normal flow runs, as today: the tour builds live in the thread. To build: it's made as Maya, in Acme's workspace.", how: H.build + " To build: " + H.token }, TOURS.maya, { noAck: true, time: "10:44 AM" });
+  var rm = finishCard(W, m.id, sm, TOURS.maya, "maya");
+  S.step({ st: "live", cap: "Her tour is ready, on today's card.", focus: rm.id, how: H.card });
   S.restore(saved); tab(W, T.conn({ mode: "ok" })); W.front = "slack";
   rep(W, m.id, M("lp", { time: "11:20 AM", text: "You're connected. Ask me again here to make your tour." }));
   S.step({ cap: "Other result: if she had connected more than 30 minutes later, the held request is dropped and she's asked again.", copy: true, how: "`pendingAction` carries an expiry of 30 minutes (5.1, 8.2)." });
@@ -1228,8 +1823,10 @@ sc("P3", "Dev (ask, invite, accept)", "people", function () {
   S.step({ cap: "Signed up, he sees Accept and presses it.", next: "inv-accept", how: "The existing invite page once signed in, with its Accept button (5.2)." });
   W.front = "slack"; goView(W, { k: "ch", id: "customer-training" });
   var inMsg = rep(W, m.id, M("lp", { time: "10:47 AM", text: "You're in, Dev. Making your tour now." }));
-  rep(W, m.id, optionsMsg({ cont: true, time: "10:47 AM" }));
-  S.step({ focus: inMsg.id, cap: "Back in the thread, Layerpath picks up his held request and the normal tour flow starts.", copy: true, chip: "dev@acme.com · now an Editor in Acme", how: "On accept, the link is created (`linkedVia: INVITE`) and the webhook runs the `pendingAction` if it's under 30 minutes old (5.2, 8.2)." });
+  rep(W, m.id, M("lp", { cont: true, time: "10:47 AM", blocks: [{ t: "stream", head: "Working on your tour from your 3 screenshots", tip: TIP, tasks: [{ title: "Read your 3 screenshots", st: "in_progress" }], live: false }] }));
+  W.thr[m.id].status = "is looking closely at every screen…";
+  m.rx = ["eyes", "loading"];
+  S.step({ focus: inMsg.id, cap: "Back in the thread, Layerpath picks up his held request and today's tour flow starts.", copy: true, chip: "dev@acme.com · now an Editor in Acme", how: "To build: on accept, the link is created (`linkedVia: INVITE`) and the webhook runs the `pendingAction` if it's under 30 minutes old (5.2, 8.2). The streamed progress under it is today's (T1)." });
   S.restore(beforeDecision);
   as(W, "dev", "slack");
   dmTo(W, "dev", M("lp", { time: "10:45 AM", text: "Priya didn't approve access this time." }));
@@ -1330,47 +1927,56 @@ sc("D1", "A tour as yourself", "day", function () {
   var S = Seq(), W = S.W;
   as(W, "sam", "slack");
   compose(W, "{@Layerpath} make a tour of creating a deal from these", 3);
-  S.step({ cap: "Sam is already linked, so his request goes straight through.", next: "send", how: H.event });
+  S.step({ st: "live", cap: "Sam is already linked, so his request goes straight through.", next: "send", how: "Live today: the mention. To build: " + H.event });
   var m = send(W);
-  var om = rep(W, m.id, optionsMsg());
-  S.step({ cap: "The usual options card, with no extra note, and he presses Create tour.", next: "create", how: "`resolve` returns `linked`; his role and membership are re-read from Layerpath, cached at most 60 s (5)." });
-  om.blocks = startedBlocks();
-  var sm = buildTour(S, W, m.id, { cap: "The live build in chat, made as Sam with Acme's brand memory, voice and plan.", how: H.token }, TOURS.sam);
-  finishCard(W, m.id, sm, TOURS.sam, "sam");
-  S.step({ cap: "The finished card has every action from today, and he presses Edit in Layerpath.", next: "card-edit", focus: sm.id, how: H.card + " Shorten steps, Translate, Add voiceover, Blur, Export video, and Undo after each change." });
+  var sm = buildTour(S, W, m.id, { st: "live", cap: "No options card and no extra note: the tour starts at once on Auto and builds live in the thread. To build: it's made as Sam, with Acme's brand memory, voice and plan.", how: H.build + " To build: `resolve` returns `linked`; his role and membership are re-read from Layerpath, cached at most 60 s (5). " + H.token }, TOURS.sam, { what: "deal" });
+  var rm = finishCard(W, m.id, sm, TOURS.sam, "sam");
+  S.step({ st: "live", cap: "On the finished card, Edit in Layerpath sits in the card's menu, and he opens the menu.", next: "wo-more", focus: rm.id, how: H.card + " Slack shows at most two of a Work Object's actions on the card, so Edit in Layerpath goes in its menu. Every change, and a video, is asked for in the thread." });
+  rm.blocks[0].menuOpen = true;
+  S.step({ st: "live", cap: "He picks Edit in Layerpath.", next: "wo-edit", focus: rm.id, how: "Live today: `open_wo_editor`, a link button (`workObject.ts` cardActions)." });
+  rm.blocks[0].menuOpen = false;
   tab(W, T.editor(TOURS.sam));
-  S.step({ cap: "The editor opens in a new Layerpath tab, and Sam goes back to his projects.", next: "ed-back", how: "Edit in Layerpath opens `/projects/<id>/tour/edit` in a Layerpath tab. If the browser is signed in as another account, Layerpath shows its existing account or no-access page (6)." });
+  S.step({ st: "live", cap: "The editor opens in a new Layerpath tab, and Sam goes back to his projects.", next: "ed-back", how: "Live today: Edit in Layerpath opens `/projects/<id>/tour/edit` in a Layerpath tab. If the browser is signed in as another account, Layerpath shows its existing account or no-access page (6)." });
   navTab(W, T.projects());
-  S.step({ cap: "In Acme's Projects, the new tour shows Created by Sam Lee.", how: "Made with Sam's own short-lived token, so Layerpath records him as the creator (D5, 6)." });
+  S.step({ cap: "In Acme's Projects, the new tour shows Created by Sam Lee.", how: "To build: made with Sam's own short-lived token, so Layerpath records him as the creator (D5, 6). Today every Slack tour is in the one shared account, created by the bot." });
   return S.steps;
 });
 
-sc("D2", "A button on someone else's card", "day", function () {
+sc("D2", "Changes on someone else's card", "day", function () {
   var S = Seq(), W = S.W;
+  var chip = "maya@acme.com · linked, Editor in Acme";
   as(W, "maya", "slack");
   var m = post(W, "customer-training", "sam", "{@Layerpath} make a training tour from these", 3, "10:40 AM");
+  m.rx = ["eyes", "clapper"];
   openThread(W, "customer-training", m.id);
-  rep(W, m.id, M("lp", { time: "10:40 AM", blocks: startedBlocks() }));
-  var card = rep(W, m.id, M("lp", { cont: true, time: "10:40 AM", blocks: cardBlocks(TOURS.sam) }));
-  rep(W, m.id, M("lp", { cont: true, time: "10:41 AM", text: "{@Sam} your tour is ready!" }));
-  S.step({ cap: "Maya, linked as an Editor, opens Sam's thread and presses Shorten steps on his card.", next: "card-shorter", chip: "maya@acme.com · linked, Editor in Acme", how: "A card button runs as the presser, with their own role (5.5): resolve Maya, then a token for (Maya, Acme) (8.2)." });
-  var er = rep(W, m.id, M("lp", { time: "10:47 AM", blocks: [{ t: "ctx", md: "*Making every step shorter…*" }] }));
-  S.step({ cap: "The change runs as Maya, with her own role, and the reply says who asked.", chip: "maya@acme.com · linked, Editor in Acme", how: H.token + " Reply and Undo are today's (`editReplyBlocks` in `slackCard.ts`)." });
-  er.blocks = [{ t: "sec", md: "*Tour updated*" }, { t: "ctx", md: "Shorten steps · asked by {@Maya}" },
-    { t: "sec", md: "• *Step 3 · Callout*: ~Fill in the deal name, amount and close date~ → Add the deal details\n• *Step 4 · Callout*: ~Pick which stage of the pipeline the deal is in~ → Pick the stage" },
-    { t: "act", els: [{ b: "Undo", k: "undo" }] }];
-  card.blocks = cardBlocks(TOURS.sam, { updated: "10:47 AM" });
-  S.frame(1700);
-  openThread(W, "customer-training", m.id, "dev");
+  rep(W, m.id, ackMsg("sam", "training", { time: "10:40 AM" }));
+  var card = rep(W, m.id, M("lp", { cont: true, time: "10:41 AM", text: "{@Sam} " + READY_LINE, blocks: [woBlock(TOURS.sam, "sam", { created: "Today at 10:41", asOf: "today at 10:41" })] }));
+  composeTh(W, "make the steps shorter");
+  S.step({ st: "live", cap: "Maya, linked as an Editor, opens Sam's thread and asks for a change in a reply.", next: "th-send", focus: card.id, chip: chip, how: "Live today: cards have no one-tap changes any more; every change is a reply in the thread, and the card's only tap is Make video. To build: a reply runs as whoever wrote it, with their own role (5.5): resolve Maya, then a token for (Maya, Acme) (8.2)." });
+  var r = sendTh(W, "10:47 AM");
+  r.rx = ["eyes", "loading"];
+  var cm = rep(W, m.id, changeMsg("Making every step shorter", "Trimming each callout to the essentials…", false, { time: "10:47 AM" }));
+  W.thr[m.id].status = "is shortening the steps…";
+  S.step({ st: "live", cap: "The change shows today's streamed progress. To build: it runs as Maya, with her own role.", focus: cm.id, chip: chip, how: "Live today: a change posts one progress message, its heading in bold and the phrase as a task row, streamed (`slackStream.ts` changeChunks), with its own loading status by the reply box. To build: " + H.token });
+  cm.blocks[0].tasks[0].st = "complete";
+  W.thr[m.id].status = "";
+  r.rx = ["eyes", "clapper"];
+  rep(W, m.id, M("lp", { cont: true, time: "10:48 AM", text: "Every callout is shorter now, and each step says the same in fewer words. The voiceover still has the old wording on steps 3 and 4. Want me to redo it to match?" }));
+  updateCards(W, TOURS.sam.title, { asOf: "today at 10:48", updated: "Today at 10:48", flash: true });
+  S.step({ st: "live", cap: "Layerpath says what changed, and the card above updates in place: same message, new Updated date.", focus: card.id, chip: chip, how: "Live today: the reply is the model's own words. Every message the tour's card is on is updated with `chat.update` (`workObject.ts` cards, the newest 10), so no second card is posted. When more than six messages have gone by, the card is posted again further down (`threadActivity.ts`)." });
+  updateCards(W, TOURS.sam.title, { flash: false });
   as(W, "dev", "slack");
-  S.step({ cap: "Dev isn't linked, and he presses a button on the same card.", next: "card-blur", how: "Same handler; `resolve` runs for the presser." });
+  openThread(W, "customer-training", m.id);
+  S.step({ st: "live", cap: "Dev isn't linked, and he presses Make video on the same card.", next: "wo-video", focus: card.id, how: "Live today: Make video (`tour_make_video`) starts the export as the request of whoever tapped it. To build: `resolve` runs for the presser first." });
   rep(W, m.id, M("lp", { only: "dev", time: "10:49 AM", blocks: connectPrompt() }));
   S.step({ cap: "It acts as the presser, so Dev gets the Connect prompt.", copy: true, how: "`resolve` returns `not_linked` for Dev (5.5)." });
-  openThread(W, "customer-training", m.id, "omar");
   as(W, "omar", "slack");
-  S.step({ cap: "Omar is a Viewer, and he presses Shorten steps on the same card.", next: "card-shorter", how: "Same handler: it acts as the presser, and the checks in section 5 run first (5.5)." });
+  openThread(W, "customer-training", m.id);
+  composeTh(W, "add a voiceover");
+  S.step({ st: "live", cap: "Omar is a Viewer, and he asks for a change in the same thread.", next: "th-send", how: "Live today: any reply in the thread reaches the bot. To build: the checks in section 5 run first (5.5)." });
+  sendTh(W, "10:50 AM");
   rep(W, m.id, M("lp", { only: "omar", time: "10:50 AM", blocks: viewerMsg() }));
-  S.step({ cap: "The checks in section 5 run first, so Omar gets the Viewer message.", copy: true, how: "`resolve` returns `viewer`, so the change never starts (5.5). \"You can't change this tour. Ask Sam or an Admin in Acme.\" is only for an Editor whom Layerpath refuses for that tour." });
+  S.step({ cap: "The checks run first, so Omar gets the Viewer message and nothing changes.", copy: true, how: "`resolve` returns `viewer`, so the change never starts (5.5). \"You can't change this tour. Ask Sam or an Admin in Acme.\" is only for an Editor whom Layerpath refuses for that tour." });
   return S.steps;
 });
 
@@ -1379,15 +1985,12 @@ sc("D3", "The Free publish limit", "day", function () {
   as(W, "priya", "slack");
   var chip = "priya@acme.com · Owner of Acme, on Free in this scenario";
   compose(W, "{@Layerpath} make a tour of inviting a teammate from these", 3);
-  S.step({ cap: "Suppose Acme is on Free with 3 tours published, where only the Owner can use the agent, so this is Priya.", next: "send", chip: chip, how: H.event + " On Free only the Owner can use the agent (flag for Vinay, section 2)." });
+  S.step({ st: "live", cap: "Suppose Acme is on Free with 3 tours published, where only the Owner can use the agent, so this is Priya.", next: "send", chip: chip, how: "Live today: the mention. To build: " + H.event + " On Free only the Owner can use the agent (flag for Vinay, section 2)." });
   var m = send(W);
-  var om = rep(W, m.id, optionsMsg());
-  S.step({ cap: "The usual options card, and she presses Create tour.", next: "create", chip: chip, how: "`resolve` returns `linked`, role Owner (5)." });
-  om.blocks = startedBlocks();
-  var sm = buildTour(S, W, m.id, { cap: "The tour is made as usual.", chip: chip, how: H.token }, TOURS.priya);
+  var sm = buildTour(S, W, m.id, { st: "live", cap: "The tour is made as today.", chip: chip, how: H.build + " To build: `resolve` returns `linked`, role Owner (5). " + H.token }, TOURS.priya, { what: "" });
   finishCard(W, m.id, sm, TOURS.priya, "priya", { draft: true });
-  S.step({ cap: "It's kept as a draft and the card says why, in today's words, with Edit in Layerpath as the way in.", chip: chip, focus: sm.id,
-    how: "The publish cap is today's (`publishedProjectSlots.ts`, 8.2 Reuse), and so are its message and the draft card. The video export limit and the voice languages on Free also use today's messages (6, D8)." });
+  S.step({ st: "live", cap: "It's kept as a draft: the progress becomes the draft card with the plan's message and Edit in Layerpath, in today's words.", chip: chip, focus: sm.id,
+    how: "Live today: the publish cap is today's (`publishedProjectSlots.ts`, 8.2 Reuse), and so are its message and the draft card (`slackCard.ts` resultBlocks). A draft never becomes a Work Object, since it has no share link. The video export limit and the voice languages on Free also use today's messages (6, D8)." });
   return S.steps;
 });
 
@@ -1467,6 +2070,167 @@ sc("L3", "Disconnect Slack or uninstall", "leaving", function () {
   return S.steps;
 });
 
+/* ---------------- ChatGPT (the studio connector) ---------------- */
+function gptStart(W, who, tabs) { W.gpt = true; as(W, who, "chrome"); var b = BR(W); b.tabs = tabs; b.active = 0; }
+function closeTab(W, i) { var b = BR(W); b.tabs.splice(i, 1); b.active = 0; W.front = "chrome"; }
+var GPTH = {
+  today: "Live today: the studio connector (`apps/agent/src/mcp.ts` with `?surface=chatgpt&studio=1`), added by URL in our work ChatGPT. A secret path in the URL is its only lock, and every tour lands in the one shared Layerpath account.",
+  oauth: "To build: our own OAuth 2.1 for the studio connector, as the MCP authorization spec asks: protected-resource metadata, the authorization code with PKCE (S256), and ChatGPT registering itself as a client (CIMD, or DCR). ChatGPT starts it on Connect or on the first tool call (developers.openai.com/apps-sdk/build/auth, seen 12 Oct 2026). Reuse: `apps/mcp/src/oauth` on dev already has the metadata, an authorize and consent flow bound to one user and one workspace, PKCE and rotating refresh tokens (built for the dark MCP beta, with pre-registered clients and no DCR).",
+  grant: "Each grant binds one Layerpath user, one client (ChatGPT) and one workspace, with short-lived access tokens and rotating refresh tokens (`docs/mcp-contextual-demo-reading-spec.md`, OAuth connection and Workspace selection).",
+  tenancy: "To build in the agent: every studio tool reads and writes as the token's user, in the token's workspace, under Layerpath's own permission and plan checks, in place of today's one shared account; `search_tours`, Home's recent tours and the cards show only that workspace's tours."
+};
+
+sc("C1", "New to Layerpath: find, connect, sign up", "gpt", function () {
+  var S = Seq(), W = S.W;
+  gptStart(W, "nina", [T.gpt({ view: "plugins", q: "Layerpath", user: "nina" })]);
+  S.step({ cap: "Nina has never used Layerpath. On ChatGPT's Plugins page she searches for it and opens it.", next: "gp-card-lp", how: "Drawn by ChatGPT, drawn here generically (its real screens may differ). ChatGPT's plugins are at chatgpt.com/plugins (developers.openai.com/apps-sdk/deploy/connect-chatgpt, seen 12 Oct 2026). To build: Layerpath is listed for everyone only once ChatGPT approves our submission (over two weeks, the 12 Oct call's guess). Today our plugin is added by URL in our own work ChatGPT." });
+  curPage(W).modal = { state: "connect" };
+  S.step({ cap: "ChatGPT shows Layerpath's listing, and she presses Connect.", next: "gp-connect", copy: true, how: "Drawn by ChatGPT; the words are our listing's (Madhu sets up the profile). " + GPTH.oauth });
+  tab(W, T.gptSignin());
+  S.step({ cap: "Connect opens Layerpath's sign-in in a new tab, with a line saying why. She has no account, so she picks Sign up.", next: "auth-signup", copy: true, how: "To build: `GET /oauth/authorize` with ChatGPT's client, its redirect URI, the PKCE challenge and a state; signed out, it shows the normal sign-in page with a banner. The page and its words are today's, the banner aside. Whether ChatGPT opens a tab or a pop-up is ChatGPT's (unverified)." });
+  navTab(W, T.gptSignup());
+  S.step({ cap: "Layerpath's normal sign-up, with the same banner. She continues with Google.", next: "auth-google", copy: true, how: "Live today: the sign-up page (`app/(auth)/signup`), unchanged. To build: the banner, and going back to the authorize step after sign-up. Today's page says \"walkthrough\", which the copy rules don't allow (flag for Kripa)." });
+  navTab(W, T.google([GA.nina]));
+  S.step({ cap: "She picks her work Google account.", next: "g-acc-0", how: "Google's own screen; Layerpath's sign-up is unchanged." });
+  navTab(W, T.consent({ user: "nina", ws: ["Nina's workspace · Free"], sel: 0 }));
+  S.step({ cap: "Her new account comes with a workspace of its own, so the consent page only says where tours go. She presses Allow.", next: "gc-allow", copy: true, how: "To build: the consent page. A new sign-up has its own workspace (`defaultWorkspace`); today new sign-ups are sent to `/creation` first, which this flow skips so she lands back in ChatGPT (decision 8). " + GPTH.grant });
+  closeTab(W, 1);
+  curPage(W).modal = { state: "connected", acct: "nina@brightdesk.io · Nina's workspace" };
+  curPage(W).toast = "Layerpath is connected";
+  S.step({ cap: "She's back in ChatGPT, connected, and starts a chat with Layerpath.", next: "gp-try", copy: true, how: "Drawn by ChatGPT, generically. To build: ChatGPT swaps the code for tokens and sends them with every Layerpath call. " + GPTH.tenancy });
+  navTab(W, T.gpt({ user: "nina", composer: { at: true, text: "" } }));
+  S.step({ cap: "Layerpath is ready in her chats. C3 follows her first tour.", how: "Drawn by ChatGPT, generically: @Layerpath in the prompt box." });
+  return S.steps;
+});
+
+sc("C2", "Existing user: sign in, pick the workspace", "gpt", function () {
+  var S = Seq(), W = S.W;
+  var chip = "priya@acme.com · Owner of Acme, also has Priya's workspace";
+  gptStart(W, "priya", [T.gpt({ view: "plugins", q: "Layerpath", user: "priya", modal: { state: "connect" } })]);
+  S.step({ cap: "Priya already uses Layerpath, in two workspaces. She finds Layerpath in ChatGPT and presses Connect.", next: "gp-connect", chip: chip, how: "Drawn by ChatGPT, generically. " + GPTH.oauth });
+  tab(W, T.consent({ user: "priya", ws: ["Acme · Team", "Priya's workspace · Free"], sel: -1 }));
+  S.step({ cap: "She's signed in to Layerpath in this browser, so the consent page shows at once, with a choice of workspace. She picks Acme.", next: "gc-ws0", copy: true, chip: chip, how: "To build: the list is every workspace she's an active member of, shown only when there's more than one. " + GPTH.grant });
+  setPage(W, { sel: 0 });
+  S.step({ cap: "With Acme picked, she presses Allow.", next: "gc-allow", copy: true, chip: chip, how: "To build: the grant is for (Priya, ChatGPT, Acme), and her role in Acme applies: an Owner, Admin or Editor makes tours; a Viewer is told why not." });
+  var saved = S.save();
+  closeTab(W, 1);
+  curPage(W).modal = { state: "connected", acct: "priya@acme.com · Acme" };
+  curPage(W).toast = "Layerpath is connected";
+  S.step({ cap: "Back in ChatGPT, Layerpath is connected to her Acme workspace.", chip: chip, how: "Drawn by ChatGPT, generically. " + GPTH.tenancy });
+  S.restore(saved);
+  navTab(W, T.gptSignin());
+  S.step({ cap: "Other result: if she were signed out, or pressed Use another account, she'd sign in first, then see the same consent page.", copy: true, chip: chip, how: "To build: the authorize step sends a signed-out browser to the normal sign-in page and back; Use another account signs her out of Layerpath in this browser first." });
+  S.restore(saved);
+  closeTab(W, 1);
+  curPage(W).modal = { state: "connect" };
+  curPage(W).toast = "Layerpath wasn't connected";
+  S.step({ cap: "Other result: if she pressed Cancel, she's back in ChatGPT and nothing is connected.", chip: chip, how: "To build: Cancel returns `access_denied` to ChatGPT's redirect URI. What ChatGPT shows then is ChatGPT's (unverified); this note is a stand-in." });
+  return S.steps;
+});
+
+sc("C3", "First tour in ChatGPT", "gpt", function () {
+  var S = Seq(), W = S.W;
+  var td = tourData(TOURS.nina);
+  gptStart(W, "nina", [T.gpt({ user: "nina", composer: { raw: "@" }, picker: true }), T.lpProjects({ cards: [] })]);
+  var p = curPage(W);
+  S.step({ st: "live", cap: "In a new chat, Nina types @ and picks Layerpath from ChatGPT's list.", next: "gp-pick-lp", how: "Drawn by ChatGPT, generically: type @ in the prompt box and pick the plugin (developers.openai.com/apps-sdk/deploy/connect-chatgpt, seen 12 Oct 2026). " + GPTH.today });
+  p.picker = false;
+  p.composer = { at: true, text: "make a tour of our sign-up flow" };
+  S.step({ st: "live", cap: "She asks for a tour of her product's sign-up flow, and sends it.", next: "gp-send", how: GPTH.today });
+  p.composer = null;
+  p.items.push({ k: "user", text: "@Layerpath make a tour of our sign-up flow" }, { k: "tool", text: "Called Layerpath" }, { k: "w", w: { kind: "add" } }, { k: "bot", text: "Attach screenshots or a screen recording of the sign-up flow here, or paste a Loom or YouTube link, and Layerpath makes the tour. You can also open the studio and upload there." });
+  S.step({ st: "live", cap: "With nothing attached, Layerpath's card asks for her screens, and she opens the studio.", next: "w-studio", how: "Live today: create_tour with no files or link answers with the studio's Add your screens card (`card/studio/views/add.ts`); the words under it are ChatGPT's. Open in studio asks ChatGPT for full screen." });
+  p.full = { tab: "home", recent: [] };
+  S.step({ st: "live", cap: "The studio opens full screen on Home: upload, a Loom or YouTube link, the options for the next tour, and her tours, none yet.", next: "st-choose", how: "Live today: the studio's Home (`card/studio/views/home.ts`). To build: Recent tours lists her own workspace's tours; today it lists the shared account's." });
+  p.full = { tab: "home", recent: [], files: ["signup-1.png", "signup-2.png", "signup-3.png", "signup-4.png"] };
+  S.step({ st: "live", cap: "She picks four screenshots; once they're sent, Create tour shows, and she presses it.", next: "st-create", how: "Live today: the files go straight to Layerpath (`start_tour_from_upload`), since files attached to a chat never reach MCP tools." });
+  p.full = { tab: "editor", tour: td, status: "creating", stage: 0, shown: 0, stageText: "Reading your material" };
+  S.step({ st: "live", cap: "The Editor shows the tour being made: the steps arrive, then the callouts.", how: "Live today: the Editor reads `get_tour_status` every 5 s and shows the build's stages (Callouts, Voiceover, Finalizing, Done)." });
+  p.full = { tab: "editor", tour: td, status: "creating", stage: 0, shown: 4, stageText: "Writing callouts" };
+  S.frame(1300);
+  p.full = { tab: "editor", tour: td, status: "creating", stage: 2, shown: 4, stageText: "Finalizing", callout: true };
+  S.frame(1300);
+  p.full = { tab: "editor", tour: td, status: "ready", shown: 4, callout: true, readyNote: true };
+  S.step({ st: "live", cap: "The tour is ready in the Editor, with two suggestions for the chat. She closes full screen.", next: "gpt-close", how: "Live today: the ready Editor (`card/studio/views/editor.ts`); suggestions go into the chat only when tapped. Changes by hand (text, hotspots, crop, order) save as one change with Undo." });
+  p.full = null;
+  p.items[2] = { k: "w", w: { kind: "card", tour: td, status: "ready" } };
+  p.items.push({ k: "bot", text: "Your tour of the sign-up flow is ready. Ask here for any change, like shorter callouts or a voiceover." });
+  S.step({ st: "live", cap: "In the chat, the card now shows the finished tour, with Open in studio and Copy link. She opens Layerpath in her other tab.", next: "ctab:1", how: "Live today: the inline card (`card/studio/views/card.ts`): cover, Published chip, title, steps, two buttons, as ChatGPT's inline-card rules ask." });
+  var b = BR(W);
+  b.active = 1;
+  setPage(W, { cards: [{ tour: td, when: "Just now", by: "nina" }] });
+  S.step({ cap: "In her own Layerpath workspace, the new tour is in Projects, created by her.", how: "To build: the tour is made with Nina's token in her workspace, so it shows in her dashboard and counts against her plan. Today every ChatGPT tour lands in the one shared account. " + GPTH.tenancy });
+  b.active = 0;
+  p.full = { tab: "home", recent: [td], link: "loom.com/share/7f3e9c2a" };
+  S.step({ st: "live", cap: "Other way in: on Home she could paste a Loom or YouTube link and press Create tour instead.", how: "Live today: `start_tour_from_link`. A link pasted in the chat works too: create_tour starts at once with it." });
+  return S.steps;
+});
+
+sc("C4", "\"What can you do?\"", "gpt", function () {
+  var S = Seq(), W = S.W;
+  gptStart(W, "nina", [T.gpt({ user: "nina" })]);
+  var p = curPage(W);
+  p.items.push({ k: "user", text: "@Layerpath what can you do for me" }, { k: "long" });
+  S.step({ st: "live", cap: "Today, asked what it can do, ChatGPT writes its own long answer: a table, its own buttons, and limitations (Vinay's issue 1).", how: "Live today, abridged from Vinay's 12 Oct screenshot: Layerpath has no answer of its own, so ChatGPT's model writes one from our tool descriptions, with words we don't use (walkthrough, demo) and buttons that aren't ours. To Vinay's question: ChatGPT controls what its model writes; we can give it a card and instructions." });
+  p.items = [{ k: "user", text: "@Layerpath what can you do for me" }, { k: "tool", text: "Called Layerpath" }, { k: "w", w: { kind: "what" } }, { k: "bot", text: "That's what Layerpath can do. Attach screenshots or paste a Loom or YouTube link to make your first tour." }];
+  S.step({ cap: "Instead, Layerpath answers with its own card, in our words, and ChatGPT adds one line.", next: "w-chip-loom", copy: true, how: "To build: a studio tool for this question (for example `about_layerpath`) whose description says when to use it, whose result is this card, and which tells the model the card says it all, so it answers in a sentence. The card's lines come from the old card's list (`WHAT_CAN` in `mcp.ts`). ChatGPT's model still picks its own words, so the line under the card can't be switched off." });
+  p.items.push({ k: "user", text: "I want to turn a Loom video into a tour. I'll paste the link here." }, { k: "bot", text: "Paste the Loom link here and I'll send it to Layerpath." });
+  S.step({ cap: "Its suggestions send a line into the chat for her, as the studio's prompts do today, and ChatGPT asks for the link.", copy: true, how: "Live today in the studio: its example prompts send their line into the chat as the user's message (`PROMPTS` in `card/studio/copy.ts`). To build: the same on this card." });
+  return S.steps;
+});
+
+sc("C5", "Integrations tab in Layerpath", "gpt", function () {
+  var S = Seq(), W = S.W;
+  var rows = [{ key: "priya", since: "12 Oct", used: "today" }, { key: "sam", since: "10 Oct", used: "yesterday" }];
+  gptStart(W, "priya", [T.settings("integrations", { card: "connected", gpt: { rows: rows } })]);
+  S.step({ cap: "In Settings, the new Integrations tab shows Slack and ChatGPT. For ChatGPT, Priya sees who in Acme has connected it.", next: "gpt-dis-sam", copy: true, how: "To build: `settings/integrations` (also in the Slack plan, 4.1), open to Owners and Admins as Settings is today (`settings/layout.tsx`). The ChatGPT card lists this workspace's OAuth grants (who, since when, last used) and links to Layerpath in ChatGPT. Madhu polishes the design later (12 Oct call)." });
+  setPage(W, { dialog: "gpt" });
+  S.step({ cap: "She disconnects Sam's ChatGPT, and Layerpath asks first.", next: "lpd-gpt-confirm", copy: true, how: "To build: Disconnect revokes the grant and its refresh tokens (`/oauth/revoke`). Sam's next Layerpath call from ChatGPT gets a 401, and ChatGPT asks him to connect again (C6)." });
+  setPage(W, { dialog: null, gpt: { rows: rows.slice(0, 1) } });
+  S.step({ cap: "Sam's row is gone. His tours stay in Acme.", copy: true, how: "To build: only the connection goes; tours made from ChatGPT are ordinary projects in Acme." });
+  as(W, "sam", "chrome");
+  BR(W).tabs = [T.apps({ user: "sam" })];
+  BR(W).active = 0;
+  S.step({ cap: "Editors can't open Settings, so each person also sees their own connections under their account, and can disconnect them there.", copy: true, chip: "sam@acme.com · Editor in Acme", how: "To build, and decision 12: a Connected apps page in each person's account menu (proposed `/account/connected-apps`) with their own Slack link and ChatGPT connection. Without it, an Editor can disconnect only from ChatGPT's side." });
+  return S.steps;
+});
+
+sc("C6", "Signed out or expired: reconnect", "gpt", function () {
+  var S = Seq(), W = S.W;
+  var chip = "sam@acme.com · his ChatGPT was disconnected in C5";
+  gptStart(W, "sam", [T.gpt({ user: "sam" })]);
+  var p = curPage(W);
+  p.items.push({ k: "user", text: "@Layerpath show my tours" }, { k: "tool", text: "Called Layerpath" }, { k: "relink" });
+  S.step({ cap: "Sam asks Layerpath for his tours. His connection was removed, so ChatGPT asks him to connect again.", next: "gp-relink", chip: chip, how: "To build: with no valid token, the tool answers `isError` with `_meta[\"mcp/www_authenticate\"]` (or the server a 401 with `WWW-Authenticate`), and ChatGPT shows its own linking prompt; the tools must declare `securitySchemes` too (developers.openai.com/apps-sdk/build/auth, seen 12 Oct 2026). ChatGPT draws the prompt; this one is generic." });
+  tab(W, T.consent({ user: "sam", ws: ["Acme · Team"], sel: 0 }));
+  S.step({ cap: "Connect opens the consent page (he's still signed in to Layerpath), and he presses Allow.", next: "gc-allow", copy: true, chip: chip, how: "To build: the same authorize and consent steps as C2. " + GPTH.grant });
+  closeTab(W, 1);
+  p = curPage(W);
+  p.items[2] = { k: "w", w: { kind: "car", tours: [tourData(TOURS.sam), tourData(TOURS.maya), tourData(TOURS.pitch)] } };
+  p.items.push({ k: "bot", text: "Here are your latest tours in Acme. Which one should I open?" });
+  S.step({ cap: "Back in ChatGPT, his request goes on, and the studio's carousel shows his tours in Acme.", chip: "sam@acme.com · connected again", how: "Live today: the carousel (`card/studio/views/carousel.ts`) and the model's one sentence under it. To build: the request carrying on after the link, with his own workspace's tours." });
+  p.items = [{ k: "user", text: "@Layerpath make the callouts shorter" }, { k: "tool", text: "Called Layerpath" }, { k: "relink" }];
+  S.step({ cap: "Other result: if his sign-in expires, ChatGPT asks the same way. Refresh tokens keep that rare.", chip: "sam@acme.com · connected, sign-in expired", how: "To build: access tokens are short-lived and renewed with rotating refresh tokens; only an expired or revoked refresh token brings the prompt back (`docs/mcp-contextual-demo-reading-spec.md`, OAuth persistence and tokens). When ChatGPT refreshes is ChatGPT's (unverified)." });
+  navTab(W, T.gpt({ view: "plugins", q: "Layerpath", user: "sam", modal: { state: "connected", acct: "sam@acme.com · Acme" } }));
+  S.step({ cap: "Other result: he can also disconnect from ChatGPT's side, on Layerpath's plugin page.", next: "gp-disconnect", chip: "sam@acme.com · connected", how: "Drawn by ChatGPT, generically. Whether ChatGPT tells Layerpath (revokes the token) when he disconnects there is unverified; if it doesn't, his row stays in Integrations until the token runs out." });
+  curPage(W).modal = { state: "connect" };
+  curPage(W).toast = "Layerpath was disconnected";
+  S.step({ cap: "It's disconnected; the next time he uses Layerpath, ChatGPT asks him to connect first.", chip: "sam@acme.com · not connected", how: "Drawn by ChatGPT, generically." });
+  return S.steps;
+});
+
+sc("C7", "Not in V1 from ChatGPT", "gpt", function () {
+  var S = Seq(), W = S.W;
+  var td = tourData(TOURS.nina);
+  gptStart(W, "nina", [T.gpt({ user: "nina" })]);
+  var p = curPage(W);
+  p.items.push({ k: "w", w: { kind: "card", tour: td, status: "ready" } }, { k: "user", text: "@Layerpath share this with my team" }, { k: "tool", text: "Called Layerpath" }, { k: "bot", text: "Layerpath doesn't send tours to people from ChatGPT. Here's the link to send them yourself: share.layer.info/…/sign-up-for-brightdesk. Anyone in your Layerpath workspace also finds it in Projects." });
+  S.step({ cap: "No team behaviour in V1: asked to share with her team, ChatGPT gives the share link. Copy link on the card does the same.", how: "Live today: the `share` tool already gives the share and embed links. To build: one line in the studio's instructions that nothing is sent to people or channels from ChatGPT in V1. Team sharing is Later." });
+  navTab(W, T.gpt({ view: "plugins", q: "Layerpath", user: "nina", modal: { state: "connected", acct: "nina@brightdesk.io · Nina's workspace" } }));
+  S.step({ cap: "One Layerpath account and one workspace per ChatGPT user: to use another, she disconnects and connects again, and picks it.", how: "To build, and decision 10: ChatGPT can let a person add more accounts to a plugin (developers.openai.com/apps-sdk/build/auth, seen 12 Oct 2026); V1 supports one. The workspace is picked at Connect (C2)." });
+  return S.steps;
+});
+
 /* ---------------- Later (spec section 9) ---------------- */
 function sk(o) { return ext({ t: "sketch" }, o); }
 function laterStep(S, n, meta) { S.step(ext({ later: true, how: H.later(n) }, meta)); }
@@ -1517,7 +2281,7 @@ sc("LT5", "Credit pool", "later", function () {
   as(W, "sam", "slack");
   var m = post(W, "customer-training", "sam", "{@Layerpath} make a training tour from these", 3);
   openThread(W, "customer-training", m.id);
-  rep(W, m.id, M("lp", { blocks: startedBlocks() }));
+  rep(W, m.id, ackMsg("sam", "training"));
   rep(W, m.id, M("lp", { cont: true, blocks: [sk({ title: "Credit check", lines: ["Acme's AI credits are checked before each job."] })] }));
   laterStep(S, 5, { cap: "A company pool of AI credits would be checked before each job (AI credits aren't enforced today)." });
   W.thr[m.id].replies[1].blocks = [sk({ title: "Out of credits", lines: ["An \"out of credits\" message. Its copy isn't written yet."], bars: true })];
@@ -1536,10 +2300,17 @@ sc("LT6", "Free agent seats", "later", function () {
 sc("LT7", "Slack Marketplace listing", "later", function () {
   var S = Seq(), W = S.W;
   as(W, "priya", "chrome");
-  BR(W).tabs = [T.sketch(URLS.market, sk({ title: "Layerpath in the Slack Marketplace", lines: ["A public listing for the one Layerpath app."], bars: true }))];
-  laterStep(S, 7, { cap: "Layerpath could be listed in the Slack Marketplace." });
-  setPage(W, { block: sk({ title: "Before a listing", lines: ["V1 already moves the bot from Socket Mode to HTTP events and interactivity, which a Marketplace listing requires (8.1)."] }) });
-  laterStep(S, 7, { cap: "V1 already moves the bot to HTTP, which a listing requires." });
+  BR(W).tabs = [T.sketch(URLS.market, sk({ title: "Layerpath in the Slack Marketplace", lines: ["A public listing for the one Layerpath app.", "Moved up: on 12 Oct Vinay asked to submit Slack and ChatGPT by Fri 16 Oct. Slack's review is about a week, two at most (guess from the 12 Oct call)."], bars: true }))];
+  laterStep(S, 7, { cap: "Layerpath could be listed in the Slack Marketplace. Submitting it moved up to this week." });
+  setPage(W, { block: sk({ title: "Before a listing", lines: ["V1 moves the bot from Socket Mode to HTTP events and interactivity, which a listing requires (8.1): Slack doesn't allow Socket Mode apps in the Marketplace.", "Once the app is distributed, the tour playing in Slack's side panel needs Slack's embeds pilot (invite only). The card itself, Open tour and Make video don't."] }) });
+  laterStep(S, 7, { cap: "V1 already moves the bot to HTTP, which a listing requires; the side-panel player then needs Slack's pilot." });
+  return S.steps;
+});
+sc("LT8", "Claude, with the same sign-in", "later", function () {
+  var S = Seq(), W = S.W;
+  as(W, "nina", "chrome"); W.gpt = true;
+  BR(W).tabs = [{ fav: "lp", title: "Later sketch", url: "claude.ai/…/connectors", page: { kind: "sketch", block: sk({ title: "Layerpath in Claude", lines: ["The Claude connector runs today on the same agent, behind the same secret URL as ChatGPT's, with every tour in the one shared account.", "Later: the same Layerpath sign-in as ChatGPT (C1, C2), so tours go to each person's own workspace. Not now: \"not doing it for Claude now\" (12 Oct call), though Vinay's 12 Oct message said all three integrations."], bars: true }) } }];
+  S.step({ later: true, cap: "Claude could use the same sign-in as ChatGPT. Not in this week's submission (12 Oct call).", how: "Not in the 2 Oct spec: added 12 Oct. The OAuth server built for ChatGPT (C1, C2) is the same one Claude's connector would use; Claude's connector directory has its own review." });
   return S.steps;
 });
 
@@ -1572,11 +2343,12 @@ function msgHTML(m, ctx) {
   var a = actor(m.from, ctx.viewer);
   var cont = m.cont && !m.only;
   var eph = m.only ? '<div class="eph">' + I.eye + "<span>Only visible to you</span></div>" : "";
-  var head = cont ? "" : '<div class="m-head"><span class="m-name">' + esc(a.name) + "</span>" + (a.bot ? '<span class="appb">APP</span>' : "") + (a.ext ? '<span class="extorg" title="' + esc(a.ext) + '" style="background:' + orgColor(a.ext) + '">' + esc(a.ext[0]) + "</span>" : "") + '<span class="m-time">' + esc(m.time || "") + "</span></div>";
+  var head = cont ? "" : '<div class="m-head"><span class="m-name">' + esc(a.name) + "</span>" + (a.bot ? '<span class="appb">AGENT</span>' : "") + (a.ext ? '<span class="extorg" title="' + esc(a.ext) + '" style="background:' + orgColor(a.ext) + '">' + esc(a.ext[0]) + "</span>" : "") + '<span class="m-time">' + esc(m.time || "") + "</span></div>";
   var body = "";
   if (m.text) body += '<div class="m-text">' + md(m.text) + "</div>";
   if (m.files) body += '<div class="files">' + shots(m.files) + "</div>";
   if (m.blocks) body += '<div class="blocks">' + blocksHTML(m.blocks) + "</div>";
+  if (m.rx && m.rx.length) body += '<div class="rxs">' + m.rx.map(rxHTML).join("") + "</div>";
   var rep = "";
   if (ctx.replies) rep = '<div class="m-replies">' + avatar("lp", 20) + '<span class="rc">' + ctx.replies + (ctx.replies === 1 ? " reply" : " replies") + '</span><span class="rl">Last reply today</span></div>';
   return '<div class="msg' + (cont ? " cont" : "") + '" data-mid="' + m.id + '">' + eph + '<div class="m-row"><div class="m-gut">' + (cont ? "" : avatar(m.from, 36)) + '</div><div class="m-body">' + head + body + rep + "</div></div></div>";
@@ -1593,8 +2365,93 @@ function blockHTML(b) {
     case "plan": return planHTML(b);
     case "video": return videoHTML(b);
     case "sketch": return sketchHTML(b);
+    case "stream": return streamHTML(b);
+    case "wo": return woHTML(b);
+    case "pic": return picHTML(b);
+    case "tours": return toursHTML(b);
+    case "vfile": return '<div class="vf"><div class="vt">' + esc(b.title) + " (video) " + I.caret + '</div><div class="vb">' + cover16(b) + '<span class="pl">&#9654; ' + esc(b.dur) + "</span></div></div>";
+    case "lnk": return '<div class="m-text"><a class="lnk" style="text-decoration:underline">' + esc(b.text) + "</a></div>";
   }
   return "";
+}
+function rxHTML(r) {
+  if (r === "loading") return '<span class="rx" title="loading"><span class="ld"></span>1</span>';
+  return '<span class="rx"><span class="e">' + ({ eyes: "👀", clapper: "🎬", x: "❌" }[r] || "") + "</span>1</span>";
+}
+/* A light app screenshot, drawn with boxes so it scales anywhere (cards, covers, the studio) */
+function mock(o) {
+  o = o || {};
+  var a = o.acc || "#4f5bd5", v = (o.v || 0) % 5;
+  function box(st) { return '<i style="' + st + '"></i>'; }
+  var h = '<span class="mk">';
+  h += box("left:0;right:0;top:0;height:9%;background:#fff;border-bottom:1px solid #e3e7ec");
+  h += box("left:2.5%;top:2.4%;width:4%;height:4.2%;border-radius:2px;background:" + a);
+  h += box("left:9%;top:3.2%;width:14%;height:2.6%;border-radius:2px;background:#cfd6de");
+  h += box("left:0;top:9%;bottom:0;width:20%;background:#fff;border-right:1px solid #e3e7ec");
+  for (var i = 0; i < 5; i++) h += box("left:3%;top:" + (15 + i * 7) + "%;width:" + (12 + (i % 2) * 3) + "%;height:3%;border-radius:2px;background:" + (i === v ? a : "#dfe4ea") + ";opacity:" + (i === v ? 0.55 : 1));
+  h += box("left:25%;top:15%;width:26%;height:5%;border-radius:3px;background:#c3ccd6");
+  h += box("right:6%;top:14%;width:15%;height:7%;border-radius:4px;background:" + a);
+  var rows = [3, 4, 2, 4, 3][v];
+  for (var r = 0; r < rows; r++) {
+    h += box("left:25%;top:" + (27 + r * 14) + "%;width:69%;height:11%;border-radius:4px;background:#fff;border:1px solid #e6eaef");
+    h += box("left:27.5%;top:" + (31 + r * 14) + "%;width:" + ((18 + r * 7) % 40 + 8) + "%;height:3%;border-radius:2px;background:#d4dbe3");
+  }
+  if (v === 2 || v === 4) {
+    h += box("left:0;right:0;top:0;bottom:0;background:rgba(20,30,40,.18)");
+    h += box("left:36%;top:26%;width:34%;height:46%;border-radius:6px;background:#fff;box-shadow:0 6px 18px rgba(0,0,0,.18)");
+    h += box("left:39%;top:32%;width:16%;height:4%;border-radius:2px;background:#c3ccd6");
+    h += box("left:39%;top:41%;width:28%;height:7%;border-radius:3px;background:#f1f3f6;border:1px solid #dfe4ea");
+    h += box("left:39%;top:52%;width:28%;height:7%;border-radius:3px;background:#f1f3f6;border:1px solid #dfe4ea");
+    h += box("left:55%;top:63%;width:12%;height:6%;border-radius:3px;background:" + a);
+  }
+  return h + "</span>";
+}
+/* The tour's start screen as a 16:9 picture (cover.ts wide shape): title, subtitle, length, Start tour, the first step running off the edge */
+function cover16(t) {
+  var n = t.n || (t.steps ? t.steps.length : 0);
+  return '<div class="c16" style="--c1:' + (t.c1 || "#2f3fd0") + ";--c2:" + (t.c2 || "#5d6cf2") + '"><span class="lg">' + LP_LOGO + '</span><div class="tt">' + esc(t.title) + '</div><div class="ss">' + esc(t.sub || "") + '</div><div class="ln">' + esc(lengthLine(n)) + '</div><div class="stb">Start tour</div><div class="shw">' + mock({ acc: t.acc, v: 0 }) + "</div></div>";
+}
+function streamHTML(b) {
+  var h = '<div class="stm">' + (b.head ? '<div class="stm-h">' + esc(b.head) + "</div>" : "") + (b.tip ? '<div class="stm-tip">' + esc(b.tip) + "</div>" : "");
+  (b.tasks || []).forEach(function (t) {
+    if (t.st === "pending") return;
+    var ic = t.st === "complete" ? '<span class="pi ok">' + CHECKC + "</span>" : '<span class="pi spin"' + spinDelay() + "></span>";
+    h += '<div class="stm-row">' + ic + "<span>" + esc(t.title) + "</span></div>";
+  });
+  if (b.live) {
+    var cards = "";
+    for (var i = 0; i < 4; i++) cards += '<span class="cd">' + mock({ v: i }) + "</span>";
+    h += '<div class="bk-live"><div class="v-desc">Opens right here in Slack</div><div class="v-title"><span>Watch it build</span>' + I.caret + '</div><div class="ldr" role="img" aria-label="Your tour, step by step, as it\'s made">' + cards + '<div class="dots"><i></i><i></i><i></i></div><div class="lt">Creating your tour…</div><div class="vp">Video</div></div></div>';
+  }
+  return h + "</div>";
+}
+/* workObject.ts: the card Slack draws from the entity */
+function woHTML(b) {
+  var kp = b.kp || "wo-";
+  function k(x) { return nx(kp + x) + '" data-k="' + kp + x; }
+  var h = '<div class="wo-lbl">Layerpath ' + I.caret + '</div><div class="wo' + (b.flash ? " upd" : "") + '">';
+  h += '<div class="wo-h' + k("open") + '">' + avatar("lp", 34) + '<div class="wo-hw"><div class="wo-t">' + esc(b.title) + '</div><div class="wo-s">Interactive tour in Layerpath</div></div></div>';
+  h += '<div class="wo-f"><div class="wo-fl">Description</div><div class="wo-fv">' + esc(lengthLine(b.n)) + "</div></div>";
+  h += '<div class="wo-cv">' + cover16(b) + "</div>";
+  h += '<div class="wo-fields"><div><div class="wo-fl">Creator</div><span class="mention">@' + esc(P[b.by] ? P[b.by].name : "Layerpath") + '</span></div><div><div class="wo-fl">Created</div><div class="wo-fv">' + esc(b.created) + "</div></div>" + (b.updated ? '<div><div class="wo-fl">Updated</div><div class="wo-fv">' + esc(b.updated) + "</div></div>" : "") + "</div>";
+  h += '<div class="wo-foot"><span>As of ' + esc(b.asOf) + '</span><span class="rf' + k("refresh") + '">Refresh</span><span class="acts"><button type="button" class="wo-btn' + k("tour") + '">Open tour</button><button type="button" class="wo-btn' + k("video") + '">Make video</button><button type="button" class="wo-btn more' + k("more") + '" aria-label="More actions">' + I.more + "</button></span></div>";
+  if (b.menuOpen) h += '<div class="wo-menu"><div class="' + nx(kp + "edit") + '" data-k="' + kp + 'edit">Edit in Layerpath</div></div>';
+  return h + "</div>";
+}
+/* slackHome.ts pictures: a headline on the left, a piece of the bot's messages on the right */
+function picHTML(b) {
+  var right = [
+    "<b>Maya</b> <span class=\"mention\">@Layerpath</span> make a tour from this Loom<div class=\"bar\"></div><div class=\"bar\" style=\"width:70%\"></div>",
+    "<b>Making every step shorter</b><div style=\"color:#616061\">Trimming each callout to the essentials…</div><div class=\"bar\" style=\"margin-top:12px\"></div><div class=\"bar\" style=\"width:60%\"></div>",
+    "<div style=\"width:92%;border-radius:6px;overflow:hidden\">" + cover16(tourData(TOURS.priya)) + "</div>",
+    "<b>Invite a teammate</b><div style=\"color:#616061\">5 steps · 1 min</div><div style=\"display:flex;gap:6px;margin-top:10px\"><span class=\"bk-btn primary\" style=\"display:inline-flex;align-items:center\">Open tour</span><span class=\"bk-btn\" style=\"display:inline-flex;align-items:center\">Edit in Layerpath</span></div><div class=\"bar\" style=\"margin-top:12px\"></div>"
+  ][b.i % 4];
+  return '<div class="hp" role="img" aria-label="' + esc(b.hl) + '"><div class="hl">' + esc(b.hl) + '</div><div class="hw">' + right + "</div></div>";
+}
+function toursHTML(b) {
+  return b.rows.map(function (r) {
+    return '<div class="tl-row"><div class="tw"><div class="tt2">' + esc(r.title) + '</div><div class="tm">' + esc(r.line) + '</div><button type="button" class="bk-btn' + nx(r.k) + '" data-k="' + r.k + '" style="margin-top:6px">Open</button></div><div class="th2">' + mock({ acc: r.acc, v: 1 }) + "</div></div>";
+  }).join("");
 }
 function elHTML(e) {
   if (e.sel) return '<span class="bk-select' + nx(e.k) + '"' + dk(e.k) + "><span>" + esc(e.sel) + "</span>" + I.chev + "</span>";
@@ -1625,9 +2482,10 @@ function sketchHTML(b) {
   if (b.bars) h += '<div class="sk-bars"><i></i><i></i></div>';
   return h + "</div>";
 }
-function composerHTML(c, ph) {
+function composerHTML(c, ph, key) {
+  key = key || "send";
   var has = !!(c && c.text);
-  return '<div class="cmp"><div class="cmp-box' + (has ? " has" : "") + '"><div class="cmp-tools">' + I.bold + I.ital + I.strike + I.linkic + I.list + I.codeic + '</div><div class="cmp-text">' + (has ? md(c.text) : '<span class="ph">' + esc(ph) + "</span>") + "</div>" + (c && c.files ? '<div class="cmp-files files">' + shots(c.files) + "</div>" : "") + '<div class="cmp-bar">' + I.plus + I.aa + I.smile + I.at + '<button type="button" class="cmp-send' + (has ? " on" + nx("send") : "") + '"' + (has ? dk("send") : "") + ">" + I.send + "</button></div></div></div>";
+  return '<div class="cmp"><div class="cmp-box' + (has ? " has" : "") + '"><div class="cmp-tools">' + I.bold + I.ital + I.strike + I.linkic + I.list + I.codeic + '</div><div class="cmp-text">' + (has ? md(c.text) : '<span class="ph">' + esc(ph) + "</span>") + "</div>" + (c && c.files ? '<div class="cmp-files files">' + shots(c.files) + "</div>" : "") + '<div class="cmp-bar">' + I.plus + I.aa + I.smile + I.at + '<button type="button" class="cmp-send' + (has ? " on" + nx(key) : "") + '"' + (has ? dk(key) : "") + ' aria-label="Send">' + I.send + "</button></div></div></div>";
 }
 function sideHTML(W, u, cfg) {
   var v = u.view;
@@ -1668,7 +2526,7 @@ function appHTML(W, u) {
   }).join("");
   var body;
   if (tabName === "home") body = '<div class="home" data-scroll="top"><div class="home-in">' + blocksHTML(W.home[W.as] || []) + "</div></div>";
-  else if (tabName === "messages") body = '<div class="msgs" data-scroll="bottom"><div class="day"><span>Today</span></div>' + (W.dm["app:" + W.as] || []).map(function (m) { return msgHTML(m, { viewer: W.as }); }).join("") + "</div>" + composerHTML(null, "Message Layerpath");
+  else if (tabName === "messages") body = '<div class="msgs" data-scroll="bottom"><div class="day"><span>Today</span></div>' + (W.dm["app:" + W.as] || []).map(function (m) { return msgHTML(m, { viewer: W.as }); }).join("") + "</div>" + (u.prompts ? '<div class="sg-prompts"><span>Make a tour from screenshots</span><span>Turn a Loom into a tour</span><span>Show my tours</span><span>What can you do?</span></div>' : "") + composerHTML(null, "Message Layerpath");
   else body = '<div class="about"><div class="ab-h">' + avatar("lp", 72) + '<div><div class="ab-n">Layerpath</div><div class="ab-d">Make interactive tours from screenshots, a Loom or a YouTube link, right in Slack.</div></div></div></div>';
   return '<div class="ch-head"><div class="ch-title">' + avatar("lp", 24) + '<span>Layerpath</span><span class="chev">' + I.chev + '</span></div></div><div class="ch-tabs atabs">' + tabs + "</div>" + body;
 }
@@ -1681,7 +2539,7 @@ function threadHTML(W, u) {
   var parent = findMsg(W, u.thread);
   var reps = t.replies.filter(function (m) { return vis(m, W.as); });
   var n = replyCount(W, u.thread);
-  return '<div class="th"><div class="th-head"><div><b>Thread</b><span class="thc"># ' + esc(u.threadCh) + "</span></div>" + I.x + '</div><div class="th-scroll" data-scroll="bottom">' + (parent ? msgHTML(parent, { viewer: W.as }) : "") + '<div class="th-div"><span>' + (n ? n + (n === 1 ? " reply" : " replies") : "") + "</span></div>" + reps.map(function (m) { return msgHTML(m, { viewer: W.as }); }).join("") + (t.status ? '<div class="th-status">' + avatar("lp", 18) + "<span><b>Layerpath</b> " + esc(t.status) + "</span></div>" : "") + "</div>" + composerHTML(null, "Reply…") + "</div>";
+  return '<div class="th"><div class="th-head"><div><b>Thread</b><span class="thc"># ' + esc(u.threadCh) + "</span></div>" + I.x + '</div><div class="th-scroll" data-scroll="bottom">' + (parent ? msgHTML(parent, { viewer: W.as }) : "") + '<div class="th-div"><span>' + (n ? n + (n === 1 ? " reply" : " replies") : "") + "</span></div>" + reps.map(function (m) { return msgHTML(m, { viewer: W.as }); }).join("") + (t.status ? '<div class="th-status">' + avatar("lp", 18) + "<span><b>Layerpath</b> " + esc(t.status) + "</span></div>" : "") + "</div>" + composerHTML(u.thc, "Reply…", "th-send") + "</div>";
 }
 function modalHTML(mo) {
   return '<div class="smod-back"><div class="smod" role="dialog"><div class="smod-h"><span>' + esc(mo.title) + '</span><span class="x">' + I.x + '</span></div><div class="smod-b">' + md(mo.text) + '</div><div class="smod-f"><button type="button" class="bk-btn">Cancel</button><button type="button" class="bk-btn ' + (mo.style || "primary") + nx(mo.k) + '"' + dk(mo.k) + ">" + esc(mo.confirm) + "</button></div></div></div>";
@@ -1690,10 +2548,63 @@ function slackHTML(W) {
   var who = W.as, u = W.ui[who] || U(W, who), cfg = cfgFor(who), v = u.view;
   var main = v.k === "app" ? appHTML(W, u) : v.k === "dm" ? dmHTML(W, v.id) : channelHTML(W, u, v.id);
   var thread = v.k === "ch" && u.thread && u.threadCh === v.id ? threadHTML(W, u) : "";
+  var panel = u.panel ? panelHTML(u.panel, !!thread) : "";
   function ri(icon, label, on) { return '<div class="sl-ri' + (on ? " on" : "") + '"><span class="bx">' + icon + "</span><span>" + label + "</span></div>"; }
   return '<div class="sl"><div class="sl-top">' + TRAFFIC + '<div class="nav">' + I.left + I.right + I.clock + '</div><div class="sl-search">' + I.search + "<span>Search " + esc(cfg.ws) + '</span></div><div class="nav">' + I.help + "</div></div>" +
     '<div class="sl-body"><div class="sl-rail"><div class="sl-wsic" style="background:' + cfg.wcol + '">' + cfg.init + "</div>" + ri(I.home, "Home", true) + ri(I.dms, "DMs") + ri(I.bell, "Activity") + ri(I.files, "Files") + ri(I.more, "More") + '<div class="sp"></div><div class="sl-me">' + avatar(who, 32) + "<i></i></div></div>" +
-    '<div class="sl-side">' + sideHTML(W, u, cfg) + '</div><div class="sl-main">' + main + "</div>" + thread + "</div>" + (u.modal ? modalHTML(u.modal) : "") + "</div>";
+    '<div class="sl-side">' + sideHTML(W, u, cfg) + '</div><div class="sl-main">' + main + "</div>" + thread + panel + "</div>" + (u.modal ? modalHTML(u.modal) : "") + "</div>";
+}
+/* Slack's side panel, opened by a click on the Work Object (entity_details_requested) */
+function panelHTML(pn, thOpen) {
+  return '<div class="sp-panel' + (thOpen ? " th-open" : "") + '" role="dialog" aria-label="' + esc(pn.tour.title) + '"><div class="sp-h">' + avatar("lp", 22) + "<div><b>" + esc(pn.tour.title) + "</b><small>External content from Layerpath</small></div><span class=\"sp\"></span>" + I.refresh + I.x + '</div><div class="sp-b">' + studioHTML({ tab: pn.mode === "edit" ? "editor" : "play", tour: pn.tour, status: "ready", shown: pn.tour.n, callout: true, voice: true }, true) + "</div></div>";
+}
+
+/* ============================================================
+   Rendering: Layerpath's studio (card/studio), used by ChatGPT full screen and Slack's panel
+   ============================================================ */
+function seg(items, on) {
+  return '<span class="sto-seg" role="tablist">' + items.map(function (x) { return '<span role="tab" aria-selected="' + (x[0] === on) + '" class="' + (x[0] === on ? "on" : "") + nx(x[1]) + '" data-k="' + x[1] + '">' + x[2] + esc(x[3]) + "</span>"; }).join("") + "</span>";
+}
+function studioHTML(o, panel) {
+  var t = o.tour, ready = o.status !== "creating";
+  var tabs = panel ? seg([["play", "pn-play", I.playc, "Play"], ["editor", "pn-edit", I.pencil, "Edit"]], o.tab) : seg([["home", "st-home", I.home, "Home"], ["editor", "st-editor", I.pencil, "Editor"]], o.tab);
+  var top = tabs;
+  if (panel && t) {
+    top = '<span class="sto-sp"></span>' + tabs + '<span class="sto-pill dim">' + I.undo + "Undo</span>" + (o.tab === "editor" ? '<span class="sto-pill">' + I.palette + "Theme</span>" : "") + '<span class="sto-pill">' + I.download + 'Export video</span><span class="sto-pill teal">' + I.linkic + "Copy link</span>";
+  } else if (t && o.tab !== "home") {
+    top += '<span class="sto-pill title"><span>' + esc(ready ? t.title : "Your new tour") + "</span><small>" + esc(ready ? lengthLine(t.n).split(" · ")[0] + " · Ready" : "Creating · " + (o.stageText || "Putting your tour together")) + "</small></span>";
+    top += '<span class="sto-sp"></span><span class="sto-pill dim">' + I.undo + "Undo</span>" + (o.tab === "editor" ? '<span class="sto-pill' + (ready ? "" : " dim") + '">' + I.palette + "Theme</span>" : "") + (panel ? "" : '<span class="sto-pill' + (ready ? "" : " dim") + '">' + I.playc + "Play</span>") + '<span class="sto-pill' + (ready ? "" : " dim") + '">' + I.download + 'Export video</span><span class="sto-pill ' + (panel ? "teal" : "white") + (ready ? "" : " dim") + '">' + I.linkic + "Copy link</span>";
+  } else top += '<span class="sto-pill">Layerpath studio</span><span class="sto-sp"></span>';
+  var body = o.tab === "home" ? studioHome(o) : o.tab === "play" ? studioPlay(o) : studioEditor(o);
+  var ttl = panel && t ? '<div class="sto-ttl"><b>' + esc(t.title) + "</b><small>" + esc(lengthLine(t.n).split(" · ")[0] + " · Ready") + "</small></div>" : "";
+  return '<div class="sto">' + ttl + '<div class="sto-top">' + top + "</div>" + body + "</div>";
+}
+function sgPick(label, vals, on) { return '<div class="sto-pk"><span class="lb">' + esc(label) + '</span><span class="sto-sg">' + vals.map(function (v) { return '<span class="' + (v === on ? "on" : "") + '">' + esc(v) + "</span>"; }).join("") + "</span></div>"; }
+function studioHome(o) {
+  var files = o.files || [];
+  var up = '<section class="sto-tile up"><div class="sto-oh"><span class="oi">' + I.upload + '</span><span><b>Upload screens</b><span class="s">Drop screenshots or a screen recording here.</span></span></div>' +
+    (files.length ? '<div class="sto-files">' + files.map(function (f) { return "<span>" + esc(f) + "</span>"; }).join("") + '</div><span class="sto-btn brand' + nx("st-create") + '" data-k="st-create">Create tour</span>' : '<span class="sto-btn' + nx("st-choose") + '" data-k="st-choose">Choose files</span>') + "</section>";
+  var ln = '<section class="sto-tile ln"><div class="sto-oh"><span class="oi">' + I.linkic + '</span><span><b>Loom or YouTube link</b></span></div><div class="sto-row"><span class="sto-in' + (o.link ? " v" : "") + '">' + esc(o.link || "Paste a Loom or YouTube link") + '</span><span class="sto-btn brand' + nx("st-create-link") + '" data-k="st-create-link">Create tour</span></div></section>';
+  var recent = o.recent && o.recent.length ? '<div class="sto-grid">' + o.recent.map(function (t) { return '<div class="sto-tour"><div class="cv"><span class="chip">Published</span>' + mock({ acc: t.acc, v: 0 }) + '</div><div class="tb"><b>' + esc(t.title) + "</b><small>Updated today · " + esc(lengthLine(t.n).split(" · ")[0]) + "</small></div></div>"; }).join("") + "</div>" : '<p class="sto-muted" style="margin:0">No tours yet. Your first one shows up here.</p>';
+  return '<div class="sto-body"><div class="sto-src">' + up + ln + "</div>" +
+    '<section><div class="sto-h3">For the next tour</div><div class="sto-picks">' + sgPick("Steps", ["Auto", "Short", "Detailed"], "Auto") + sgPick("Voiceover", ["Auto", "On", "Off"], "Auto") + sgPick("Tone", ["Auto", "Clear", "Friendly", "Formal"], "Auto") + sgPick("Brand memory", ["On", "Off"], "On") + "</div></section>" +
+    '<section><div class="sto-h3">Ask in the chat</div><div class="sto-chips"><span class="sto-chip">Turn a Loom into a tour</span><span class="sto-chip">Show my tours</span><span class="sto-chip">What can you do?</span></div></section>' +
+    '<section><div class="sto-h3">Recent tours</div>' + recent + "</section></div>";
+}
+function studioEditor(o) {
+  var t = o.tour, n = t.n, shown = o.shown == null ? n : o.shown, sel = o.sel || 0;
+  var strip = "";
+  for (var i = 0; i < Math.max(n, 3); i++) strip += i < shown ? '<div class="sto-th' + (i === sel ? " on" : "") + '">' + mock({ acc: t.acc, v: i }) + '<span class="no">' + (i + 1) + "</span>" + (o.voice ? '<span class="vo">Voiceover</span>' : "") + "</div>" : '<div class="sto-th ghost"></div>';
+  var canvas = shown ? mock({ acc: t.acc, v: sel }) + (o.callout ? '<span class="sto-hot" style="right:12%;top:15%"></span><span class="sto-call" style="right:5%;top:27%">' + esc(t.steps[sel] || "") + "</span>" : "") : '<div class="empty">The steps show here as Layerpath makes them.</div>';
+  var foot;
+  if (o.status === "creating") foot = '<span class="sto-steps">' + ["Callouts", "Voiceover", "Finalizing", "Done"].map(function (x, i) { return '<span class="' + (i < (o.stage || 0) ? "done" : i === (o.stage || 0) ? "on" : "") + '">' + x + "</span>"; }).join("") + "</span>";
+  else foot = '<span class="sto-fp">Step ' + (sel + 1) + " <small>/ " + n + '</small></span><span class="sto-fp"><span class="dot"></span>Changes apply to the whole tour</span>' + (o.readyNote ? '<span class="sto-ready">Ask the chat for any change, or try one of these. <span class="sto-chip">Make the callouts shorter</span><span class="sto-chip">Add a voiceover</span></span>' : "");
+  return '<div class="sto-ed"><div class="sto-strip">' + strip + '</div><div class="sto-cv"><div class="sto-canvas">' + canvas + '</div><div class="sto-foot">' + foot + "</div></div></div>";
+}
+function studioPlay(o) {
+  var bars = "";
+  for (var i = 0; i < Math.max(o.tour.n, 3) + 1; i++) bars += "<i" + (i === 0 ? ' class="on"' : "") + "></i>";
+  return '<div class="sto-play"><div class="sto-pf">' + cover16(o.tour) + '<div class="sto-bar">' + I.left + I.right + I.playc + '<span class="prog">' + bars + '</span><span class="sto-made">Made with Layerpath</span></div></div></div>';
 }
 
 /* ============================================================
@@ -1704,18 +2615,28 @@ function urlHTML(u) {
   var i = u.search(/[\/?]/);
   return i < 0 ? "<b>" + esc(u) + "</b>" : "<b>" + esc(u.slice(0, i)) + "</b>" + esc(u.slice(i));
 }
-function chromeHTML(b, who) {
+function chromeHTML(b, who, gpt) {
   var t = b.tabs[b.active] || b.tabs[0];
-  var tabs = b.tabs.map(function (x, i) { return '<div class="ctab' + (i === b.active ? " on" : "") + '">' + (FAV[x.fav] || FAV.newtab) + '<span class="ct">' + esc(x.title) + '</span><span class="cx">' + I.x + "</span></div>"; }).join("");
+  var tabs = b.tabs.map(function (x, i) { return '<div class="ctab' + (i === b.active ? " on" : "") + nx("ctab:" + i) + '"' + dk("ctab:" + i) + ">" + (FAV[x.fav] || FAV.newtab) + '<span class="ct">' + esc(x.title) + '</span><span class="cx">' + I.x + "</span></div>"; }).join("");
   return '<div class="cr"><div class="cr-strip">' + TRAFFIC + '<div class="ctabs">' + tabs + '<span class="cplus">' + I.plus + "</span></div></div>" +
     '<div class="cr-bar"><div class="cnav">' + I.back + I.fwd + I.reload + '</div><div class="omni">' + (t.url ? I.tune : I.search) + '<span class="url">' + urlHTML(t.url) + "</span>" + I.star + '</div><span class="cprof" style="background:' + P[who].col + '">' + esc(P[who].name[0]) + '</span><span class="ckeb">' + I.kebab + "</span></div>" +
-    '<div class="cr-page" data-scroll="top">' + pageHTML(t.page) + "</div></div>";
+    '<div class="cr-page" data-scroll="top">' + (gpt ? whoTag(t.page) : "") + pageHTML(t.page) + "</div></div>";
+}
+/* In ChatGPT scenarios, say who draws each screen */
+function whoTag(p) {
+  if (p.kind === "gpt") return "";
+  if (p.kind === "google") return '<span class="who gg" style="right:12px;top:10px">Drawn by Google</span>';
+  if (p.kind === "sketch") return "";
+  return '<span class="who lp" style="right:12px;top:10px">Drawn by Layerpath</span>';
 }
 function pageHTML(p) {
   switch (p.kind) {
     case "newtab": return '<div class="nt"><div class="nt-g"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div><div class="nt-s">' + I.search + "<span>Search Google or type a URL</span></div></div>";
     case "lp-settings": return lpShell(settingsHTML(p), p, "settings");
-    case "projects": return lpShell(projectsHTML(), p, "projects");
+    case "projects": return lpShell(projectsHTML(p), p, "projects");
+    case "gpt": return gptHTML(p);
+    case "consent": return consentHTML(p);
+    case "lp-apps": return lpShell(appsHTML(p), p, "");
     case "editor": return editorHTML(p);
     case "oauth": return oauthHTML(p);
     case "auth": return authHTML(p);
@@ -1733,10 +2654,10 @@ function lpAv(k) { return '<span class="lpav2">' + esc(lpEmail(k)[0]) + "</span>
 function lpShell(inner, p, active) {
   var u = P[p.user || "priya"];
   var nav = [["home", "Home", I.home], ["projects", "Projects", I.folder], ["playlists", "Playlists", I.play], ["brand", "Brand memory", I.brand], ["insights", "Insights", I.chart]];
-  return '<div class="lp lpd"><aside class="lps"><div class="lps-box"><div style="padding:4px 4px 0">' + LPFULL + '</div><div class="lps-ws"><span class="lps-wsav">A</span><div class="lps-wsn"><b>Acme</b><small>' + esc(p.plan || "Team") + "</small></div>" + I.updown + "</div></div>" +
+  return '<div class="lp lpd"><aside class="lps"><div class="lps-box"><div style="padding:4px 4px 0">' + LPFULL + '</div><div class="lps-ws"><span class="lps-wsav">' + esc(p.wsInit || "A") + '</span><div class="lps-wsn"><b>' + esc(p.ws || "Acme") + "</b><small>" + esc(p.plan || "Team") + "</small></div>" + I.updown + "</div></div>" +
     '<div class="lps-nav">' + nav.map(function (n) { return '<div class="lps-i' + (active === n[0] ? " on" : "") + '">' + n[2] + "<span>" + n[1] + "</span></div>"; }).join("") + "</div>" +
     '<div class="lps-foot"><div class="lps-i' + (active === "settings" ? " on" : "") + '">' + I.gear + '<span>Settings</span></div><div class="lps-user">' + lpAv(p.user || "priya") + "<div><b>" + esc(u.name) + "</b><small>" + esc(lpEmail(p.user || "priya")) + "</small></div></div></div></aside>" +
-    '<main class="lpm"><div class="lpm-top"></div><div class="lpm-c">' + inner + "</div></main>" + (p.dialog ? lpDialogHTML() : "") + "</div>";
+    '<main class="lpm"><div class="lpm-top"></div><div class="lpm-c">' + inner + "</div></main>" + (p.dialog ? lpDialogHTML(p.dialog) : "") + "</div>";
 }
 function settingsHTML(p) {
   var tabs = [["general", "General"], ["members", "Members"], ["integrations", "Integrations"], ["plan", "Plan"], ["domain", "Custom domain"]];
@@ -1757,9 +2678,17 @@ function integHTML(p) {
     cta = addToSlack("lp-add-slack");
   }
   var notice = p.notice ? '<div class="lp-notice">' + I.info + "<span>" + esc(p.notice) + "</span></div>" : "";
-  return notice + '<div class="int-card"><div class="int-ic">' + SLACK_LOGO + '</div><div class="int-b"><div class="int-t">Slack</div><div class="int-d">Make interactive tours from screenshots, a Loom or a YouTube link, right in Slack.</div>' + status + "</div>" + (cta ? '<div class="int-cta">' + cta + "</div>" : "") + "</div>" + (p.sketch ? '<div style="max-width:780px;margin-top:14px">' + sketchHTML(p.sketch) + "</div>" : "");
+  return notice + '<div class="int-card"><div class="int-ic">' + SLACK_LOGO + '</div><div class="int-b"><div class="int-t">Slack</div><div class="int-d">Make interactive tours from screenshots, a Loom or a YouTube link, right in Slack.</div>' + status + "</div>" + (cta ? '<div class="int-cta">' + cta + "</div>" : "") + "</div>" + (p.gpt ? gptIntHTML(p.gpt) : "") + (p.sketch ? '<div style="max-width:780px;margin-top:14px">' + sketchHTML(p.sketch) + "</div>" : "");
 }
-function lpDialogHTML() {
+function gptIntHTML(g) {
+  var rows = g.rows.map(function (r) {
+    return '<div class="int-row"><span class="lpav2">' + esc(P[r.key].name[0]) + '</span><div class="who2">' + esc(P[r.key].name) + " <small>" + esc(lpEmail(r.key)) + "</small><br><small>Connected " + esc(r.since) + " · last used " + esc(r.used) + '</small></div><span class="int-dis' + nx("gpt-dis-" + r.key) + '"' + dk("gpt-dis-" + r.key) + ">Disconnect</span></div>";
+  }).join("");
+  var n = g.rows.length;
+  return '<div class="int-card" style="margin-top:14px"><div class="int-ic">' + GPT_LOGO + '</div><div class="int-b"><div class="int-t">ChatGPT</div><div class="int-d">Make and change tours from ChatGPT. Each person connects their own Layerpath account from ChatGPT.</div><div class="int-st' + (n ? "" : " off") + '"><span class="dot"></span><span>' + (n ? n + (n === 1 ? " person" : " people") + " in Acme connected" : "Nobody in Acme is connected") + "</span></div>" + (n ? '<div class="int-rows">' + rows + "</div>" : "") + '<div style="margin-top:10px"><a class="int-link">Find Layerpath in ChatGPT</a></div></div></div>';
+}
+function lpDialogHTML(kind) {
+  if (kind === "gpt") return '<div class="lpdlg-back"><div class="lpdlg" role="dialog"><h3>Disconnect ChatGPT for Sam Lee?</h3><p>ChatGPT won\'t make or change tours as Sam in Acme until he connects again. His tours stay in Acme.</p><div class="lpdlg-f"><button type="button" class="ghost-btn">Cancel</button><button type="button" class="danger-btn' + nx("lpd-gpt-confirm") + '"' + dk("lpd-gpt-confirm") + ">Disconnect</button></div></div></div>";
   return '<div class="lpdlg-back"><div class="lpdlg" role="dialog"><h3>Disconnect Layerpath from Acme\'s Slack?</h3><p>Nobody at Acme will be able to make tours in Slack. Existing tours stay in the Acme workspace.</p><div class="lpdlg-f"><button type="button" class="ghost-btn">Cancel</button><button type="button" class="danger-btn' + nx("lpd-confirm") + '"' + dk("lpd-confirm") + ">Disconnect</button></div></div></div>";
 }
 function membersHTML(p) {
@@ -1776,11 +2705,25 @@ function membersHTML(p) {
     '<div class="mtabs"><span class="t on">Members</span><span class="t">Pending invitations</span><span class="sp"></span><span class="lp-btn primary">Invite member</span></div>' +
     '<table class="mtable"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Created</th><th>Action</th></tr></thead><tbody>' + tr + "</tbody></table>" + (p.pages ? '<div class="mpag">Page 1 of ' + p.pages + "</div>" : "");
 }
-function projectsHTML() {
+function projectsHTML(p) {
+  if (p && p.cards) {
+    if (!p.cards.length) return '<div class="lp-h1">Projects</div><div class="lp-card" style="color:#9ba7b3">No projects yet.</div>';
+    return '<div class="lp-h1">Projects</div><div class="pgrid">' + p.cards.map(function (c, i) {
+      var who = P[c.by];
+      return '<div class="pcard new"><div class="pthumb" style="background:linear-gradient(135deg,' + c.tour.c1 + "," + c.tour.c2 + ')"><b>' + esc(c.tour.title) + '</b><i></i></div><div class="pinfo"><div class="pt">' + esc(c.tour.title) + '</div><div class="pm"><span class="pav">' + esc(who.name[0]) + "</span><span>" + esc(who.first) + "</span><span>·</span><span>" + esc(c.when) + "</span>" + (i === 0 ? '<span class="ptip">Created by ' + esc(who.name) + "</span>" : "") + "</div></div></div>";
+    }).join("") + "</div>";
+  }
   var cards = [[TOURS.sam.title, "Just now", ""], ["Log a customer call", "1d ago", "b"], ["Merge duplicate contacts", "2d ago", "c"]];
   return '<div class="lp-h1">Projects</div><div class="pgrid">' + cards.map(function (c, i) {
     return '<div class="pcard' + (i === 0 ? " new" : "") + '"><div class="pthumb ' + c[2] + '"><b>' + esc(c[0]) + '</b><i></i></div><div class="pinfo"><div class="pt">' + esc(c[0]) + '</div><div class="pm"><span class="pav">S</span><span>Sam</span><span>·</span><span>' + c[1] + "</span>" + (i === 0 ? '<span class="ptip">Created by Sam Lee</span>' : "") + "</div></div></div>";
   }).join("") + "</div>";
+}
+/* Proposed: each person's own connections (an Editor can't open Settings) */
+function appsHTML(p) {
+  function card(logo, name, line, act) { return '<div class="int-card"><div class="int-ic">' + logo + '</div><div class="int-b"><div class="int-t">' + name + '</div><div class="int-d">' + esc(line) + "</div></div>" + (act ? '<div class="int-cta"><span class="int-dis">' + act + "</span></div>" : "") + "</div>"; }
+  return '<div class="lp-h1">Connected apps</div><div class="lp-lbl" style="margin-bottom:14px">Apps that make and change tours as you. Only you see this page.</div>' +
+    card(SLACK_LOGO, "Slack", "Connected in Acme's Slack as sam@acme.com.", "Disconnect") + '<div style="height:12px"></div>' +
+    card(GPT_LOGO, "ChatGPT", "Not connected. Connect it from Layerpath in ChatGPT's plugins.", "");
 }
 function editorHTML(p) {
   var steps = p.steps.map(function (s, i) { return '<div class="lpe-st' + (i === 0 ? " on" : "") + '"><span>' + (i + 1) + "</span><i></i></div>"; }).join("");
@@ -1821,10 +2764,91 @@ function authForm(o) {
   return h;
 }
 function authHTML(p) {
-  var h = (p.banner ? '<div class="auth-banner">' + SLACK_LOGO + "<span>" + esc(p.banner) + "</span></div>" : "") + LOGO_ROW +
-    "<h1>Create every product<br>walkthrough you'll need.</h1><p class=\"sub\">Sign in to your Layerpath account.</p>" + authForm({ type: "signin", gk: "auth-google" }) +
-    '<div class="auth-alt">New to Layerpath? <a>Sign up</a></div>';
+  var up = p.type === "signup";
+  var h = (p.banner ? '<div class="auth-banner">' + (p.icon === "gpt" ? GPT_LOGO : SLACK_LOGO) + "<span>" + esc(p.banner) + "</span></div>" : "") + LOGO_ROW +
+    "<h1" + (up ? ' class="lpa-h"' : "") + ">Create every product<br>walkthrough you'll need.</h1>" + (up ? "" : "<p class=\"sub\">Sign in to your Layerpath account.</p>") + authForm({ type: up ? "signup" : "signin", gk: "auth-google" }) +
+    (up ? '<div class="auth-alt">Already have an account? <a>Sign in</a></div>' : '<div class="auth-alt">New to Layerpath? <a class="' + nx("auth-signup") + '"' + dk("auth-signup") + ">Sign up</a></div>");
   return lpWrap(h, true);
+}
+/* ============================================================
+   Rendering: ChatGPT, drawn generically (its real screens may differ)
+   ============================================================ */
+var GPLUG = [["Layerpath", "Interactive product tours from your screens", "lp"], ["Calendar", "See and plan your schedule", "#2563eb"], ["Drive", "Find and use your files", "#16a34a"], ["Design", "Make graphics and slides", "#7c3aed"], ["CRM", "Look up deals and contacts", "#ea580c"], ["Docs", "Write and edit documents", "#0891b2"]];
+function gptIco(c, name) { return c === "lp" ? LP_LOGO : '<span style="background:' + c + ';width:100%;height:100%;display:grid;place-items:center;font-size:18px">' + esc(name[0]) + "</span>"; }
+function gptText(t) { return esc(t).replace(/@Layerpath/g, '<span class="gp-at">@Layerpath</span>'); }
+function gptHTML(p) {
+  var who = P[p.user] || P.nina;
+  var chats = ["Q4 launch plan", "Onboarding emails", "Pricing page ideas", "Team offsite agenda"];
+  var side = '<aside class="gp-side"><div class="gp-logo">' + GPT_LOGO + '</div><div class="gp-si">' + I.compose + 'New chat</div><div class="gp-si">' + I.search + 'Search chats</div><div class="gp-si' + (p.view === "plugins" ? " on" : "") + '">' + I.grid + 'Plugins</div><div class="gp-sh">Chats</div>' + chats.map(function (c) { return '<div class="gp-sc">' + esc(c) + "</div>"; }).join("") + '<div class="gp-user"><span class="ua" style="background:' + who.col + '">' + esc(who.name[0]) + "</span><span>" + esc(who.name) + "</span></div></aside>";
+  var main = p.view === "plugins" ? pluginsHTML(p) : chatHTML(p);
+  return '<div class="gp">' + side + '<div class="gp-main"><span class="who gpt" style="right:12px;top:12px">Drawn by ChatGPT</span>' + main + "</div>" + (p.modal ? pluginModal(p.modal) : "") + (p.full ? fullHTML(p.full) : "") + (p.toast ? '<div class="gp-toast" role="status">' + I.check + esc(p.toast) + "</div>" : "") + "</div>";
+}
+function pluginsHTML(p) {
+  var list = p.q ? GPLUG.filter(function (x) { return x[0].toLowerCase().indexOf(p.q.toLowerCase()) === 0; }) : GPLUG;
+  return '<div class="gp-pl"><h1>Plugins</h1><div class="sub">Bring your tools into ChatGPT.</div><div class="gp-search">' + I.search + (p.q ? '<span class="v">' + esc(p.q) + "</span>" : "<span>Search plugins</span>") + '</div><div class="gp-cats"><span class="on">Featured</span><span>Productivity</span><span>Design</span><span>Developer tools</span></div><div class="gp-grid">' +
+    list.map(function (x) { var lp = x[2] === "lp"; return '<div class="gp-card' + (lp ? nx("gp-card-lp") : "") + '"' + (lp ? dk("gp-card-lp") : "") + '><span class="ico">' + gptIco(x[2], x[0]) + "</span><div><b>" + esc(x[0]) + "</b><small>" + esc(x[1]) + "</small></div></div>"; }).join("") + "</div></div>";
+}
+function pluginModal(m) {
+  var on = m.state === "connected";
+  var right = on ? '<span class="gp-ok">' + I.check + "Connected</span>" : '<button type="button" class="gp-cta' + nx("gp-connect") + '"' + dk("gp-connect") + ">Connect</button>";
+  return '<div class="gp-mb"><span class="who gpt" style="right:12px;top:12px">Drawn by ChatGPT</span><div class="gp-m" role="dialog" aria-label="Layerpath"><span class="x">' + I.x + '</span><div class="hd"><span class="ico">' + LP_LOGO + '</span><div><div class="nm">Layerpath</div><div class="by">By Layerpath</div></div><span class="sp"></span>' + right + "</div>" +
+    "<p>Make interactive product tours from screenshots, a screen recording, or a Loom or YouTube link. Change them by asking, and share one link.</p>" +
+    '<div class="gp-shots"><div>' + mock({ v: 0, acc: "#0e7490" }) + "</div><div>" + cover16(tourData(TOURS.nina)) + "</div><div>" + mock({ v: 2, acc: "#0e7490" }) + "</div></div>" +
+    "<h4>What it can do</h4><ul><li>Make a tour from your screens, or a Loom or YouTube link</li><li>Change a tour when you ask: shorter steps, another language, a voiceover</li><li>Share the tour's link, or export it as a video</li></ul>" +
+    (on ? "<h4>Account</h4><div style=\"color:#d6d6d6\">" + esc(m.acct || "") + '</div><div style="display:flex;gap:8px;margin-top:16px"><button type="button" class="gp-cta' + nx("gp-try") + '"' + dk("gp-try") + '>Try it in a chat</button><button type="button" class="gp-cta ghost' + nx("gp-disconnect") + '"' + dk("gp-disconnect") + ">Disconnect</button></div>" : "<h4>Information</h4><ul><li>Website: layerpath.com</li><li>Privacy policy and terms of use</li></ul>") + "</div></div>";
+}
+function chatHTML(p) {
+  var body = p.items.length ? '<div class="gp-scroll" data-scroll="bottom"><div class="gp-col">' + p.items.map(gptItem).join("") + "</div></div>" : '<div class="gp-scroll"><div class="gp-hello">What can I help with?</div></div>';
+  return '<div class="gp-top">ChatGPT ' + I.chev + "</div>" + body + gptComposer(p);
+}
+function gptComposer(p) {
+  var c = p.composer, has = !!(c && (c.text || c.at)), raw = !!(c && c.raw);
+  var pick = p.picker ? '<div class="gp-pick"><div class="hd2">Plugins</div><div class="pi2' + nx("gp-pick-lp") + '"' + dk("gp-pick-lp") + '><span class="ico">' + LP_LOGO + "</span><div><b>Layerpath</b><small>Interactive product tours from your screens</small></div></div>" + '<div class="pi2"><span class="ico" style="background:#2563eb;color:#fff">C</span><div><b>Calendar</b><small>See and plan your schedule</small></div></div></div>' : "";
+  var inner = raw ? esc(c.raw) : has ? (c.at ? '<span class="gp-at">@Layerpath</span> ' : "") + esc(c.text || "") : "";
+  return '<div class="gp-comp">' + pick + '<div class="gp-box"><span class="plus">' + I.plus + "</span>" + (has || raw ? '<span class="tx">' + inner + "</span>" : '<span class="ph">Ask anything</span>') + '<button type="button" class="gp-send' + (c && c.text ? nx("gp-send") : " off") + '"' + (c && c.text ? dk("gp-send") : "") + ' aria-label="Send">' + I.up + "</button></div></div>";
+}
+function gptItem(it) {
+  switch (it.k) {
+    case "user": return '<div class="gp-u">' + (it.files ? '<div class="gp-files">' + shots(it.files) + "</div>" : "") + '<div class="b">' + gptText(it.text) + "</div></div>";
+    case "bot": return '<div class="gp-a">' + it.text.split("\n\n").map(function (x) { return "<p>" + gptText(x) + "</p>"; }).join("") + "</div>";
+    case "tool": return '<div class="gp-tool"><span class="ti">' + LP_LOGO + "</span><span>" + esc(it.text) + "</span></div>";
+    case "w": return '<div class="gp-w"><span class="who lp" style="right:14px;top:-9px">Drawn by Layerpath</span>' + widgetHTML(it.w) + "</div>";
+    case "relink": return '<div class="gp-link"><span class="who gpt" style="right:14px;top:-9px">Drawn by ChatGPT</span><span class="ico">' + LP_LOGO + '</span><div class="w"><b>Connect Layerpath to continue</b><small>Your Layerpath account needs to be connected again.</small></div><button type="button" class="gp-cta' + nx("gp-relink") + '"' + dk("gp-relink") + ">Connect</button></div>";
+    case "long": return longAnswerHTML();
+  }
+  return "";
+}
+/* Today, ChatGPT's own answer to "what can you do" (Vinay's 12 Oct screenshot 01, abridged) */
+function longAnswerHTML() {
+  var rows = [["Create walkthroughs", "Turn these 8 screenshots into an onboarding tour."], ["Interactive demos", "Create a click-through product demo from this Loom."], ["AI editing", "Rewrite this for a first-time user."], ["Localization", "Translate this walkthrough into Spanish."], ["Video export", "Export this walkthrough as a video."], ["Share tours", "Show me the finished walkthrough and its link."]];
+  return '<div class="gp-a"><span class="gp-cap">ChatGPT writes this itself today</span><div class="gp-fade"><p>The <b>Layerpath plugin</b> lets me create, edit, and share interactive software walkthroughs directly from this ChatGPT conversation.</p><h5>What I can do right now</h5><table class="gp-tbl"><tr><th>Capability</th><th>What you can ask me</th></tr>' + rows.map(function (r) { return "<tr><td>" + esc(r[0]) + '</td><td>"' + esc(r[1]) + '"</td></tr>'; }).join("") + '</table><h5>Try it now</h5><div class="gp-btns"><span>+ Create a walkthrough</span><span>Browse my existing tours</span></div><p><b>Current limitations:</b> Creating a tour requires screenshots, a recording, or a supported video link. I cannot generate an interactive tour from a text prompt alone.</p></div></div>';
+}
+/* The studio's inline views (card/studio/views): Add your screens, the tour card, the carousel; and the proposed "what can you do" card */
+function widgetHTML(w) {
+  if (w.kind === "add") return '<div class="wd"><div class="wd-add"><h2>Add your screens</h2><p>Attach screenshots or a screen recording to this chat, or paste a Loom or YouTube link.</p><button type="button" class="wd-btn' + nx("w-studio") + '"' + dk("w-studio") + ">Open in studio</button></div></div>";
+  if (w.kind === "card") {
+    var t = w.tour;
+    return '<div class="wd"><div class="wd-card"><div class="cv"><span class="chip">Published</span>' + cover16(t) + "</div><div><h2>" + esc(t.title) + '</h2><div class="wd-meta">' + esc(lengthLine(t.n).split(" · ")[0]) + ' · Ready</div><div class="wd-acts"><button type="button" class="wd-btn' + nx("w-studio") + '"' + dk("w-studio") + '>Open in studio</button><button type="button" class="wd-btn sec">Copy link</button></div></div></div></div>';
+  }
+  if (w.kind === "car") return '<div class="wd"><div class="wd-car">' + w.tours.map(function (t, i) { return '<div class="wd-tile"><div class="cv"><span class="chip">Published</span>' + mock({ acc: t.acc, v: i }) + '</div><div class="tb"><b>' + esc(t.title) + "</b><small>Updated " + (i ? "9 Oct" : "today") + '</small><button type="button" class="wd-btn">Open</button></div></div>'; }).join("") + "</div></div>";
+  if (w.kind === "what") return '<div class="wd"><div class="wd-what"><h2>Layerpath makes interactive tours</h2><p class="lede2">Clickable, step-by-step tours of your product, made from your own screens.</p><ul>' +
+    [[I.upload, "Make a tour", "From screenshots, a screen recording, or a Loom or YouTube link"], [I.pencil, "Change it by asking", "Shorter steps, another tone or language, a voiceover, private info blurred"], [I.linkic, "Share one link", "It stays the same after every change"], [I.download, "Export a video", "Or open it in Layerpath to change anything by hand"]].map(function (x) { return "<li><i>" + x[0] + "</i><div><b>" + esc(x[1]) + "</b><span>" + esc(x[2]) + "</span></div></li>"; }).join("") +
+    '</ul><div class="wd-row"><button type="button" class="wd-btn' + nx("w-studio") + '"' + dk("w-studio") + '>Open in studio</button><span class="wd-chip' + nx("w-chip-loom") + '"' + dk("w-chip-loom") + '>Turn a Loom into a tour</span><span class="wd-chip">Show my tours</span></div></div></div>';
+  return "";
+}
+function fullHTML(f) {
+  return '<div class="gp-full"><div class="gp-fh"><span class="x' + nx("gpt-close") + '"' + dk("gpt-close") + ' aria-label="Close" role="button">' + I.x + '</span><span class="an">' + LP_LOGO + 'Layerpath</span><span class="who gpt" style="right:12px;top:12px">Drawn by ChatGPT</span></div><div class="gp-fb"><span class="who lp" style="right:12px;bottom:12px">Drawn by Layerpath</span>' + studioHTML(f, false) + '</div><div class="gp-fc"><div class="gp-box"><span class="plus">' + I.plus + '</span><span class="ph">Ask anything</span><button type="button" class="gp-send off" aria-label="Send">' + I.up + "</button></div></div></div>";
+}
+/* To build: Layerpath's consent page for ChatGPT (OAuth authorize), with the workspace pick */
+function consentHTML(p) {
+  var u = GA[p.user] || GA.nina, multi = p.ws.length > 1;
+  var h = '<div class="cs-pair"><span class="ai">' + LP_LOGO + '</span><span class="dots"><i></i><i></i><i></i></span><span class="ai">' + GPT_LOGO + '</span></div><h1 class="lpa-h" style="margin-bottom:6px">Connect ChatGPT to Layerpath</h1><p class="lpa-p c">ChatGPT will make and change tours as you, in the workspace you pick.</p>';
+  h += '<div class="cs-who"><span class="lpav2">' + esc(u.email[0]) + "</span><span>" + esc(u.email) + '</span><span class="sp"></span><a>Use another account</a></div>';
+  if (multi) h += '<div class="cs-lbl">Workspace for the tours you make in ChatGPT</div><div class="cw-list">' + p.ws.map(function (w, i) { return '<div class="cw-opt' + (p.sel === i ? " on" : "") + nx("gc-ws" + i) + '"' + dk("gc-ws" + i) + '><span class="radio"></span><span>' + esc(w) + "</span></div>"; }).join("") + "</div>";
+  else h += '<div class="lpa-box">Tours you make in ChatGPT go to <b>' + esc(p.ws[0].split(" · ")[0]) + "</b>.</div>";
+  h += '<div class="cs-can">ChatGPT will be able to:<ul><li>Make tours from screenshots, a screen recording, or a Loom or YouTube link</li><li>See, change and share the tours in this workspace</li><li>Export tours as videos</li></ul></div>';
+  h += '<div class="cs-btns"><button type="button" class="sub-btn' + (multi && p.sel < 0 ? " dim" : "") + nx("gc-allow") + '"' + dk("gc-allow") + '>Allow</button><button type="button" class="ghost-btn">Cancel</button></div><div class="lpa-small">You can disconnect at any time, in ChatGPT or in Layerpath.</div>';
+  return lpWrap(LOGO_ROW + h);
 }
 function googleHTML(p) {
   return '<div class="gpage"><div class="gcard"><div class="gtop">' + GOOGLE_G + '<span>Sign in with Google</span></div><div class="gbody"><div class="gleft"><h1>Choose an account</h1><p>to continue to <a>Layerpath</a></p></div><div class="gright">' +
@@ -1888,7 +2912,9 @@ function fitDesk() {
   if (!(SCALE > 0)) SCALE = 1;
   desk.style.setProperty("--s", SCALE.toFixed(4));
 }
+var CURGPT = false;
 function setFront(f, animate) {
+  if (CURGPT) f = "chrome";
   UI.front = f;
   var fw = f === "slack" ? winSlack : winChrome, bw = f === "slack" ? winChrome : winSlack;
   fw.classList.add("front"); fw.classList.remove("back");
@@ -1898,7 +2924,7 @@ function setFront(f, animate) {
   renderDock();
 }
 function renderDock() {
-  $("#dock").innerHTML = '<div class="dk' + nx("dock:slack") + '" data-k="dock:slack" title="Slack"><span class="slk">' + SLACK_LOGO + '</span><i></i></div><div class="dk' + nx("dock:chrome") + '" data-k="dock:chrome" title="Chrome"><span class="chr"></span><i></i></div>';
+  $("#dock").innerHTML = (CURGPT ? "" : '<div class="dk' + nx("dock:slack") + '" data-k="dock:slack" title="Slack"><span class="slk">' + SLACK_LOGO + "</span><i></i></div>") + '<div class="dk' + nx("dock:chrome") + '" data-k="dock:chrome" title="Chrome"><span class="chr"></span><i></i></div>';
 }
 function ensureVisible(el) {
   var c = el.parentElement;
@@ -1940,10 +2966,12 @@ function draw(st, step, o) {
   var b = st.br[st.as] || BR(st, st.as);
   if (!st.ui[st.as]) U(st, st.as);
   var asChanged = LAST.as !== undefined && LAST.as !== st.as;
-  winSlack.innerHTML = slackHTML(st);
-  winChrome.innerHTML = chromeHTML(b, st.as);
+  CURGPT = !!st.gpt;
+  desk.classList.toggle("gpt", CURGPT);
+  winSlack.innerHTML = CURGPT ? "" : slackHTML(st);
+  winChrome.innerHTML = chromeHTML(b, st.as, CURGPT);
   var frontChanged = LAST.front !== st.front;
-  setFront(st.front, o.anim && frontChanged && !asChanged);
+  setFront(CURGPT ? "chrome" : st.front, o.anim && frontChanged && !asChanged);
   if (o.anim && asChanged) showSwap(st.as);
   if (o.anim && !asChanged && LAST.tabs !== undefined && b.tabs.length > LAST.tabs) showNewTabTip();
   LAST = { as: st.as, front: st.front, tabs: b.tabs.length };
@@ -1952,7 +2980,10 @@ function draw(st, step, o) {
   desk.querySelectorAll('[data-scroll="top"]').forEach(function (e) { e.scrollTop = 0; });
   if (step.focus) focusMsg(step.focus);
   var t = desk.querySelector(".nx");
-  if (t) ensureVisible(t);
+  if (t) {
+    ensureVisible(t);
+    if (!/^(BUTTON|A)$/.test(t.tagName)) { t.setAttribute("tabindex", "0"); t.setAttribute("role", t.getAttribute("role") || "button"); }
+  }
   var p = P[st.as];
   $("#persona").innerHTML = '<span class="pav" style="background:' + p.col + '">' + esc(initials(p.name)) + "</span><span><b>" + esc(p.name) + "</b> · " + esc(step.chip || p.chip) + "</span>";
   $("#persona").title = p.name + " · " + (step.chip || p.chip);
@@ -1962,13 +2993,24 @@ function markNext(ready) {
   var hasTarget = !!(NEXT && desk.querySelector('[data-k="' + NEXT + '"]'));
   btn.classList.toggle("nx", ready && !hasTarget);
 }
+function stepStatus(step) { return step.later ? "later" : (step.st || (CUR.sc && CUR.sc.st) || "build"); }
+var BADGE = { live: '<span class="bd live">Live today</span>', build: '<span class="bd build">To build</span>', later: '<span class="lt">Later, not in V1</span>', mix: '<span class="bd mix">Partly live</span>', info: "" };
 function show(i, dir) {
   clearTimers();
   CUR.i = i;
   var step = CUR.steps[i];
   NEXT = step.next || null;
   var animate = dir > 0 && step.states.length > 1;
-  draw(animate ? step.states[0] : step.states[step.states.length - 1], step, { anim: dir !== 0 });
+  var pm = !!step.panel;
+  $("#stage").classList.toggle("pm", pm);
+  if (pm) {
+    $("#panelBox").innerHTML = step.panel;
+    $("#panelBox").scrollTop = 0;
+    animate = false;
+    $("#persona").innerHTML = '<span><b>Overview</b> · Slack and ChatGPT</span>';
+    $("#persona").title = "Overview";
+    CURGPT = false; renderDock();
+  } else draw(animate ? step.states[0] : step.states[step.states.length - 1], step, { anim: dir !== 0 });
   if (animate) {
     animating = true;
     var k = 1;
@@ -1981,7 +3023,7 @@ function show(i, dir) {
     TIMERS.push(setTimeout(tick, step.delays[1] || 800));
     markNext(false);
   } else markNext(true);
-  $("#caption").innerHTML = (step.later ? '<span class="lt">Later, not in V1</span>' : "") + esc(step.cap);
+  $("#caption").innerHTML = (BADGE[stepStatus(step)] || "") + esc(step.cap);
   $("#counter").textContent = "Step " + (i + 1) + " of " + CUR.steps.length;
   $("#btnBack").disabled = i === 0;
   var last = i === CUR.steps.length - 1;
@@ -2007,14 +3049,16 @@ function openScenario(code, keepStep) {
   if (location.hash !== "#" + s.code) history.replaceState(null, "", "#" + s.code);
   show(keepStep != null ? Math.min(keepStep, CUR.steps.length - 1) : 0, 0);
 }
-var GROUPS = [["admin", "Admin"], ["people", "People"], ["day", "Day to day"], ["leaving", "Leaving"], ["later", "Later (not in V1)"]];
-var COUNTS = {};
+var GROUPS = [["start", "Start here"], ["today", "Slack · live today"], ["admin", "Slack · admin install"], ["people", "Slack · people"], ["day", "Slack · day to day"], ["leaving", "Slack · leaving"], ["gpt", "ChatGPT"], ["later", "Later (not in V1)"]];
+var COUNTS = {}, SST = {};
+var SST_LABEL = { live: "Live today", build: "To build", mix: "Partly live: some steps live today, some to build", later: "Later, not in V1", info: "Overview" };
 function renderRail() {
   var h = "";
   GROUPS.forEach(function (g) {
-    h += '<h4 class="' + (g[0] === "later" ? "lt" : "") + '">' + g[1] + "</h4>";
+    h += '<h4 class="' + (g[0] === "later" ? "lt" : g[0] === "gpt" ? "gp" : "") + '">' + g[1] + "</h4>";
     SCEN.filter(function (s) { return s.group === g[0]; }).forEach(function (s) {
-      h += '<a class="ri' + (s.group === "later" ? " lt" : "") + (CUR.sc === s ? " on" : "") + '" href="#' + s.code + '" data-sc="' + s.code + '"><span class="c">' + s.code + "</span><span>" + esc(s.title) + '</span><span class="n">' + (COUNTS[s.code] || "") + "</span></a>";
+      var st = SST[s.code] || s.st;
+      h += '<a class="ri' + (s.group === "later" ? " lt" : "") + (CUR.sc === s ? " on" : "") + '" href="#' + s.code + '" data-sc="' + s.code + '"' + (CUR.sc === s ? ' aria-current="page"' : "") + '><span class="c">' + s.code + "</span><span>" + esc(s.title) + '</span><span class="sd ' + st + '" title="' + esc(SST_LABEL[st] || "") + '" aria-label="' + esc(SST_LABEL[st] || "") + '"></span><span class="n">' + (s.group === "start" ? "" : (COUNTS[s.code] || "")) + "</span></a>";
     });
   });
   $("#rail").innerHTML = h;
@@ -2024,6 +3068,8 @@ function renderHead() {
   $("#scCode").textContent = s.code;
   $("#scCode").className = "code" + (s.group === "later" ? " lt" : "");
   $("#scTitle").textContent = s.title;
+  var sst = SST[s.code] || s.st;
+  $("#scBadge").innerHTML = s.group === "start" || s.group === "later" ? "" : BADGE[sst === "mix" ? "mix" : sst] || "";
   var tools = "";
   if (s.code === "P5") {
     var cur = (CUR.opts.P5 && CUR.opts.P5.plan) || "free";
@@ -2069,6 +3115,7 @@ document.addEventListener("keydown", function (e) {
   if (e.metaKey || e.ctrlKey || e.altKey) return;
   var tag = (e.target.tagName || "").toLowerCase();
   if (tag === "input" || tag === "textarea") return;
+  if ((e.key === "Enter" || e.key === " ") && e.target.closest && e.target.closest("[data-k]") && desk.contains(e.target) && !/^(BUTTON|A)$/.test(e.target.tagName)) { e.preventDefault(); e.target.click(); return; }
   if (e.key === "ArrowRight") { e.preventDefault(); next(); }
   else if (e.key === "ArrowLeft") { e.preventDefault(); back(); }
 });
@@ -2095,6 +3142,11 @@ function selfTest() {
         total++;
         try {
           NEXT = step.next || null;
+          if (step.panel) {
+            if (/\u2014/.test(step.panel)) problems.push(s.code + ": em dash in panel");
+            if (/\u2019/.test(step.panel)) problems.push(s.code + ": curly apostrophe in panel");
+            return;
+          }
           step.states.forEach(function (st) { LAST = {}; draw(st, step, { anim: false }); });
           if (!step.cap) problems.push(s.code + " step " + (i + 1) + ": no caption");
           if (/\u2014/.test(step.cap)) problems.push(s.code + " step " + (i + 1) + ": em dash in caption");
@@ -2126,10 +3178,16 @@ window.__demo = {
 };
 
 /* boot */
-SCEN.forEach(function (s) { COUNTS[s.code] = buildSteps(s).length; });
+SCEN.forEach(function (s) {
+  var steps = buildSteps(s), seen = {};
+  COUNTS[s.code] = steps.length;
+  steps.forEach(function (st) { seen[st.later ? "later" : (st.st || s.st)] = 1; });
+  var keys = Object.keys(seen);
+  SST[s.code] = keys.length === 1 ? keys[0] : (seen.live && seen.build ? "mix" : keys[0]);
+});
 fitDesk();
 var startCode = location.hash.slice(1).toUpperCase();
-openScenario(SCEN.some(function (s) { return s.code === startCode; }) ? startCode : "A1");
+openScenario(SCEN.some(function (s) { return s.code === startCode; }) ? startCode : "G1");
 })();
 </script>
 </body>
