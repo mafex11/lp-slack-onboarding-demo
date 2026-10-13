@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Layerpath in Slack and ChatGPT · Onboarding (V1)</title>
+<title>Layerpath in Slack, ChatGPT and Claude · Onboarding (this week and V1)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap">
@@ -19,7 +19,9 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 .topbar .t{font-weight:700;font-size:15px}
 .topbar .note{font-size:12px;color:#a9b3bd}
 .topbar .sp{flex:1}
-.chip-later{font-size:12px;font-weight:700;color:#5a2c00;background:#ffd38a;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.chip-grp{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#1b1f24;background:#eef1f4;border-radius:999px;padding:3px 10px 3px 4px;white-space:nowrap}
+.chip-grp .bd{margin:0;border-radius:999px;padding:1px 8px}
+.chip-grp .dot{color:#8b949e;margin:0 2px}
 .app{display:flex;height:calc(100vh - 46px)}
 .rail{width:244px;flex:none;overflow-y:auto;background:#fff;border-right:1px solid var(--line);padding:6px 8px 24px}
 .rail h4{margin:14px 8px 4px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -597,6 +599,30 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 .ri .sd.live{background:#1a7f37}.ri .sd.build{background:#2156c4}.ri .sd.mix{background:linear-gradient(90deg,#1a7f37 0 50%,#2156c4 50% 100%)}.ri .sd.later{background:var(--later)}.ri .sd.info{background:#8b949e}
 .ri .n{margin-left:6px}
 .rail h4.gpt-h{color:#0f6e5c}
+/* groups: This week (13 Oct plan), After this week (the rest of V1), Later */
+.bd.wk{background:#1b1f24}
+.bd.aw{background:var(--muted)}
+#scBadge{display:inline-flex;gap:4px;align-items:center}
+.schead .code.aw{background:var(--muted)}
+.rail h4.wk{color:var(--ink)}
+.rail .rsub{margin:8px 8px 2px;font-size:11.5px;font-weight:600;color:#7b8590}
+.tools .rel{white-space:nowrap}
+.tools .jump{display:inline-block;font:600 12px ui-monospace,Menlo,monospace;background:#eef1f4;border-radius:5px;padding:1px 6px;color:#1b1f24;text-decoration:none;margin-left:3px}
+.desk.internal .later-banner{display:block;background:#1b1f24}
+.sketch.aw{border-color:var(--muted);background:#f6f7f9;color:#38414a}
+.sketch.aw .sk-tag{background:var(--muted)}
+.sketch.aw .sk-t{color:#1b1f24}
+.sketch.aw .sk-bars i{background:#dde1e6}
+.beta-bar{display:flex;align-items:center;gap:8px;height:30px;padding:0 18px;background:rgba(25,159,134,.12);border-bottom:1px solid rgba(25,159,134,.4);color:#a6f0df;font-size:12.5px;font-weight:500;white-space:nowrap;overflow:hidden}
+.lp .beta-bar .ic{width:14px;height:14px}
+.gp-fl{margin-top:12px}
+.gp-fl label{display:block;color:#9b9b9b;font-size:12.5px;margin-bottom:4px}
+.gp-in{background:#212121;border:1px solid #3a3a3a;border-radius:10px;padding:8px 12px;color:#ececec;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.oa-btn.danger{background:#e01e5a;border-color:#e01e5a;color:#fff}
+.web-wait{width:440px;max-width:100%;text-align:left}
+.web-wait .lbl2{font-size:12.5px;color:#9ba7b3;margin:0 0 4px 4px}
+.web-wait .inp{padding-left:14px;height:40px;margin-bottom:8px}
+.web-small{font-size:12.5px;color:#73808c;margin-top:10px;text-align:center}
 /* overview panels (O1, O2) */
 .pbox{position:absolute;inset:0;overflow:auto;display:none;padding:6px 4px 18px}
 .stage.pm .desk{display:none}
@@ -963,10 +989,11 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 .int-row small{color:#8f9aa5}
 .int-link{color:#72e9d3;text-decoration:underline;font-size:13px}
 
-@media (max-width: 1100px){ .topbar .note{display:none} }
+@media (max-width: 1500px){ .topbar .note{display:none} }
+@media (max-width: 1180px){ .chip-grp .x{display:none} }
 @media (max-width: 820px){ .legend .bd{display:none} .rail{width:190px} .doc{padding:16px} .gl tbody th{width:96px} .row1{flex-wrap:wrap;row-gap:6px} .caption{flex:1 1 100%} .ctrls{margin-left:auto} }
 @media (max-width: 640px){
-  .rail{display:none} .persona{display:none}
+  .rail{display:none} .persona{display:none} .chip-grp{display:none}
   html,body{overflow-x:hidden}
   .topbar{padding:0 10px;gap:8px;min-width:0} .topbar .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
   .main{padding:8px 8px}
@@ -995,10 +1022,11 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 </head>
 <body>
 <header class="topbar">
-  <span class="t">Layerpath in Slack and ChatGPT · Onboarding (V1)</span>
-  <span class="note">2 Oct spec, checked against dev bffc798d8 on 12 Oct 2026</span>
+  <span class="t">Layerpath in Slack, ChatGPT and Claude · Onboarding</span>
+  <span class="note">13 Oct plan for this week, 2 Oct V1 spec, dev bffc798d8 (12 Oct)</span>
   <span class="sp"></span>
-  <span class="legend" aria-label="Badges"><span class="bd live" title="This screen works like this in beta today">Live today</span><span class="bd build" title="Part of the V1 plan, not built yet">To build</span><span class="bd mix" title="Some of this step works today, some is to build; How this is built says which">Partly live</span><span class="chip-later">Later = not in V1</span></span>
+  <span class="legend" aria-label="Badges"><span class="bd live" title="This screen works like this in beta today">Live today</span><span class="bd build" title="Not built yet">To build</span><span class="bd mix" title="Some of this step works today, some is to build; How this is built says which">Partly live</span></span>
+  <span class="chip-grp" aria-label="Groups"><span class="bd wk">This week</span><span class="x">private beta, by Fri 16 Oct</span><span class="dot">·</span><span class="bd aw">After this week</span><span class="x">the rest of V1</span><span class="dot">·</span><span class="bd later">Later</span><span>not in V1</span></span>
 </header>
 <div class="app">
   <nav class="rail" id="rail" aria-label="Scenarios"></nav>
@@ -1076,6 +1104,8 @@ var CHECKC = '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10
 var OKBIG = '<svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21" fill="rgba(39,179,88,.15)" stroke="#27b358" stroke-width="1.5"/><path d="m14 22.5 5.5 5.5L30.5 17" stroke="#27b358" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 /* A neutral stand-in for ChatGPT's mark (not OpenAI's logo): the demo draws ChatGPT generically. */
 var GPT_LOGO = '<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#f4f4f4"/><g fill="none" stroke="#111" stroke-width="2.6" stroke-linecap="round"><circle cx="20" cy="20" r="6.6"/><path d="M20 7.5v5M20 27.5v5M9.2 13.8l4.3 2.5M26.5 23.7l4.3 2.5M9.2 26.2l4.3-2.5M26.5 16.3l4.3-2.5"/></g></svg>';
+/* The same kind of neutral stand-in for Claude (not Anthropic's logo): Claude is drawn generically too. */
+var CLAUDE_LOGO = '<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#f4f4f4"/><path d="M20 8.5c1 6 3.5 8.5 9.5 9.5-6 1-8.5 3.5-9.5 9.5-1-6-3.5-8.5-9.5-9.5 6-1 8.5-3.5 9.5-9.5Z" fill="#111"/></svg>';
 var I = {
   up: sv('<path d="M10 16V4.5M5.2 9.2 10 4.4l4.8 4.8"/>', null, 2),
   refresh: sv('<path d="M16 10a6 6 0 1 1-1.8-4.3M16 3.5v3.6h-3.6"/>', null, 1.8),
@@ -1147,6 +1177,7 @@ var FAV = {
   slack: '<span class="fav">' + SLACK_LOGO + "</span>",
   google: '<span class="fav">' + GOOGLE_G + "</span>",
   gpt: '<span class="fav">' + GPT_LOGO + "</span>",
+  claude: '<span class="fav">' + CLAUDE_LOGO + "</span>",
   newtab: '<span class="fav">' + sv('<circle cx="10" cy="10" r="7"/><path d="M3 10h14M10 3c2.4 2.6 2.4 11.4 0 14M10 3c-2.4 2.6-2.4 11.4 0 14"/>', null, 1.2) + "</span>"
 };
 var LPFULL = '<span class="lpfull">' + LP_LOGO + "<span>Layerpath</span></span>";
@@ -1163,7 +1194,10 @@ var P = {
   lena: { name: "Lena Ortiz", first: "Lena", email: "lena@contractor.io", col: "#be185d", chip: "lena@contractor.io · single-channel guest in Acme's Slack" },
   tom: { name: "Tom Reed", first: "Tom", email: "tom@globex.com", col: "#475569", chip: "tom@globex.com · Globex, in a Slack Connect channel" },
   sadmin: { name: "Slack admin", first: "Admin", email: "", col: "#334155", chip: "a Slack admin at Acme (not one of the spec's people)" },
-  nina: { name: "Nina Park", first: "Nina", email: "nina@brightdesk.io", col: "#0e7490", chip: "nina@brightdesk.io · ChatGPT user, new to Layerpath" }
+  nina: { name: "Nina Park", first: "Nina", email: "nina@brightdesk.io", col: "#0e7490", chip: "nina@brightdesk.io · ChatGPT user, new to Layerpath" },
+  /* This week (13 Oct plan) */
+  vinay: { name: "Vinay", first: "Vinay", email: "", col: "#199f86", chip: "Layerpath team, in our own Slack" },
+  agent: { name: "Layerpath Agent", first: "Layerpath Agent", email: "", col: "#199f86", chip: "" }
 };
 var LPEMAIL = { maya: "maya.cruz@gmail.com" };
 function lpEmail(k) { return LPEMAIL[k] || P[k].email; }
@@ -1171,12 +1205,23 @@ function initials(n) { return n.split(/\s+/).map(function (w) { return w[0]; }).
 var ACME_PEOPLE = ["priya", "sam", "maya", "dev", "omar"];
 
 function cfgFor(as) {
+  if (as === "vinay") return { ws: "Layerpath", init: "L", wcol: "#181F1C", chans: ["customer-intel", "layerpath-globex"], dms: ["slackbot", "vinay"], apps: true, team: "Layerpath", internal: true };
   if (as === "tom") return { ws: "Globex", init: "G", wcol: "#0f766e", chans: ["general", "shared-globex"], dms: ["slackbot", "tom"], apps: false, team: "Globex" };
   if (as === "lena") return { ws: "Acme", init: "A", wcol: "#9a3412", chans: ["customer-training"], dms: ["slackbot", "lena"], apps: false, team: "Acme", guest: true };
   var others = ACME_PEOPLE.filter(function (x) { return x !== as; }).slice(0, 3);
   return { ws: "Acme", init: "A", wcol: "#9a3412", chans: ["general", "customer-training", "shared-globex"], dms: ["slackbot"].concat(others, [as]), apps: true, team: "Acme" };
 }
-function teamOf(k) { return k === "tom" ? "Globex" : k === "lena" ? "Acme" : "Acme"; }
+function teamOf(k) { return k === "tom" ? "Globex" : k === "vinay" ? "Layerpath" : "Acme"; }
+/* A step can change someone's sidebar (W.cfgx), e.g. a DM from Vinay, or a channel joined mid-scenario */
+function cfgOf(W, as) { var c = cfgFor(as), x = W.cfgx && W.cfgx[as], k; if (x) for (k in x) c[k] = x[k]; return c; }
+/* Channels: member counts, faces, and the companies sharing a Slack Connect channel */
+var CHI = {
+  "general": { mem: 58 },
+  "customer-training": { mem: 24 },
+  "shared-globex": { mem: 9, orgs: [["A", "#9a3412"], ["G", "#0f766e"]], title: "Acme and Globex", stack: ["priya", "tom", "sam"] },
+  "customer-intel": { mem: 6, stack: ["vinay"] },
+  "layerpath-globex": { mem: 4, orgs: [["L", "#181F1C"], ["G", "#0f766e"]], title: "Layerpath and Globex", stack: ["vinay", "tom"] }
+};
 
 /* ============================================================
    World model and builder
@@ -1197,7 +1242,7 @@ function world() {
 }
 function U(W, as) {
   as = as || W.as;
-  if (!W.ui[as]) W.ui[as] = { view: { k: "ch", id: as === "tom" ? "shared-globex" : "customer-training" }, thread: null, threadCh: null, composer: null, thc: null, modal: null, panel: null, menu: null, prompts: false, unread: [], msgDot: false };
+  if (!W.ui[as]) W.ui[as] = { view: { k: "ch", id: as === "tom" ? "shared-globex" : as === "vinay" ? "customer-intel" : "customer-training" }, thread: null, threadCh: null, composer: null, thc: null, modal: null, panel: null, menu: null, prompts: false, unread: [], msgDot: false };
   return W.ui[as];
 }
 function BR(W, as) {
@@ -1258,7 +1303,13 @@ var URLS = {
   gptSignin: "app.layerpath.com/signin?from=/oauth/authorize…",
   gptSignup: "app.layerpath.com/signup?from=/oauth/authorize…",
   apps: "app.layerpath.com/account/connected-apps",
-  ninaProjects: "app.layerpath.com/dashboard/nina/projects"
+  ninaProjects: "app.layerpath.com/dashboard/nina/projects",
+  /* This week: today's scopes, no users:read.email */
+  oauthWk: "slack.com/oauth/v2/authorize?client_id=…&scope=app_mentions:read,channels:history,…,users:read&redirect_uri=https://app.layerpath.com/api/integrations/slack/oauth/callback",
+  waitlist: "layerpath.com/agent#waitlist",
+  slackApps: "acme.slack.com/apps/manage/…/layerpath",
+  claudeConn: "claude.ai/settings/connectors",
+  claudeChat: "claude.ai/chat/…"
 };
 function ext(base, extra) { var o = {}; var k; for (k in base) o[k] = base[k]; for (k in (extra || {})) o[k] = extra[k]; return o; }
 var T = {
@@ -1273,19 +1324,30 @@ var T = {
   web: function () { return { fav: "lp", title: "Layerpath", url: URLS.web, page: { kind: "web" } }; },
   editor: function (tour) { return { fav: "lp", title: "Layerpath", url: URLS.editor, page: { kind: "editor", title: tour.title, steps: tour.steps } }; },
   projects: function () { return { fav: "lp", title: "Layerpath", url: URLS.projects, page: { kind: "projects", user: "sam" } }; },
-  sketch: function (url, block) { return { fav: url.indexOf("slack.com") === 0 ? "slack" : "lp", title: "Later sketch", url: url, page: { kind: "sketch", block: block } }; },
+  sketch: function (url, block) { return { fav: url.indexOf("slack.com") === 0 ? "slack" : "lp", title: block.aw ? "Sketch" : "Later sketch", url: url, page: { kind: "sketch", block: block } }; },
   gpt: function (extra) { var p = ext({ kind: "gpt", view: "chat", items: [], composer: null, picker: false, modal: null, full: null, toast: "", user: "nina", chats: [] }, extra); return { fav: "gpt", title: "ChatGPT", url: p.view === "plugins" ? URLS.gptPlugins : URLS.gptChat, page: p }; },
   consent: function (extra) { return { fav: "lp", title: "Layerpath", url: URLS.gptAuth, page: ext({ kind: "consent", user: "nina", ws: ["Nina's workspace · Free"], sel: 0 }, extra) }; },
   gptSignin: function (extra) { return { fav: "lp", title: "Sign In", url: URLS.gptSignin, page: ext({ kind: "auth", banner: "Sign in to connect ChatGPT", icon: "gpt" }, extra) }; },
   gptSignup: function (extra) { return { fav: "lp", title: "Sign Up", url: URLS.gptSignup, page: ext({ kind: "auth", type: "signup", banner: "Sign up to connect ChatGPT", icon: "gpt" }, extra) }; },
   apps: function (extra) { return { fav: "lp", title: "Layerpath", url: URLS.apps, page: ext({ kind: "lp-apps", user: "sam" }, extra) }; },
-  lpProjects: function (extra) { return { fav: "lp", title: "Layerpath", url: URLS.ninaProjects, page: ext({ kind: "projects", user: "nina", ws: "Nina's workspace", wsInit: "N", plan: "Free" }, extra) }; }
+  lpProjects: function (extra) { return { fav: "lp", title: "Layerpath", url: URLS.ninaProjects, page: ext({ kind: "projects", user: "nina", ws: "Nina's workspace", wsInit: "N", plan: "Free" }, extra) }; },
+  /* This week (13 Oct plan) */
+  oauthWk: function (extra) { return { fav: "slack", title: "Slack", url: URLS.oauthWk, page: ext({ kind: "oauth", ws: "Acme", mode: "allow", noEmail: true }, extra) }; },
+  cwWk: function (extra) { return { fav: "lp", title: "Layerpath", url: URLS.cw, page: ext({ kind: "cw", mode: "wk", sel: -1 }, extra) }; },
+  doneWk: function () { return { fav: "lp", title: "Layerpath", url: URLS.done, page: { kind: "done", wk: true } }; },
+  waitlist: function (extra) { return { fav: "lp", title: "Layerpath Agent", url: URLS.waitlist, page: ext({ kind: "web", wait: true }, extra) }; },
+  slackApps: function () { return { fav: "slack", title: "Layerpath | Slack", url: URLS.slackApps, page: { kind: "slackapp" } }; },
+  acmeProjects: function (extra) { return { fav: "lp", title: "Layerpath", url: URLS.projects, page: ext({ kind: "projects", user: "priya", ws: "Acme", wsInit: "A", plan: "Team" }, extra) }; },
+  consentWk: function (extra) { return { fav: "lp", title: "Layerpath", url: URLS.gptAuth, page: ext({ kind: "consent", mode: "wk", user: "sam", ws: ["Acme · Team", "Sam's workspace · Free"], sel: -1, host: "ChatGPT" }, extra) }; },
+  hostDone: function (host) { return { fav: "lp", title: "Layerpath", url: URLS.gptAuth, page: { kind: "conn", mode: "back", host: host } }; },
+  claude: function (extra) { var p = ext({ kind: "gpt", host: "claude", view: "chat", items: [], composer: null, picker: false, modal: null, full: null, toast: "", user: "sam", chats: [] }, extra); return { fav: "claude", title: "Claude", url: p.view === "plugins" ? URLS.claudeConn : URLS.claudeChat, page: p }; }
 };
 var GA = {
   priya: { name: "Priya Shah", email: "priya@acme.com", col: "#b5542e" },
   mayaWork: { name: "Maya Cruz", email: "maya@acme.com", col: "#7c3aed" },
   mayaGmail: { name: "Maya Cruz", email: "maya.cruz@gmail.com", col: "#0b8043" },
-  nina: { name: "Nina Park", email: "nina@brightdesk.io", col: "#0e7490" }
+  nina: { name: "Nina Park", email: "nina@brightdesk.io", col: "#0e7490" },
+  sam: { name: "Sam Lee", email: "sam@acme.com", col: "#2463a6" }
 };
 
 /* ============================================================
@@ -1297,7 +1359,12 @@ var TOURS = {
   priya: { title: "Invite a teammate", sub: "Add someone by email and pick what they can do.", steps: ["Open Settings", "Go to Members", "Click Invite member", "Enter their email", "Send the invite"], c1: "#b5542e", c2: "#e07a45", acc: "#b5542e" },
   nina: { title: "Sign up for Brightdesk", sub: "Create an account and set up your first desk.", steps: ["Open the sign-up page", "Enter your work email", "Choose a password", "Name your first desk"], c1: "#0e7490", c2: "#25a7c7", acc: "#0e7490" },
   pitch: { title: "Set up a sales pipeline", sub: "Add the stages your deals move through.", steps: ["Open Pipelines", "Click New pipeline", "Name it", "Add the stages", "Save"], c1: "#6d28d9", c2: "#9b5cf6", acc: "#6d28d9" },
-  report: { title: "Export a monthly report", sub: "Pick a month and download the report.", steps: ["Open Reports", "Pick the month", "Click Export"], c1: "#334155", c2: "#5b6b82", acc: "#334155" }
+  report: { title: "Export a monthly report", sub: "Pick a month and download the report.", steps: ["Open Reports", "Pick the month", "Click Export"], c1: "#334155", c2: "#5b6b82", acc: "#334155" },
+  tom: { title: "Create a shipment", sub: "Add a shipment, pick a carrier and print the label.", steps: ["Open Shipments", "Click New shipment", "Pick a carrier", "Print the label"], c1: "#0f766e", c2: "#17a58f", acc: "#0f766e" },
+  /* Nina's 3 tours published from the web app (W9) */
+  nina1: { title: "Invite your team", sub: "Add teammates by email.", steps: ["Open Settings", "Click Invite", "Send the invite"], c1: "#334155", c2: "#5b6b82", acc: "#334155" },
+  nina2: { title: "Connect your calendar", sub: "Link a calendar to your desk.", steps: ["Open Integrations", "Pick Calendar", "Allow access", "Choose a calendar"], c1: "#6d28d9", c2: "#9b5cf6", acc: "#6d28d9" },
+  nina3: { title: "Set up billing", sub: "Add a card and pick a plan.", steps: ["Open Billing", "Add a card", "Save"], c1: "#b5542e", c2: "#e07a45", acc: "#b5542e" }
 };
 var TL = {
   sam: [["Create a new deal", "2 Oct"], ["Log a customer call", "1 Oct"], ["Merge duplicate contacts", "30 Sep"], ["Set up a sales pipeline", "29 Sep"], ["Export a monthly report", "26 Sep"]],
@@ -1474,6 +1541,7 @@ function sc(code, title, group, build, st) { SCEN.push({ code: code, title: titl
 /* ---------------- Start here: overview panels ---------------- */
 var GLANCE_HTML = '<div class="doc"><h2>Slack vs ChatGPT at a glance</h2>'
   + '<p class="lede">Who installs, who signs in, where tours go, and what works on beta today against what V1 adds before we submit. Vinay, 12 Oct: get both ready and submit by Fri 16 Oct; Karnesh owns the release.</p>'
+  + '<p class="lede"><b>13 Oct:</b> this week ships a private beta where people only sign in: no roles, no Connect in Slack, free until December (<a class="jump" href="#W0">W0</a>). This table is the 2 Oct V1 design, most of which now comes after this week. A link to a flow redrawn for this week opens its 2 Oct version, which links to the new one.</p>'
   + '<table class="gl"><thead><tr><th></th><th>Slack</th><th>ChatGPT</th></tr></thead><tbody>'
   + '<tr><th>Who installs</th><td>An Owner or Admin of the company\'s Layerpath workspace, once for the whole company: Add to Slack in Settings → Integrations, or on layerpath.com/slack <a class="jump" href="#A1">A1</a> <a class="jump" href="#A2">A2</a>. Where the company\'s Slack needs approval, a Slack admin approves it in Slack <a class="jump" href="#A3">A3</a>.</td><td>Each person, for themselves: Plugins → Layerpath → Connect, inside ChatGPT <a class="jump" href="#C1">C1</a>. Nobody installs it for a team.</td></tr>'
   + '<tr><th>Who signs in</th><td>The installer, during the install. Everyone else is linked by their Slack email when it matches a member <a class="jump" href="#P1">P1</a>, or presses Connect once and signs in with any email <a class="jump" href="#P2">P2</a>.</td><td>Every person, during Connect: signs in with their Layerpath account <a class="jump" href="#C2">C2</a> or signs up <a class="jump" href="#C1">C1</a>. Without it the plugin does nothing.</td></tr>'
@@ -1488,20 +1556,21 @@ var GLANCE_HTML = '<div class="doc"><h2>Slack vs ChatGPT at a glance</h2>'
   + '<h3>How to read the demo</h3><p>Every step carries a badge: <span class="bd live">Live today</span> means the screen looks and works like this on beta now (checked against dev bffc798d8, 12 Oct). <span class="bd build">To build</span> means it is part of the V1 plan and not built yet. <span class="bd mix">Partly live</span> means the screen is today\'s but the step also says something V1 adds (a person linked by email, a role, a tour made as that person); How this is built under each step says which part is which. <span class="bd later">Later</span> means not in V1. In the list on the left, a half green, half blue dot marks a scenario that mixes both. Open <a class="jump" href="#K1">K1</a> for the decisions.</p></div>';
 
 var DECIDE_HTML = '<div class="doc"><h2>Decisions for Karnesh</h2>'
-  + '<p class="lede">One line each, with the option this demo recommends. The demo is drawn with the recommended options.</p><ol class="dl">'
+  + '<p class="lede">One line each, with the option this demo recommends. The demo is drawn with the recommended options.</p>'
+  + '<p class="lede"><b>13 Oct:</b> for this week\'s private beta, people only sign in: no roles, no Connect in Slack, free during the beta (<a class="jump" href="#W0">W0</a>). Decisions 1 to 4 now apply after this week; 6 and 13 are updated.</p><ol class="dl">'
   + '<li><b>Slack: who can install it?</b><span class="rec">Owners and Admins of a Layerpath workspace, from Settings → Integrations or layerpath.com/slack; a Slack admin approves it in Slack where the company requires it.</span><span class="why">Settings is already Owner and Admin only. <a class="jump" href="#A1">A1</a> <a class="jump" href="#A3">A3</a></span></li>'
   + '<li><b>Slack: how are people matched to Layerpath accounts?</b><span class="rec">Automatically when their Slack email matches a member of the workspace, else one Connect with any email.</span><span class="why">Needs the new users:read.email scope. <a class="jump" href="#P1">P1</a> <a class="jump" href="#P2">P2</a></span></li>'
   + '<li><b>Slack: what do outsiders and Viewers get?</b><span class="rec">Ask for access, or ask to become an editor; admins get a one-tap Invite as Editor or Make Editor, after the seat check. Auto-join by email domain stays Later.</span><span class="why"><a class="jump" href="#P3">P3</a> <a class="jump" href="#P4">P4</a> <a class="jump" href="#P5">P5</a> <a class="jump" href="#LT3">LT3</a></span></li>'
   + '<li><b>Slack on Free: only the Owner can use the agent (1 creator seat). Ship like that?</b><span class="rec">Yes for V1; decide free agent seats after launch, with Vinay.</span><span class="why"><a class="jump" href="#D3">D3</a> <a class="jump" href="#LT6">LT6</a></span></li>'
   + '<li><b>Slack side panel once the app is distributed: the tour playing in the panel needs Slack\'s embeds pilot (invite only).</b><span class="rec">Apply to the pilot this week. The card, Open tour and Make video don\'t need it; check what the panel shows without it before submitting.</span><span class="why">docs.slack.dev/messaging/work-objects-embeds, seen 7 Oct 2026. <a class="jump" href="#T1">T1</a></span></li>'
-  + '<li><b>Slack: what goes into this week\'s submission?</b><span class="rec">This week: the public app as drawn in A1 to L3 (install, linking, access requests, disconnect, on HTTP events), shared with pilot companies by an Add to Slack link. Submit the listing once 10 companies use it. Everything under Later stays out.</span><span class="why">Socket Mode apps aren\'t allowed in the Marketplace, Slack blocks a submission until the app is installed on 10 or more active workspaces (and it must stay there through review), and the review takes up to 10 weeks for a new app (docs.slack.dev: using-socket-mode, slack-marketplace-review-guide, changelog 2026-09-01; seen 12 Oct 2026).</span></li>'
+  + '<li><b>Slack: what goes into this week\'s submission?</b><span class="rec">Updated 13 Oct: this week, an install link that 10 or more companies can use, with sign-in only (<a class="jump" href="#W1">W1</a> to <a class="jump" href="#W6">W6</a>). Submit the listing once 10 workspaces are active, after this week (<a class="jump" href="#LT7">LT7</a>). Everything under Later stays out.</span><span class="why">Socket Mode apps aren\'t allowed in the Marketplace, Slack blocks a submission until the app is installed on 10 or more active workspaces (and it must stay there through review), and the review takes up to 10 weeks for a new app (docs.slack.dev: using-socket-mode, slack-marketplace-review-guide, changelog 2026-09-01; seen 12 Oct 2026).</span></li>'
   + '<li><b>ChatGPT: how do people sign in?</b><span class="rec">Our own OAuth: Layerpath\'s sign-in page, then a consent page with the workspace pick, reusing the OAuth server already in apps/mcp. Not "Sign in with ChatGPT", which is a beta for select partners.</span><span class="why">developers.openai.com/apps-sdk/build/auth, seen 12 Oct 2026. <a class="jump" href="#C1">C1</a> <a class="jump" href="#C2">C2</a></span></li>'
   + '<li><b>ChatGPT: new people with no account?</b><span class="rec">Sign up inside Connect, then straight back to ChatGPT, skipping the /creation page that new sign-ups get today.</span><span class="why"><a class="jump" href="#C1">C1</a></span></li>'
   + '<li><b>ChatGPT: which workspace do tours go to?</b><span class="rec">The one picked at Connect, asked only when they have more than one; to change it, disconnect and connect again.</span><span class="why"><a class="jump" href="#C2">C2</a> <a class="jump" href="#C7">C7</a></span></li>'
   + '<li><b>ChatGPT: more than one Layerpath account per person?</b><span class="rec">No, one account per ChatGPT user in V1, even though ChatGPT can add more accounts to a plugin.</span><span class="why"><a class="jump" href="#C7">C7</a></span></li>'
   + '<li><b>ChatGPT: "what can you do"?</b><span class="rec">Our own card from a new studio tool, with instructions not to repeat it. ChatGPT\'s model still writes a line around it; that can\'t be switched off.</span><span class="why">Vinay\'s issue 1. <a class="jump" href="#C4">C4</a></span></li>'
   + '<li><b>Integrations tab: who sees what?</b><span class="rec">Settings → Integrations for Owners and Admins, with Slack and every member\'s ChatGPT connection; plus a Connected apps page in each person\'s account menu for their own.</span><span class="why">Settings is Owner and Admin only today, and ChatGPT connections are personal. <a class="jump" href="#C5">C5</a></span></li>'
-  + '<li><b>Claude?</b><span class="rec">Not in this week\'s submission (12 Oct call). Confirm with Vinay, whose message said all three; it reuses the ChatGPT sign-in later.</span><span class="why"><a class="jump" href="#LT8">LT8</a></span></li>'
+  + '<li><b>Claude?</b><span class="rec">Settled 13 Oct: in this week, with the same sign-in as ChatGPT. On 12 Oct it was left out.</span><span class="why"><a class="jump" href="#W7">W7</a> <a class="jump" href="#W8">W8</a></span></li>'
   + '<li><b>The old ChatGPT connector, which Vinay\'s personal ChatGPT still reaches?</b><span class="rec">Point its URL at the studio, or switch it off, before submitting.</span><span class="why">Vinay\'s issue 4: the old card in full screen.</span></li>'
   + '</ol>'
   + '<div class="cols"><div class="box"><b>Also before submitting (not decisions)</b><ul><li>Set the studio widget\'s CSP so ChatGPT stops showing "CSP off" (Vinay\'s issue 3).</li><li>Plain words instead of raw errors in the card, like <code>{"detail":"MCP Resource not found"}</code> (issue 5).</li><li>Name chapter and section steps by what they are, not "Context", in change lists (issue 6).</li><li>The Home tab\'s pictures and the welcome DM still describe the old in-thread player; today\'s card opens Slack\'s side panel.</li><li>Layerpath\'s sign-in and sign-up pages say "walkthrough", which the copy rules don\'t allow (C1 shows them as they are).</li></ul></div>'
@@ -2251,6 +2320,364 @@ sc("C7", "Not in V1 from ChatGPT", "gpt", function () {
   return S.steps;
 });
 
+/* ============================================================
+   This week (the 13 Oct plan, 2026-10-13-this-week.md): the private beta, by Fri 16 Oct.
+   Each scenario is redrawn from the 2 Oct scenarios the plan maps to it (REL, below);
+   those keep their codes and still open as they were.
+   ============================================================ */
+var INSTALL_LINK = "slack.com/oauth/v2/authorize?client_id=…";
+function installLinkMsg() { return M("vinay", { time: "9:40 AM", blocks: [{ t: "lnk", pre: "Add Layerpath to your Slack:", text: INSTALL_LINK, k: "dm-install-link" }] }); }
+var INSTALL_DM = "Hi Priya, Layerpath is set up in Acme's Slack. Add me to a channel with /invite @Layerpath, then mention @Layerpath with screenshots, a Loom or a YouTube link and I'll make an interactive tour in Acme's Layerpath workspace. It's free during the beta.";
+var INTEL = {
+  install: "Acme installed Layerpath in Slack · Priya Shah (priya@acme.com) · Layerpath workspace: Acme (Team)",
+  remove: "Acme removed Layerpath from Slack",
+  gpt: "Sam Lee (sam@acme.com) connected ChatGPT to Layerpath · workspace Acme",
+  claude: "Sam Lee (sam@acme.com) connected Claude to Layerpath · workspace Acme"
+};
+var BETA_BAR = "Layerpath Agent is free during the beta. Questions? Reach us at support@layerpath.com.";
+var SAMPLE_RELINK = { k: "relink", text: "Your Layerpath sign-in expired. Reconnect to keep going.", btn: "Reconnect" };
+/* Our own Slack, which only the Layerpath team sees: #customer-intel (W-R6) */
+function intelView(W, rows) {
+  W.gpt = false; as(W, "vinay", "slack"); W.host = "Layerpath";
+  W.chan["customer-intel"] = rows.map(function (r) { return M("lp", { time: r[0], text: r[1] }); });
+  goView(W, { k: "ch", id: "customer-intel" });
+}
+function priyaDms(W) { W.cfgx = W.cfgx || {}; W.cfgx.priya = { dms: ["slackbot", "vinay", "sam", "maya", "priya"] }; }
+var WH = {
+  link: "To build: the install link that W2 follows. Vinay shares it with people he knows, however he reaches them; drawn here as a Slack DM. The words before the link are new copy. The link is the app's install address: Slack's shareable link, or ours redirecting to it (to decide).",
+  oauth: "Drawn by Slack. One public app, \"Layerpath\", installed with OAuth, with the same scopes as today's bot: no new ones this week, so no `users:read.email` (matching people by email comes after this week). If Acme's Slack needs app approval, Slack shows Request to install instead (W2b).",
+  wait: "Live today on layerpath.com/agent (seen 13 Oct 2026), in the site's own words. The team picks who to invite from the list.",
+  invite: "Slack's own Slack Connect invitation, drawn generically. Not code: someone on the Layerpath team invites each person from the waitlist into a channel in our own Slack.",
+  tryIt: "Live today: today's bot runs in our own Slack, and Slack Connect lets Tom mention it from Globex's Slack. To check: today's bot answering someone from another company in our own channel (W4's rule is for a company's own install, not ours).",
+  ourWs: "Live today: the card, as in T1. The tour is in our own Layerpath workspace (today's one shared account), not Globex's. For tours in Globex's own workspace, Globex installs Layerpath with the link (W2).",
+  callback: "To build: `GET /api/integrations/slack/oauth/callback` exchanges the code (`oauth.v2.access`) and keeps a PENDING `SlackInstallation` with the bot token; signed out, it sends her to the normal sign-in page with this banner, then back. Signing up works too, with Google or any email (W-R1). The page under the banner is today's, which still says \"walkthrough\" (flag for Kripa, as in C1).",
+  pick: "To build: `/integrations/slack/connect-workspace` lists every workspace she belongs to, with no Owner or Admin check this week (W-R2; it comes back after this week, A2). The note says what the choice means: Acme's tours and Acme's brand memory.",
+  connect: "To build: `POST /api/integrations/slack/connect-workspace` makes the install ACTIVE for this workspace. One Slack workspace connects to one Layerpath workspace (W5).",
+  done: "To build: `/integrations/slack/done` with Open Slack only; Back to Integrations comes with the Integrations tab, after this week (A1). Nobody is linked person by person: all of Acme's Slack works through this install (W-R3).",
+  dm: "To build: one DM from the agent to the installer, at install, and nothing in any channel. The Home tab stays today's this week (T3). Today's welcome (T3) also greets each person once in Messages; its line \"Connected to Layerpath as …\" names today's shared account, so it needs new words for a company's install (to decide).",
+  intel: "To build (W-R6): an alert in our own #customer-intel channel, with who, which company and which Layerpath workspace. Whether the agent or the web app posts it is a build choice; drawn here as Layerpath. Only the Layerpath team sees this channel.",
+  none: "To build: `/integrations/slack/connect-workspace` when she's in no workspace yet, as A4 drew it, without its role wording. The name is prefilled from the Slack team name.",
+  agent: "To build: Slack sends the mention for Acme's install; the agent loads Acme's bot token (Bolt `authorize`) and Acme's linked Layerpath workspace, and runs today's actions there as \"Layerpath Agent\", with Acme's brand memory, in place of today's one shared account. Only two checks come first: another company, then a guest (W4).",
+  card: "Live today: the ready line and the tour's card, as in T1 (Open tour, Make video, and Edit in Layerpath in its menu). To build: the tour is in Acme's Layerpath workspace. Open question: Edit in Layerpath, for someone who isn't in Acme's Layerpath workspace, lands on Layerpath's existing sign-in or no-access page.",
+  beta: "To build (W-R7, Madhu): a thin bar in the Layerpath web app for any workspace with Slack, ChatGPT or Claude turned on. Free during the beta, until December (W-R5).",
+  free: "To build (W-R5): the publish cap (`publishedProjectSlots.ts`) skips tours made from Slack, ChatGPT or Claude until December; without that, today's code keeps a 4th tour as a draft with the plan's message (D3). No credit system this week. Live today: the card (C3)."
+};
+var GPTW = {
+  dev: "Drawn by ChatGPT, generically (its real screens may differ). Until OpenAI publishes us, a person adds the connector by its link in developer mode, which only paid plans have. After publishing, anyone on any plan finds Layerpath in the plugin directory and presses Connect (C1 drew that). To build: one public connector address that asks people to sign in, in place of today's secret path; the address shown is a stand-in.",
+  connect: "Drawn by ChatGPT, generically. " + GPTH.oauth,
+  signin: "To build: `GET /oauth/authorize`; signed out, it shows the normal sign-in page with this banner. Signing up works too, on any plan, free included (W-R1). The page under the banner is today's, which still says \"walkthrough\" (flag for Kripa, as in C1).",
+  pick: "To build: every workspace he's in, with no role check this week (W-R2): C2's consent page, cut down to this one choice. " + GPTH.grant,
+  cont: "To build: the grant is for (Sam, ChatGPT, Acme). To decide: with no roles this week, whether tours made as a Viewer skip Layerpath's own Viewer limits.",
+  done: "To build: the page after Continue, then back to ChatGPT with the code.",
+  home: "Live today: the studio's Home (C3). To build: every studio tool runs as Sam, in Acme, in place of today's one shared account, so Home, the carousel and search show only Acme's tours (W-R4).",
+  claude: "Drawn by Claude, generically (its real screens may differ; the mark is a stand-in, not Claude's logo). A custom connector now; Claude's connector directory after Anthropic's review. Moved up from Later (LT8): the same sign-in as ChatGPT. The address shown is a stand-in.",
+  claudeDone: "To build: the same OAuth server and pages as ChatGPT, with Claude as a second client: Sign in with Layerpath, then Choose a workspace for your tours, then this page. #customer-intel gets \"" + INTEL.claude + "\".",
+  relink: "To build: with no valid token, the tool answers with this line and `_meta[\"mcp/www_authenticate\"]` (or the server a 401 with `WWW-Authenticate`), and ChatGPT shows its own Reconnect button (developers.openai.com/apps-sdk/build/auth, seen 12 Oct 2026). ChatGPT draws the box and the button; the words are ours. Signed out (the connection removed, or the sign-in revoked) gets the same line (from C6).",
+  resign: "To build: the same authorize step as W7, signed out: the sign-in page with this banner.",
+  repick: "To build: the same choice as W7.",
+  carry: "Live today: the carousel (`card/studio/views/carousel.ts`) and the model's sentence under it. To build: the request carrying on after he reconnects, with Acme's tours only.",
+  claudeRelink: "Drawn by Claude, generically. To build: the same answer from the same tool; Claude draws its own button."
+};
+
+function wkRow(id, name, text, codes) {
+  return "<tr><th>" + id + "<br>" + name + "</th><td>" + text + "</td><td>" + codes.map(function (c) { return '<a class="jump" href="#' + c + '">' + c + "</a>"; }).join(" ") + "</td></tr>";
+}
+var WEEK_HTML = '<div class="doc"><h2>This week at a glance</h2>'
+  + '<p class="lede">By Fri 16 Oct: a Slack install link that 10 or more companies can use (Slack\'s Marketplace needs 10 active workspaces before we submit), and the ChatGPT and Claude connectors ready to submit. It\'s a private beta: Vinay shares the link with people he knows; everyone else joins the waitlist on layerpath.com, and the team invites them into a Slack Connect channel with us first <a class="jump" href="#W1">W1</a>.</p>'
+  + '<table class="gl"><thead><tr><th>Rule</th><th>In plain words</th><th>See</th></tr></thead><tbody>'
+  + wkRow("W-R1", "Sign in, nothing more", "Whoever adds Layerpath to Slack, or connects ChatGPT or Claude, signs in or signs up with a Layerpath account. Free or paid doesn't matter.", ["W2", "W7"])
+  + wkRow("W-R2", "No roles", "No Owner, Admin or Editor checks, no Viewers, no access requests, invites or seat checks. All of that comes after this week.", ["W3"])
+  + wkRow("W-R3", "Slack: the workspace signs in once", "The installer links their Slack workspace to one Layerpath workspace. Then anyone in that Slack can make and change tours there, except guests and people from another company. Tours show as made by \"Layerpath Agent\" in that workspace, with its brand memory.", ["W2", "W3", "W4"])
+  + wkRow("W-R4", "ChatGPT and Claude: each person signs in", "Connecting opens Sign in with Layerpath. The person signs in or signs up and picks a workspace, and their tours are made as them, in that workspace.", ["W7", "W8"])
+  + wkRow("W-R5", "Free during the beta", "Until December, tours made from Slack, ChatGPT or Claude don't count toward the Free plan's 3 published tours. No credits this week.", ["W9"])
+  + wkRow("W-R6", "We see who's using it", "An alert in our #customer-intel channel when a Slack workspace adds or removes Layerpath, and when someone connects ChatGPT or Claude: who, which company, which Layerpath workspace.", ["W2", "W6", "W7"])
+  + wkRow("W-R7", "Beta bar", "In the Layerpath web app, workspaces with Slack, ChatGPT or Claude turned on see a thin bar: \"" + BETA_BAR + "\" Madhu builds it.", ["W3", "W9"])
+  + "</tbody></table>"
+  + '<div class="cols" style="margin-top:16px"><div class="box"><b>After this week (the rest of V1)</b><ul>'
+  + '<li>Each person in Slack as themselves: email match, Connect, acting as each person <a class="jump" href="#P1">P1</a> <a class="jump" href="#P2">P2</a></li>'
+  + '<li>Roles: Viewers ask to become editors, access requests with Invite as Editor, seat checks <a class="jump" href="#P3">P3</a> <a class="jump" href="#P4">P4</a> <a class="jump" href="#P5">P5</a></li>'
+  + '<li>Each person\'s Home tab with Disconnect, and the admin\'s Home tab <a class="jump" href="#L1">L1</a></li>'
+  + '<li>Settings → Integrations, Disconnect Slack there, and Add to Slack on the website <a class="jump" href="#A1">A1</a> <a class="jump" href="#A2">A2</a> <a class="jump" href="#L3">L3</a></li>'
+  + '<li>The Slack Marketplace submission, once 10 workspaces are active <a class="jump" href="#LT7">LT7</a></li>'
+  + "<li>Credits, when the credit system resumes</li></ul></div>"
+  + '<div class="box"><b>Later (not in V1)</b><ul><li>Personal mode, Viewer and nonmember drafts, pre-approved email domains, channel allowlist, credit pool, free agent seats <a class="jump" href="#LT1">LT1</a> to <a class="jump" href="#LT6">LT6</a></li></ul></div></div>'
+  + '<h3>How to read the groups</h3><p><span class="bd wk">This week</span> is the private beta, by Fri 16 Oct. <span class="bd aw">After this week</span> is the rest of the 2 Oct V1 design. <span class="bd later">Later</span> is not in V1. Each step still says what works on beta today: <span class="bd live">Live today</span>, <span class="bd build">To build</span> or <span class="bd mix">Partly live</span>. At the top of each This week scenario, a link opens the 2 Oct scenario it was redrawn from, which stays as it was.</p></div>';
+
+sc("W0", "This week at a glance", "start", function () {
+  var S = Seq();
+  S.step({ panel: WEEK_HTML, copy: true, cap: "Start here: what ships by Fri 16 Oct, this week's seven rules in plain words, and what waits.", how: "From the 13 Oct plan (`2026-10-13-this-week.md`): Vinay's 13 Oct standup and Sudhanshu's answers the same day. The quoted strings, \"Layerpath Agent\" and the beta bar, are new copy for Kripa." });
+  return S.steps;
+});
+
+/* ---------------- This week · Slack ---------------- */
+sc("W1", "Get the link", "week", function () {
+  var S = Seq(), W = S.W; W.installed = false;
+  priyaDms(W);
+  W.cfgx.tom = { chans: ["general"] };
+  as(W, "priya", "slack");
+  dmTo(W, "priya", installLinkMsg(), "dm");
+  goView(W, { k: "dm", id: "vinay" });
+  S.step({ cap: "One way in: Vinay sends the install link himself to someone he knows, here Priya at Acme. She opens it.", next: "dm-install-link", copy: true, chip: "priya@acme.com · Acme has no Layerpath in Slack yet", how: WH.link });
+  tab(W, T.oauthWk());
+  S.step({ cap: "The link opens Slack's own permission page for Acme's Slack. W2 follows her from here.", chip: "priya@acme.com · opened the install link", how: WH.oauth });
+  as(W, "tom", "chrome");
+  goView(W, { k: "dm", id: "slackbot" });
+  BR(W).tabs = [T.waitlist()]; BR(W).active = 0;
+  S.step({ st: "live", cap: "The other way in: Tom, at Globex, doesn't know Vinay. He joins the waitlist on layerpath.com.", next: "web-wait", chip: "tom@globex.com · new to Layerpath", how: WH.wait });
+  as(W, "tom", "slack");
+  dmTo(W, "tom", M("slackbot", { time: "11:02 AM", blocks: [{ t: "sec", md: "*Vinay* from *Layerpath* invited you to *#layerpath-globex*, a Slack Connect channel." }, { t: "act", els: [{ b: "Accept", s: "primary", k: "sb-accept" }] }] }), "slackbot");
+  S.step({ st: "live", cap: "The team invites him into a Slack Connect channel in our own Slack, and he accepts.", next: "sb-accept", chip: "tom@globex.com · on the waitlist", how: WH.invite });
+  var chip = "tom@globex.com · in our Slack Connect channel";
+  W.cfgx.tom = { chans: ["general", "layerpath-globex"] };
+  W.host = "Layerpath";
+  W.chan["layerpath-globex"] = [];
+  goView(W, { k: "ch", id: "layerpath-globex" });
+  compose(W, "{@Layerpath} make a tour of creating a shipment from these", 3);
+  S.step({ st: "live", cap: "In #layerpath-globex he can try Layerpath right away: he mentions it with three screenshots.", next: "send", chip: chip, how: WH.tryIt });
+  var m = send(W);
+  var sm = buildTour(S, W, m.id, { st: "live", cap: "Today's flow runs: a one-line reply, and the tour builds live in the thread.", chip: chip, how: H.build }, TOURS.tom, { what: "shipment" });
+  var rm = finishCard(W, m.id, sm, TOURS.tom, "tom");
+  S.step({ st: "live", cap: "His tour is ready. It's made in our own Layerpath workspace, until Globex installs Layerpath with its own link.", focus: rm.id, chip: chip, how: WH.ourWs });
+  return S.steps;
+});
+
+sc("W2", "Install (Priya, Acme)", "week", function () {
+  var S = Seq(), W = S.W; W.installed = false;
+  var chip = "priya@acme.com · opened the install link from Vinay";
+  as(W, "priya", "chrome"); BR(W).tabs = [T.oauthWk()];
+  S.step({ cap: "The install link opens Slack's own permission page for Acme's Slack, and Priya presses Allow.", next: "oa-allow", chip: chip, how: WH.oauth });
+  navTab(W, T.signin({ banner: "Sign in to finish adding Layerpath to Acme's Slack" }));
+  S.step({ cap: "Back on Layerpath, the sign-in page says why she's there. Signing up works too. She continues with Google.", next: "auth-google", copy: true, chip: chip, how: WH.callback });
+  navTab(W, T.google([GA.priya]));
+  S.step({ cap: "She picks priya@acme.com.", next: "g-acc-0", chip: chip, how: "Google's own screen; Layerpath's sign-in is unchanged." });
+  navTab(W, T.cwWk());
+  var pick = S.save();
+  S.step({ cap: "She picks the Layerpath workspace that will keep Acme's tours, from every workspace she's in. No role check this week.", next: "cw-r0", copy: true, chip: chip, how: WH.pick });
+  setPage(W, { sel: 0 });
+  S.step({ cap: "With Acme picked, she presses Connect.", next: "cw-connect", copy: true, chip: chip, how: WH.connect });
+  navTab(W, T.doneWk()); W.installed = true;
+  S.step({ cap: "Layerpath is in Acme's Slack. The page says what to do next, and she opens Slack.", next: "done-open-slack", copy: true, chip: chip, how: WH.done });
+  W.front = "slack";
+  W.home.priya = homeToday();
+  dmTo(W, "priya", M("lp", { time: "10:31 AM", text: INSTALL_DM }));
+  goView(W, { k: "app", tab: "messages" });
+  S.step({ cap: "In Slack, Layerpath's DM tells her how to start, and that it's free during the beta.", copy: true, chip: "priya@acme.com · added Layerpath to Acme's Slack", how: WH.dm });
+  intelView(W, [["10:31 AM", INTEL.install]]);
+  S.step({ cap: "In our own Slack, #customer-intel gets an alert: which company, who installed it, and which Layerpath workspace.", copy: true, how: WH.intel });
+  S.restore(pick);
+  setPage(W, { mode: "wkNone" });
+  S.step({ anchor: "new", cap: "Other result: if Priya has no Layerpath workspace yet, she makes one for Acme right here.", next: "cw-create", copy: true, chip: "priya@acme.com · new to Layerpath in this case", how: WH.none });
+  setPage(W, { mode: "wkCreate" });
+  S.step({ cap: "The name comes from Acme's Slack, and she presses Create and connect.", next: "cw-create-connect", copy: true, chip: "priya@acme.com · new to Layerpath in this case", how: "To build: creates the workspace with Priya as its Owner, then connects it, as `POST /api/integrations/slack/connect-workspace` does above." });
+  navTab(W, T.doneWk()); W.installed = true;
+  S.step({ cap: "Layerpath is in Acme's Slack, and the rest is the same as above.", copy: true, chip: "priya@acme.com · Owner of the new Acme workspace", how: WH.done });
+  return S.steps;
+});
+
+sc("W2b", "Slack needs approval", "week", function () {
+  var S = Seq(), W = S.W; W.installed = false;
+  priyaDms(W);
+  var chip = "priya@acme.com · opened the install link from Vinay";
+  as(W, "priya", "chrome"); BR(W).tabs = [T.oauthWk({ mode: "request" })];
+  dmTo(W, "priya", installLinkMsg(), "dm");
+  S.step({ cap: "Acme's Slack requires app approval, so the install link shows Request to install instead of Allow.", next: "oa-request", chip: chip, how: "Drawn by Slack. Nothing reaches Layerpath yet (from A3)." });
+  setPage(W, { mode: "reason" });
+  S.step({ cap: "Priya writes a reason and submits the request.", next: "oa-submit", chip: chip, how: "Drawn by Slack." });
+  setPage(W, { mode: "sent" });
+  S.step({ cap: "Slack sends the request to Acme's Slack admins.", chip: chip, how: "Slack's own app approval; Layerpath isn't involved." });
+  as(W, "sadmin", "slack");
+  dmTo(W, "sadmin", M("slackbot", { time: "10:24 AM", blocks: [{ t: "sec", md: "*Priya Shah* requested to install *Layerpath* in Acme." }, { t: "quote", md: "To make interactive training tours in #customer-training." }, { t: "act", els: [{ b: "Approve", s: "primary", k: "sb-approve" }] }] }), "slackbot");
+  goView(W, { k: "dm", id: "slackbot" });
+  S.step({ cap: "A Slack admin at Acme gets the request from Slackbot and approves it.", next: "sb-approve", how: "Slack's own app approval. Layerpath isn't involved." });
+  as(W, "priya", "slack");
+  dmTo(W, "priya", M("slackbot", { time: "10:26 AM", blocks: [{ t: "sec", md: "Your request to install *Layerpath* in Acme was approved." }] }), "slackbot");
+  goView(W, { k: "dm", id: "slackbot" });
+  S.step({ cap: "Slack tells Priya it's approved, and she goes back to Vinay's message.", next: "side:dm:vinay", chip: chip, how: "Slack's own message. Slack's flow is to run the install again." });
+  goView(W, { k: "dm", id: "vinay" });
+  S.step({ cap: "She opens the install link again.", next: "dm-install-link", copy: true, chip: chip, how: "The same link as before; approval doesn't change it." });
+  tab(W, T.oauthWk());
+  S.step({ cap: "This time Slack shows Allow. From here it's the same as W2.", chip: chip, how: WH.oauth });
+  return S.steps;
+});
+
+sc("W3", "Making a tour (Sam, anyone at Acme)", "week", function () {
+  var S = Seq(), W = S.W;
+  var chip = "sam@acme.com · anyone in Acme's Slack; no Layerpath account needed";
+  as(W, "sam", "slack");
+  W.home.sam = homeToday();
+  compose(W, "{@Layerpath} make a training tour from these", 3);
+  S.step({ st: "mix", cap: "Anyone in Acme's Slack can ask. Sam mentions Layerpath with three screenshots: no Connect step, no role check.", next: "send", chip: chip, how: "Live today: the mention. " + WH.agent });
+  var m = send(W);
+  var sm = buildTour(S, W, m.id, { st: "live", cap: "Today's flow runs unchanged: a one-line reply, then the tour builds live in one streamed message.", chip: chip, how: H.build }, TOURS.sam, { what: "training" });
+  var rm = finishCard(W, m.id, sm, TOURS.sam, "sam");
+  composeTh(W, "make it 4 steps, drop the pipeline step");
+  S.step({ st: "live", cap: "The ready line tags Sam and carries the tour's card. He asks for a change in the thread.", next: "th-send", focus: rm.id, chip: chip, how: WH.card });
+  var r = sendTh(W, "10:46 AM");
+  r.rx = ["eyes", "loading"];
+  var cm = rep(W, m.id, changeMsg("Rearranging the steps", "Moving the steps into place…", false, { time: "10:46 AM" }));
+  W.thr[m.id].status = "is rearranging the steps…";
+  S.step({ st: "live", cap: "The change runs in the same thread, with today's streamed progress.", focus: cm.id, chip: chip, how: "Live today: replies in the thread become changes (T2). To build: anyone in Acme's Slack can change any tour made there; no roles this week (W-R2)." });
+  cm.blocks[0].tasks[0].st = "complete";
+  W.thr[m.id].status = "";
+  r.rx = ["eyes", "clapper"];
+  rep(W, m.id, M("lp", { cont: true, time: "10:47 AM", text: "The tour is down to 4 steps: I removed \"Pick the pipeline stage\". The voiceover on the other steps still matches." }));
+  var four = TOURS.sam.steps.filter(function (x) { return x !== "Pick the pipeline stage"; });
+  updateCards(W, TOURS.sam.title, { n: 4, steps: four, asOf: "today at 10:47", flash: true });
+  S.step({ st: "live", cap: "Layerpath says what changed, and the card updates in place. He presses Make video.", next: "wo-video", focus: rm.id, chip: chip, how: "Live today: every card of the tour updates with `chat.update` (T2)." });
+  updateCards(W, TOURS.sam.title, { flash: false });
+  var vm = rep(W, m.id, changeMsg("Exporting a video", "Turning the tour into a video…", false, { time: "10:48 AM" }));
+  W.thr[m.id].status = "is exporting the video…";
+  S.step({ st: "live", cap: "The video export shows the same progress, and the video is posted in the thread.", focus: vm.id, chip: chip, how: "Live today: Make video (`tour_make_video`) and the video in the thread, as in T4." });
+  vm.blocks[0].tasks[0].st = "complete";
+  W.thr[m.id].status = "";
+  rep(W, m.id, M("lp", { cont: true, time: "10:50 AM", text: "Here's the video version. If this is for a hand-off, I can also give you a written step-by-step guide of the same tour.", blocks: [{ t: "lnk", text: "Download the video" }, ext(tourData(TOURS.sam), { t: "vfile", dur: "0:34" })] }));
+  S.frame(1500);
+  var t4 = ext(tourData(TOURS.sam), { steps: four, n: 4 });
+  as(W, "priya", "chrome");
+  BR(W).tabs = [T.acmeProjects({ beta: true, cards: [{ tour: t4, when: "Just now", by: "agent" }, { tour: tourData(TOURS.maya), when: "1d ago", by: "agent" }, { tour: tourData(TOURS.priya), when: "2d ago", by: "priya" }] })];
+  BR(W).active = 0;
+  S.step({ cap: "In Acme's Layerpath workspace, the tour shows Created by Layerpath Agent. With Slack on, the web app shows the beta bar.", copy: true, chip: "priya@acme.com · in Acme's Layerpath workspace", how: "To build (W-R3): tours made through Acme's install are made by \"Layerpath Agent\" in Acme's workspace, not as each person; acting as each person comes after this week (P1). " + WH.beta });
+  return S.steps;
+});
+
+sc("W4", "Another company, or a guest", "week", function () {
+  var S = Seq(), W = S.W;
+  var chip = "tom@globex.com · Globex, in Acme's Slack Connect channel";
+  as(W, "tom", "slack");
+  goView(W, { k: "ch", id: "shared-globex" });
+  compose(W, "{@Layerpath} can you make a tour from these?", 3);
+  S.step({ cap: "Tom works at Globex. In #shared-globex, a Slack Connect channel Acme shares with Globex, he mentions Layerpath.", next: "send", chip: chip, how: "Live today: the mention. To build: the agent checks who's asking first (from P7)." });
+  var m = send(W);
+  rep(W, m.id, M("lp", { only: "tom", text: "Layerpath here is set up for Acme. To make tours for your own team, ask us for an install link at layerpath.com." }));
+  S.step({ cap: "Layerpath replies only to him: it's set up for Acme, and Globex can ask us for its own install link.", copy: true, chip: chip, how: "To build: the event's `user_team` isn't the install's team (Slack Connect), so nothing is made, and Acme's tours are never shown. layerpath.com leads to the waitlist (W1). After this week the reply offers Add to Slack on the website instead (P7)." });
+  as(W, "lena", "slack");
+  compose(W, "{@Layerpath} make a tour from these", 3);
+  S.step({ cap: "Lena is a single-channel guest in Acme's Slack, and she mentions Layerpath too.", next: "send", how: "Live today: the mention (from P6)." });
+  var m2 = send(W);
+  rep(W, m2.id, M("lp", { only: "lena", text: "Layerpath isn't available to guests in Acme's Slack." }));
+  S.step({ cap: "Guests get a private reply, and nothing is made.", copy: true, how: "To build: `users.info` `is_restricted` or `is_ultra_restricted` means a guest. Bots are ignored. Everyone else in Acme's Slack goes straight through (W3)." });
+  return S.steps;
+});
+
+sc("W5", "Already connected", "week", function () {
+  var S = Seq(), W = S.W; W.installed = false;
+  var chip = "priya@acme.com · Acme's Slack is already connected to the Globex workspace";
+  as(W, "priya", "chrome"); BR(W).tabs = [T.oauthWk()];
+  S.step({ cap: "Suppose Acme's Slack was connected earlier to a Layerpath workspace called Globex. Priya opens the install link and presses Allow.", next: "oa-allow", chip: chip, how: WH.oauth });
+  navTab(W, T.cwWk({ sel: 0 }));
+  S.step({ cap: "She's already signed in, so Layerpath goes straight to the workspace choice. She picks Acme and presses Connect.", next: "cw-connect", copy: true, chip: chip, how: "To build: she's signed in, so the callback goes straight to `/integrations/slack/connect-workspace` (W2)." });
+  setPage(W, { mode: "wkLinked" });
+  S.step({ cap: "Layerpath stops: one Slack workspace connects to one Layerpath workspace, and it says how to move it.", copy: true, chip: chip, how: "To build: `SlackInstallation.slackTeamId` is unique, so an ACTIVE install for Acme's Slack on another workspace isn't replaced. Removing it is in Slack's app settings this week (W6); Disconnect inside Layerpath comes after this week (from A5)." });
+  navTab(W, T.doneWk()); W.installed = true;
+  S.step({ cap: "Other result: installing again into the workspace it's already connected to just refreshes it, and she gets the done page.", copy: true, chip: "priya@acme.com · installing again into the same workspace", how: "To build: the same Slack workspace and the same Layerpath workspace: the install and its bot token are updated in place." });
+  return S.steps;
+});
+
+sc("W6", "Removing it", "week", function () {
+  var S = Seq(), W = S.W;
+  as(W, "priya", "chrome"); BR(W).tabs = [T.slackApps()];
+  S.step({ cap: "Acme removes Layerpath in Slack's own app settings: Priya opens Layerpath there and presses Remove App.", next: "sl-remove", chip: "priya@acme.com · added Layerpath to Acme's Slack", how: "Drawn by Slack, generically (its real page has more on it). Removing an app is Slack's own, for a Slack admin or whoever installed it; Slack then sends `app_uninstalled` and `tokens_revoked` (from L3)." });
+  W.installed = false;
+  var t4 = ext(tourData(TOURS.sam), { steps: TOURS.sam.steps.filter(function (x) { return x !== "Pick the pipeline stage"; }), n: 4 });
+  navTab(W, T.acmeProjects({ cards: [{ tour: t4, when: "1h ago", by: "agent" }, { tour: tourData(TOURS.maya), when: "1d ago", by: "agent" }, { tour: tourData(TOURS.priya), when: "2d ago", by: "priya" }] }));
+  S.step({ cap: "We clean up: no more tours from Acme's Slack. The tours made there stay in Acme's Layerpath workspace.", copy: true, chip: "priya@acme.com · in Acme's Layerpath workspace", how: "To build: on `app_uninstalled` or `tokens_revoked` the install is revoked and its bot token deleted, so nothing more comes from Acme's Slack; projects aren't touched. With Slack off, and no ChatGPT or Claude, the beta bar goes too (W-R7). A Disconnect button inside Layerpath comes after this week (L3)." });
+  intelView(W, [["10:31 AM", INTEL.install], ["11:12 AM", INTEL.remove]]);
+  S.step({ cap: "#customer-intel gets an alert that Acme removed it. To add it back, Priya runs the install link again (W2).", copy: true, how: WH.intel });
+  return S.steps;
+});
+
+/* ---------------- This week · ChatGPT and Claude ---------------- */
+sc("W7", "Connect and sign in (Sam)", "week", function () {
+  var S = Seq(), W = S.W;
+  var chip = "sam@acme.com · paid ChatGPT plan; in Acme's Layerpath workspace";
+  gptStart(W, "sam", [T.gpt({ user: "sam", modal: { kind: "form", title: "New connector", fields: [["Name", "Layerpath"], ["MCP server URL", "https://agent.layerpath.com/mcp"], ["Authentication", "OAuth"]], btn: "Create", k: "gp-create" } })]);
+  S.step({ cap: "Until OpenAI publishes Layerpath, Sam adds it by its link in ChatGPT's developer mode, and presses Create.", next: "gp-create", chip: chip, how: GPTW.dev });
+  curPage(W).modal = { state: "connect" };
+  S.step({ cap: "ChatGPT shows its connect screen for Layerpath, and he presses Connect.", next: "gp-connect", copy: true, chip: chip, how: GPTW.connect + " The words in it are our listing's, as in C1." });
+  tab(W, T.gptSignin({ banner: "Sign in with Layerpath" }));
+  S.step({ cap: "Connect opens Sign in with Layerpath in a new tab. Signing up works too, free plan included. He continues with Google.", next: "auth-google", copy: true, chip: chip, how: GPTW.signin });
+  navTab(W, T.google([GA.sam]));
+  S.step({ cap: "He picks sam@acme.com.", next: "g-acc-0", chip: chip, how: "Google's own screen; Layerpath's sign-in is unchanged." });
+  navTab(W, T.consentWk());
+  S.step({ cap: "Layerpath asks which workspace his tours go to, from every workspace he's in. He picks Acme.", next: "gc-ws0", copy: true, chip: chip, how: GPTW.pick });
+  setPage(W, { sel: 0 });
+  S.step({ cap: "With Acme picked, he presses Continue.", next: "gc-continue", copy: true, chip: chip, how: GPTW.cont });
+  navTab(W, T.hostDone("ChatGPT"));
+  S.step({ cap: "Layerpath says he's connected and sends him back to ChatGPT.", next: "ctab:0", copy: true, chip: chip, how: GPTW.done });
+  var b = BR(W); b.active = 0;
+  var p = b.tabs[0].page;
+  p.modal = null; p.toast = "Layerpath is connected";
+  p.items = [{ k: "tool", text: "Called Layerpath" }];
+  p.full = { tab: "home", recent: [tourData(TOURS.sam), tourData(TOURS.maya), tourData(TOURS.pitch), tourData(TOURS.report)] };
+  S.step({ st: "mix", cap: "Back in ChatGPT, Layerpath's studio opens on Home, with Acme's tours. From now on his tours are made as Sam, in Acme.", chip: "sam@acme.com · ChatGPT connected to Acme", how: GPTW.home });
+  intelView(W, [["10:31 AM", INTEL.install], ["11:20 AM", INTEL.gpt]]);
+  S.step({ cap: "#customer-intel gets an alert: who connected ChatGPT, and to which workspace.", copy: true, how: WH.intel });
+  W.gpt = true; as(W, "sam", "chrome");
+  var cb = BR(W);
+  cb.tabs = [T.claude({ view: "plugins", modal: { kind: "form", title: "Add custom connector", fields: [["Name", "Layerpath"], ["Remote MCP server URL", "https://agent.layerpath.com/mcp"]], btn: "Add", k: "cl-add" } })];
+  cb.active = 0;
+  S.step({ anchor: "claude", cap: "In Claude it's the same: under Settings, Connectors, Sam adds Layerpath as a custom connector.", next: "cl-add", chip: "sam@acme.com · in Claude", how: GPTW.claude });
+  tab(W, T.hostDone("Claude"));
+  S.step({ cap: "Connect opens the same Sign in with Layerpath and workspace choice, then sends him back to Claude. #customer-intel gets the same alert, naming Claude.", copy: true, chip: "sam@acme.com · Claude connected to Acme", how: GPTW.claudeDone });
+  return S.steps;
+});
+
+sc("W8", "Signed out or expired", "week", function () {
+  var S = Seq(), W = S.W;
+  var chip = "sam@acme.com · connected ChatGPT last week; the sign-in has expired";
+  gptStart(W, "sam", [T.gpt({ user: "sam" })]);
+  var p = curPage(W);
+  p.items.push({ k: "user", text: "@Layerpath show my tours" }, { k: "tool", text: "Called Layerpath" }, clone(SAMPLE_RELINK));
+  S.step({ cap: "Sam asks Layerpath for his tours, but his sign-in has expired. Layerpath says so, with ChatGPT's own Reconnect button.", next: "gp-relink", copy: true, chip: chip, how: GPTW.relink });
+  tab(W, T.gptSignin({ banner: "Sign in with Layerpath" }));
+  S.step({ cap: "Reconnect opens Sign in with Layerpath again, and he signs in with Google.", next: "auth-google", copy: true, chip: chip, how: GPTW.resign });
+  navTab(W, T.consentWk({ sel: 0 }));
+  S.step({ cap: "He picks Acme again and presses Continue.", next: "gc-continue", copy: true, chip: chip, how: GPTW.repick });
+  navTab(W, T.hostDone("ChatGPT"));
+  S.step({ cap: "He's connected again and goes back to ChatGPT.", next: "ctab:0", copy: true, chip: chip, how: GPTW.done });
+  BR(W).active = 0;
+  p.items[2] = { k: "w", w: { kind: "car", tours: [tourData(TOURS.sam), tourData(TOURS.maya), tourData(TOURS.pitch)] } };
+  p.items.push({ k: "bot", text: "Here are your latest tours in Acme. Which one should I open?" });
+  S.step({ st: "mix", cap: "Back in ChatGPT, his request carries on, with his tours in Acme.", chip: "sam@acme.com · connected again", how: GPTW.carry });
+  var cb = BR(W);
+  cb.tabs = [T.claude({ items: [{ k: "user", text: "show my Layerpath tours" }, { k: "tool", text: "Called Layerpath" }, clone(SAMPLE_RELINK)] })];
+  cb.active = 0;
+  S.step({ cap: "In Claude it's the same: Layerpath's line, with Claude's own button.", copy: true, chip: "sam@acme.com · in Claude; the sign-in has expired", how: GPTW.claudeRelink });
+  return S.steps;
+});
+
+sc("W9", "Free plan during the beta", "week", function () {
+  var S = Seq(), W = S.W;
+  var td = tourData(TOURS.nina);
+  var old = [[TOURS.nina1, "3d ago"], [TOURS.nina2, "1w ago"], [TOURS.nina3, "2w ago"]].map(function (x) { return { tour: tourData(x[0]), when: x[1], by: "nina" }; });
+  var chip = "nina@brightdesk.io · Free, with 3 tours published from the web app";
+  gptStart(W, "nina", [T.gpt({ user: "nina" }), T.lpProjects({ cards: old, beta: true })]);
+  BR(W).active = 1;
+  S.step({ cap: "Nina's workspace is on Free and has 3 published tours, the Free plan's limit. ChatGPT is on for it, so the web app shows the beta bar. She goes back to ChatGPT.", next: "ctab:0", copy: true, chip: chip, how: WH.beta + " The limit of 3 published tours on Free is today's (`publishedProjectSlots.ts`)." });
+  BR(W).active = 0;
+  var p = curPage(W);
+  p.items = [{ k: "user", text: "@Layerpath make a tour of our sign-up flow" }, { k: "tool", text: "Called Layerpath" }, { k: "w", w: { kind: "add" } }, { k: "bot", text: "Attach screenshots or a screen recording of the sign-up flow here, or paste a Loom or YouTube link, and Layerpath makes the tour. You can also open the studio and upload there." }];
+  S.step({ st: "live", cap: "She asks Layerpath for a tour of her sign-up flow. With nothing attached, the card asks for her screens, and she opens the studio.", next: "w-studio", chip: chip, how: "Live today, as in C3: create_tour with no files or link answers with the studio's Add your screens card; the words under it are ChatGPT's." });
+  p.full = { tab: "home", recent: old.map(function (c) { return c.tour; }), files: ["signup-1.png", "signup-2.png", "signup-3.png", "signup-4.png"] };
+  S.step({ st: "mix", cap: "On the studio's Home she picks four screenshots and presses Create tour.", next: "st-create", chip: chip, how: "Live today: the studio's Home and `start_tour_from_upload` (C3). To build: Recent tours shows her own workspace's tours (W-R4)." });
+  p.full = { tab: "editor", tour: td, status: "creating", stage: 0, shown: 0, stageText: "Reading your material" };
+  S.step({ st: "live", cap: "The Editor shows the tour being made: the steps arrive, then the callouts.", chip: chip, how: "Live today: the Editor reads `get_tour_status` every 5 s (C3)." });
+  p.full = { tab: "editor", tour: td, status: "creating", stage: 0, shown: 4, stageText: "Writing callouts" };
+  S.frame(1300);
+  p.full = { tab: "editor", tour: td, status: "creating", stage: 2, shown: 4, stageText: "Finalizing", callout: true };
+  S.frame(1300);
+  p.full = { tab: "editor", tour: td, status: "ready", shown: 4, callout: true, readyNote: true };
+  S.step({ st: "live", cap: "The tour is ready, and she closes full screen.", next: "gpt-close", chip: chip, how: "Live today: the ready Editor (C3)." });
+  p.full = null;
+  p.items[2] = { k: "w", w: { kind: "card", tour: td, status: "ready" } };
+  p.items.push({ k: "bot", text: "Your tour of the sign-up flow is ready. Ask here for any change, like shorter callouts or a voiceover." });
+  S.step({ cap: "It's her 4th published tour, and it stays published with no limit message: during the beta, tours made from ChatGPT don't count toward Free's 3. She opens her Layerpath tab.", next: "ctab:1", chip: "nina@brightdesk.io · Free, 4 published tours", how: WH.free });
+  BR(W).active = 1;
+  setPage(W, { cards: [{ tour: td, when: "Just now", by: "nina" }].concat(old) });
+  S.step({ cap: "In Layerpath, all 4 tours are there, under the beta bar.", copy: true, chip: "nina@brightdesk.io · Free, 4 published tours", how: WH.beta });
+  return S.steps;
+});
+
 /* ---------------- Later (spec section 9) ---------------- */
 function sk(o) { return ext({ t: "sketch" }, o); }
 function laterStep(S, n, meta) { S.step(ext({ later: true, how: H.later(n) }, meta)); }
@@ -2317,27 +2744,54 @@ sc("LT6", "Free agent seats", "later", function () {
   laterStep(S, 6, { cap: "Free agent seats for Slack users on Free are a decision still to make." });
   return S.steps;
 });
-sc("LT7", "Slack Marketplace listing", "later", function () {
+/* Spec 9, item 7 moved to After this week by the 13 Oct plan. Item 8 (Claude) is in This week: W7, W8. */
+function awSk(o) { return sk(ext({ aw: true, tag: "After this week · sketch" }, o)); }
+sc("LT7", "Slack Marketplace submission", "after", function () {
   var S = Seq(), W = S.W;
   as(W, "priya", "chrome");
-  BR(W).tabs = [T.sketch(URLS.market, sk({ title: "Layerpath in the Slack Marketplace", lines: ["A public listing for the one Layerpath app.", "Moved up: on 12 Oct Vinay asked to submit Slack and ChatGPT by Fri 16 Oct. Slack's review is about a week, two at most (guess from the 12 Oct call)."], bars: true }))];
-  laterStep(S, 7, { cap: "Layerpath could be listed in the Slack Marketplace. Submitting it moved up to this week." });
-  setPage(W, { block: sk({ title: "Before a listing", lines: ["V1 moves the bot from Socket Mode to HTTP events and interactivity, which a listing requires (8.1): Slack doesn't allow Socket Mode apps in the Marketplace.", "Once the app is distributed, the tour playing in Slack's side panel needs Slack's embeds pilot (invite only). The card itself, Open tour and Make video don't."] }) });
-  laterStep(S, 7, { cap: "V1 already moves the bot to HTTP, which a listing requires; the side-panel player then needs Slack's pilot." });
+  BR(W).tabs = [T.sketch(URLS.market, awSk({ title: "Layerpath in the Slack Marketplace", lines: ["A public listing for the one Layerpath app, submitted once 10 workspaces use it. Slack won't take a submission before that, and the 10 must stay installed through review.", "Needed first: a privacy policy and a support page. Then Slack's review: up to 10 business days for the first look, and up to 10 weeks for a new app's full review."], bars: true }))];
+  S.step({ cap: "After this week, once 10 workspaces use Layerpath, it goes to the Slack Marketplace, with a privacy policy, a support page and Slack's review.", how: "The 13 Oct plan, After this week: the Marketplace submission once 10 workspaces are active. Slack's rules: docs.slack.dev, the Marketplace review guide and the 1 Sep 2026 changelog, seen 12 Oct 2026 (K1, decision 6). Moved here from Later. Only a sketch: not designed yet." });
+  setPage(W, { block: awSk({ title: "Before a listing", lines: ["The bot moves from Socket Mode to HTTP events and interactivity, which a listing requires (8.1): Slack doesn't allow Socket Mode apps in the Marketplace.", "Once the app is distributed, the tour playing in Slack's side panel needs Slack's embeds pilot (invite only). The card itself, Open tour and Make video don't."] }) });
+  S.step({ cap: "Before submitting, the bot moves to HTTP events, which a listing requires; the side-panel player then needs Slack's pilot.", how: "From the 2 Oct spec (8.1) and K1, decision 5." });
   return S.steps;
 });
-sc("LT8", "Claude, with the same sign-in", "later", function () {
-  var S = Seq(), W = S.W;
-  as(W, "nina", "chrome"); W.gpt = true;
-  BR(W).tabs = [{ fav: "lp", title: "Later sketch", url: "claude.ai/…/connectors", page: { kind: "sketch", block: sk({ title: "Layerpath in Claude", lines: ["The Claude connector runs today on the same agent, behind the same secret URL as ChatGPT's, with every tour in the one shared account.", "Later: the same Layerpath sign-in as ChatGPT (C1, C2), so tours go to each person's own workspace. Not now: \"not doing it for Claude now\" (12 Oct call), though Vinay's 12 Oct message said all three integrations."], bars: true }) } }];
-  S.step({ later: true, cap: "Claude could use the same sign-in as ChatGPT. Not in this week's submission (12 Oct call).", how: "Not in the 2 Oct spec: added 12 Oct. The OAuth server built for ChatGPT (C1, C2) is the same one Claude's connector would use; Claude's connector directory has its own review." });
-  return S.steps;
+
+/* ============================================================
+   The menu (13 Oct): This week first, then live today, After this week, Later.
+   Scenarios left out of it were redrawn for this week (REL); their codes still open them,
+   with a link to the new version, and Next goes on to it.
+   ============================================================ */
+var MENU = [
+  { id: "start", title: "Start here", subs: [[null, ["W0", "G1", "K1"]]] },
+  { id: "week", title: "This week (by Fri 16 Oct)", cls: "wk", subs: [["Slack", ["W1", "W2", "W2b", "W3", "W4", "W5", "W6"]], ["ChatGPT and Claude", ["W7", "W8", "W9"]]] },
+  { id: "today", title: "Slack · live today", subs: [[null, ["T1", "T2", "T3", "T4"]]] },
+  { id: "after", title: "After this week", cls: "aw", subs: [["Slack · admin install", ["A1", "A2"]], ["Slack · people", ["P1", "P2", "P3", "P4", "P5"]], ["Slack · day to day", ["D2"]], ["Slack · leaving", ["L1", "L2", "L3"]], ["ChatGPT", ["C4", "C5", "C7"]], ["Slack Marketplace", ["LT7"]]] },
+  { id: "later", title: "Later (not in V1)", cls: "lt", subs: [[null, ["LT1", "LT2", "LT3", "LT4", "LT5", "LT6"]]] }
+];
+/* Which 2 Oct scenarios each This week scenario was redrawn from (the plan's mapping table) */
+var REL = { W1: ["A2"], W2: ["A2", "A4"], W2b: ["A3"], W3: ["D1"], W4: ["P6", "P7"], W5: ["A5"], W6: ["L3"], W7: ["C1", "C2"], W8: ["C6"], W9: ["C3", "D3"] };
+var REPL = {};
+Object.keys(REL).forEach(function (w) { REL[w].forEach(function (o) { (REPL[o] = REPL[o] || []).push(w); }); });
+/* Codes that no longer have a scenario of their own: [code, step anchor] */
+var ALIAS = { LT8: ["W7", "claude"] };
+function byCode(c) { c = String(c).toUpperCase(); return SCEN.filter(function (s) { return s.code.toUpperCase() === c; })[0] || null; }
+var SEQ = [], MENU_MISSING = [];
+MENU.forEach(function (g) {
+  g.subs.forEach(function (sub) {
+    sub[1].forEach(function (c) {
+      var s = byCode(c);
+      if (!s) { MENU_MISSING.push(c); return; }
+      s.group = g.id; s.listed = true; SEQ.push(s);
+    });
+  });
 });
 
 /* ============================================================
    Rendering: Slack
    ============================================================ */
 var UI = { oaOpen: { v1: true }, planClosed: false, front: null };
+var HOST = "Acme";     /* whose install of the bot is in view (W.host): Acme's, or ours in our own Slack */
+var HOSTN = "ChatGPT"; /* which chat app is drawn: ChatGPT or Claude */
 function vis(m, viewer) { return !m.only || m.only === viewer; }
 function avatar(key, size) {
   size = size || 36;
@@ -2349,12 +2803,12 @@ function avatar(key, size) {
 }
 function actor(from, viewer) {
   var vt = teamOf(viewer);
-  if (from === "lp") return { name: "Layerpath", bot: true, ext: vt !== "Acme" ? "Acme" : "" };
+  if (from === "lp") return { name: "Layerpath", bot: true, ext: vt !== HOST ? HOST : "" };
   if (from === "slackbot") return { name: "Slackbot", bot: false };
   var t = teamOf(from);
   return { name: P[from].name, bot: false, ext: t !== vt ? t : "" };
 }
-function orgColor(o) { return o === "Globex" ? "#0f766e" : "#9a3412"; }
+function orgColor(o) { return o === "Globex" ? "#0f766e" : o === "Layerpath" ? "#181F1C" : "#9a3412"; }
 function shots(n) { var h = ""; for (var i = 0; i < n; i++) h += '<span class="shot s' + (i + 1) + '"><b></b><i></i><i></i><i></i><u></u></span>'; return h; }
 function findMsg(W, id) { for (var c in W.chan) { var l = W.chan[c]; for (var i = 0; i < l.length; i++) if (l[i].id === id) return l[i]; } return null; }
 function replyCount(W, id) { var t = W.thr[id]; return t ? t.replies.filter(function (r) { return !r.only; }).length : 0; }
@@ -2390,7 +2844,7 @@ function blockHTML(b) {
     case "pic": return picHTML(b);
     case "tours": return toursHTML(b);
     case "vfile": return '<div class="vf"><div class="vt">' + esc(b.title) + " (video) " + I.caret + '</div><div class="vb">' + cover16(b) + '<span class="pl">&#9654; ' + esc(b.dur) + "</span></div></div>";
-    case "lnk": return '<div class="m-text"><a class="lnk" style="text-decoration:underline">' + esc(b.text) + "</a></div>";
+    case "lnk": return '<div class="m-text">' + (b.pre ? md(b.pre) + " " : "") + (b.k ? '<span class="lnk' + nx(b.k) + '"' + dk(b.k) + ' role="link" style="text-decoration:underline;cursor:pointer">' + esc(b.text) + "</span>" : '<a class="lnk" style="text-decoration:underline">' + esc(b.text) + "</a>") + "</div>";
   }
   return "";
 }
@@ -2499,7 +2953,7 @@ function videoHTML(b) {
   return '<div class="bk-video"><div class="v-desc">' + esc(b.desc) + '</div><div class="v-title"><span>' + esc(b.title) + "</span>" + I.caret + "</div>" + th + "</div>";
 }
 function sketchHTML(b) {
-  var h = '<div class="sketch"><div class="sk-tag">Later, not in V1 · sketch</div>';
+  var h = '<div class="sketch' + (b.aw ? " aw" : "") + '"><div class="sk-tag">' + esc(b.tag || "Later, not in V1 · sketch") + "</div>";
   if (b.title) h += '<div class="sk-t">' + esc(b.title) + "</div>";
   (b.lines || []).forEach(function (l) { h += '<div class="sk-l">' + md(l) + "</div>"; });
   (b.opts || []).forEach(function (o) { h += '<div class="sk-o"><span class="sk-r' + (o.sq ? " sq" : "") + (o.on ? " on" : "") + '"></span><span>' + esc(o.label) + "</span></div>"; });
@@ -2522,22 +2976,22 @@ function sideHTML(W, u, cfg) {
   var h = '<div class="sd-head"><span class="sd-ws">' + esc(cfg.ws) + I.chev + '</span><span class="sd-cmp">' + I.compose + '</span></div><div class="sd-scroll">';
   h += '<div class="sd-i">' + I.dms + '<span class="lbl">Threads</span></div><div class="sd-i">' + I.people + '<span class="lbl">Huddles</span></div><div class="sd-i">' + I.send + '<span class="lbl">Drafts &amp; sent</span></div>';
   h += '<div class="sd-sec">' + I.caret + "Channels</div>";
-  cfg.chans.forEach(function (c) { h += item("ch:" + c, c === "shared-globex" ? I.shared : I.hash, esc(c)); });
+  cfg.chans.forEach(function (c) { h += item("ch:" + c, CHI[c] && CHI[c].orgs ? I.shared : I.hash, esc(c)); });
   h += '<div class="sd-sec">' + I.caret + "Direct messages</div>";
   cfg.dms.forEach(function (d) {
     if (d === "slackbot") h += item("dm:slackbot", avatar("slackbot", 18), "Slackbot");
     else h += item("dm:" + d, avatar(d, 18), esc(P[d].name) + (d === W.as ? ' <span class="you">you</span>' : "") + (d === W.as && cfg.guest ? ' <span class="gst">guest</span>' : ""));
   });
-  if (cfg.apps && W.installed) { h += '<div class="sd-sec">' + I.caret + "Apps</div>" + item("app", avatar("lp", 18), "Layerpath"); }
+  if (cfg.apps && (W.installed || cfg.internal)) { h += '<div class="sd-sec">' + I.caret + "Apps</div>" + item("app", avatar("lp", 18), "Layerpath"); }
   return h + "</div>";
 }
 function channelHTML(W, u, id) {
-  var shared = id === "shared-globex";
+  var ci = CHI[id] || {}, shared = !!ci.orgs;
   var list = (W.chan[id] || []).filter(function (m) { return vis(m, W.as); });
-  var mem = { "general": 58, "customer-training": 24, "shared-globex": 9 }[id] || 12;
-  var stackKeys = shared ? ["priya", "tom", "sam"] : ["priya", "sam", "maya"];
+  var mem = ci.mem || 12;
+  var stackKeys = ci.stack || ["priya", "sam", "maya"];
   var h = '<div class="ch-head"><div class="ch-title">' + (shared ? I.shared : I.hash) + "<span>" + esc(id) + '</span><span class="chev">' + I.chev + '</span></div><div class="ch-r">';
-  if (shared) h += '<span class="orgs" title="Acme and Globex"><i style="background:#9a3412">A</i><i style="background:#0f766e">G</i></span>';
+  if (shared) h += '<span class="orgs" title="' + esc(ci.title) + '">' + ci.orgs.map(function (o) { return '<i style="background:' + o[1] + '">' + o[0] + "</i>"; }).join("") + "</span>";
   h += '<span class="ch-mem"><span class="stack">' + stackKeys.map(function (k) { return avatar(k, 20); }).join("") + "</span>" + mem + "</span></div></div>";
   h += '<div class="ch-tabs"><span class="on">' + I.dms + "Messages</span><span>" + I.files + "Files</span><span>" + I.plus + "</span></div>";
   h += '<div class="msgs" data-scroll="bottom"><div class="day"><span>Today</span></div>' + list.map(function (m) { return msgHTML(m, { viewer: W.as, replies: replyCount(W, m.id) }); }).join("") + "</div>";
@@ -2570,7 +3024,7 @@ function modalHTML(mo) {
   return '<div class="smod-back"><div class="smod" role="dialog"><div class="smod-h"><span>' + esc(mo.title) + '</span><span class="x">' + I.x + '</span></div><div class="smod-b">' + md(mo.text) + '</div><div class="smod-f"><button type="button" class="bk-btn">Cancel</button><button type="button" class="bk-btn ' + (mo.style || "primary") + nx(mo.k) + '"' + dk(mo.k) + ">" + esc(mo.confirm) + "</button></div></div></div>";
 }
 function slackHTML(W) {
-  var who = W.as, u = W.ui[who] || U(W, who), cfg = cfgFor(who), v = u.view;
+  var who = W.as, u = W.ui[who] || U(W, who), cfg = cfgOf(W, who), v = u.view;
   var main = v.k === "app" ? appHTML(W, u) : v.k === "dm" ? dmHTML(W, v.id) : channelHTML(W, u, v.id);
   var thread = v.k === "ch" && u.thread && u.threadCh === v.id ? threadHTML(W, u) : "";
   var panel = u.panel ? panelHTML(u.panel, !!thread) : "";
@@ -2670,7 +3124,8 @@ function pageHTML(p) {
     case "done": return doneHTML(p);
     case "conn": return connHTML(p);
     case "invite": return inviteHTML(p);
-    case "web": return webHTML();
+    case "web": return webHTML(p);
+    case "slackapp": return slackAppHTML(p);
     case "sketch": return '<div class="skpage">' + sketchHTML(p.block) + "</div>";
   }
   return "";
@@ -2682,7 +3137,7 @@ function lpShell(inner, p, active) {
   return '<div class="lp lpd"><aside class="lps"><div class="lps-box"><div style="padding:4px 4px 0">' + LPFULL + '</div><div class="lps-ws"><span class="lps-wsav">' + esc(p.wsInit || "A") + '</span><div class="lps-wsn"><b>' + esc(p.ws || "Acme") + "</b><small>" + esc(p.plan || "Team") + "</small></div>" + I.updown + "</div></div>" +
     '<div class="lps-nav">' + nav.map(function (n) { return '<div class="lps-i' + (active === n[0] ? " on" : "") + '">' + n[2] + "<span>" + n[1] + "</span></div>"; }).join("") + "</div>" +
     '<div class="lps-foot"><div class="lps-i' + (active === "settings" ? " on" : "") + '">' + I.gear + '<span>Settings</span></div><div class="lps-user">' + lpAv(p.user || "priya") + "<div><b>" + esc(u.name) + "</b><small>" + esc(lpEmail(p.user || "priya")) + "</small></div></div></div></aside>" +
-    '<main class="lpm"><div class="lpm-top"></div><div class="lpm-c">' + inner + "</div></main>" + (p.dialog ? lpDialogHTML(p.dialog) : "") + "</div>";
+    '<main class="lpm"><div class="lpm-top">' + (p.beta ? '<div class="beta-bar" role="status">' + I.info + "<span>" + esc(BETA_BAR) + "</span></div>" : "") + '</div><div class="lpm-c">' + inner + "</div></main>" + (p.dialog ? lpDialogHTML(p.dialog) : "") + "</div>";
 }
 function settingsHTML(p) {
   var tabs = [["general", "General"], ["members", "Members"], ["integrations", "Integrations"], ["plan", "Plan"], ["domain", "Custom domain"]];
@@ -2764,7 +3219,9 @@ function oauthHTML(p) {
   var ws = p.ws || "Acme", wcol = ws === "Acme" ? "#9a3412" : "#0f766e";
   function grp(g) {
     var open = !!UI.oaOpen[g.id];
-    return '<div class="oa-g"><div class="oa-gh" data-ui="oa:' + g.id + '"><span class="gi">' + g.icon + "</span><span>" + esc(g.t) + '</span><span class="chev' + (open ? " up" : "") + '">' + I.chev + "</span></div>" + (open ? '<div class="oa-gr">' + g.rows.map(function (r) { return "<div>" + esc(r) + "</div>"; }).join("") + "</div>" : "") + "</div>";
+    /* This week asks for today's scopes only: no users:read.email */
+    var rows = p.noEmail ? g.rows.filter(function (r) { return r.indexOf("email addresses") < 0; }) : g.rows;
+    return '<div class="oa-g"><div class="oa-gh" data-ui="oa:' + g.id + '"><span class="gi">' + g.icon + "</span><span>" + esc(g.t) + '</span><span class="chev' + (open ? " up" : "") + '">' + I.chev + "</span></div>" + (open ? '<div class="oa-gr">' + rows.map(function (r) { return "<div>" + esc(r) + "</div>"; }).join("") + "</div>" : "") + "</div>";
   }
   var foot;
   if (p.mode === "request") foot = '<div class="oa-req">' + I.info + "<span>An admin needs to approve this app before it can be installed in " + esc(ws) + '.</span></div><div class="oa-f"><button type="button" class="oa-btn">Cancel</button><button type="button" class="oa-btn go' + nx("oa-request") + '"' + dk("oa-request") + ">Request to install</button></div>";
@@ -2790,7 +3247,7 @@ function authForm(o) {
 }
 function authHTML(p) {
   var up = p.type === "signup";
-  var h = (p.banner ? '<div class="auth-banner">' + (p.icon === "gpt" ? GPT_LOGO : SLACK_LOGO) + "<span>" + esc(p.banner) + "</span></div>" : "") + LOGO_ROW +
+  var h = (p.banner ? '<div class="auth-banner">' + (p.icon === "gpt" ? GPT_LOGO : p.icon === "claude" ? CLAUDE_LOGO : SLACK_LOGO) + "<span>" + esc(p.banner) + "</span></div>" : "") + LOGO_ROW +
     "<h1" + (up ? ' class="lpa-h"' : "") + ">Create every product<br>walkthrough you'll need.</h1>" + (up ? "" : "<p class=\"sub\">Sign in to your Layerpath account.</p>") + authForm({ type: up ? "signup" : "signin", gk: "auth-google" }) +
     (up ? '<div class="auth-alt">Already have an account? <a>Sign in</a></div>' : '<div class="auth-alt">New to Layerpath? <a class="' + nx("auth-signup") + '"' + dk("auth-signup") + ">Sign up</a></div>");
   return lpWrap(h, true);
@@ -2802,21 +3259,31 @@ var GPLUG = [["Layerpath", "Interactive product tours from your screens", "lp"],
 function gptIco(c, name) { return c === "lp" ? LP_LOGO : '<span style="background:' + c + ';width:100%;height:100%;display:grid;place-items:center;font-size:18px">' + esc(name[0]) + "</span>"; }
 function gptText(t) { return esc(t).replace(/@Layerpath/g, '<span class="gp-at">@Layerpath</span>'); }
 function gptHTML(p) {
-  var who = P[p.user] || P.nina;
+  var who = P[p.user] || P.nina, cl = p.host === "claude";
+  /* Claude is drawn with the same generic chat screens, named and marked as Claude */
+  HOSTN = cl ? "Claude" : "ChatGPT";
   var chats = ["Q4 launch plan", "Onboarding emails", "Pricing page ideas", "Team offsite agenda"];
-  var side = '<aside class="gp-side"><div class="gp-logo">' + GPT_LOGO + '</div><div class="gp-si">' + I.compose + 'New chat</div><div class="gp-si">' + I.search + 'Search chats</div><div class="gp-si' + (p.view === "plugins" ? " on" : "") + '">' + I.grid + 'Plugins</div><div class="gp-sh">Chats</div>' + chats.map(function (c) { return '<div class="gp-sc">' + esc(c) + "</div>"; }).join("") + '<div class="gp-user"><span class="ua" style="background:' + who.col + '">' + esc(who.name[0]) + "</span><span>" + esc(who.name) + "</span></div></aside>";
+  var side = '<aside class="gp-side"><div class="gp-logo">' + (cl ? CLAUDE_LOGO : GPT_LOGO) + '</div><div class="gp-si">' + I.compose + 'New chat</div><div class="gp-si">' + I.search + 'Search chats</div><div class="gp-si' + (p.view === "plugins" ? " on" : "") + '">' + I.grid + (cl ? "Connectors" : "Plugins") + '</div><div class="gp-sh">Chats</div>' + chats.map(function (c) { return '<div class="gp-sc">' + esc(c) + "</div>"; }).join("") + '<div class="gp-user"><span class="ua" style="background:' + who.col + '">' + esc(who.name[0]) + "</span><span>" + esc(who.name) + "</span></div></aside>";
   var main = p.view === "plugins" ? pluginsHTML(p) : chatHTML(p);
-  return '<div class="gp">' + side + '<div class="gp-main"><span class="who gpt" style="right:12px;top:12px">Drawn by ChatGPT</span>' + main + "</div>" + (p.modal ? pluginModal(p.modal) : "") + (p.full ? fullHTML(p.full) : "") + (p.toast ? '<div class="gp-toast" role="status">' + I.check + esc(p.toast) + "</div>" : "") + "</div>";
+  var modal = p.modal ? (p.modal.kind === "form" ? formModal(p.modal) : pluginModal(p.modal)) : "";
+  return '<div class="gp">' + side + '<div class="gp-main"><span class="who gpt" style="right:12px;top:12px">Drawn by ' + HOSTN + "</span>" + main + "</div>" + modal + (p.full ? fullHTML(p.full) : "") + (p.toast ? '<div class="gp-toast" role="status">' + I.check + esc(p.toast) + "</div>" : "") + "</div>";
+}
+/* A host's own add-a-connector form (ChatGPT's developer mode, Claude's custom connector), drawn generically */
+function formModal(m) {
+  return '<div class="gp-mb"><span class="who gpt" style="right:12px;top:12px">Drawn by ' + HOSTN + '</span><div class="gp-m" role="dialog" aria-label="' + esc(m.title) + '"><span class="x">' + I.x + '</span><div class="nm">' + esc(m.title) + "</div>" +
+    m.fields.map(function (f) { return '<div class="gp-fl"><label>' + esc(f[0]) + '</label><div class="gp-in">' + esc(f[1]) + "</div></div>"; }).join("") +
+    '<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:18px"><button type="button" class="gp-cta ghost">Cancel</button><button type="button" class="gp-cta' + nx(m.k) + '"' + dk(m.k) + ">" + esc(m.btn) + "</button></div></div></div>";
 }
 function pluginsHTML(p) {
-  var list = p.q ? GPLUG.filter(function (x) { return x[0].toLowerCase().indexOf(p.q.toLowerCase()) === 0; }) : GPLUG;
-  return '<div class="gp-pl"><h1>Plugins</h1><div class="sub">Bring your tools into ChatGPT.</div><div class="gp-search">' + I.search + (p.q ? '<span class="v">' + esc(p.q) + "</span>" : "<span>Search plugins</span>") + '</div><div class="gp-cats"><span class="on">Featured</span><span>Productivity</span><span>Design</span><span>Developer tools</span></div><div class="gp-grid">' +
+  var cl = p.host === "claude";
+  var list = cl ? GPLUG.filter(function (x) { return x[2] !== "lp"; }) : p.q ? GPLUG.filter(function (x) { return x[0].toLowerCase().indexOf(p.q.toLowerCase()) === 0; }) : GPLUG;
+  return '<div class="gp-pl"><h1>' + (cl ? "Connectors" : "Plugins") + '</h1><div class="sub">' + (cl ? "Tools Claude can use." : "Bring your tools into ChatGPT.") + '</div><div class="gp-search">' + I.search + (p.q ? '<span class="v">' + esc(p.q) + "</span>" : "<span>" + (cl ? "Search connectors" : "Search plugins") + "</span>") + '</div><div class="gp-cats"><span class="on">Featured</span><span>Productivity</span><span>Design</span><span>Developer tools</span></div><div class="gp-grid">' +
     list.map(function (x) { var lp = x[2] === "lp"; return '<div class="gp-card' + (lp ? nx("gp-card-lp") : "") + '"' + (lp ? dk("gp-card-lp") : "") + '><span class="ico">' + gptIco(x[2], x[0]) + "</span><div><b>" + esc(x[0]) + "</b><small>" + esc(x[1]) + "</small></div></div>"; }).join("") + "</div></div>";
 }
 function pluginModal(m) {
   var on = m.state === "connected";
   var right = on ? '<span class="gp-ok">' + I.check + "Connected</span>" : '<button type="button" class="gp-cta' + nx("gp-connect") + '"' + dk("gp-connect") + ">Connect</button>";
-  return '<div class="gp-mb"><span class="who gpt" style="right:12px;top:12px">Drawn by ChatGPT</span><div class="gp-m" role="dialog" aria-label="Layerpath"><span class="x">' + I.x + '</span><div class="hd"><span class="ico">' + LP_LOGO + '</span><div><div class="nm">Layerpath</div><div class="by">By Layerpath</div></div><span class="sp"></span>' + right + "</div>" +
+  return '<div class="gp-mb"><span class="who gpt" style="right:12px;top:12px">Drawn by ' + HOSTN + '</span><div class="gp-m" role="dialog" aria-label="Layerpath"><span class="x">' + I.x + '</span><div class="hd"><span class="ico">' + LP_LOGO + '</span><div><div class="nm">Layerpath</div><div class="by">By Layerpath</div></div><span class="sp"></span>' + right + "</div>" +
     "<p>Make interactive product tours from screenshots, a screen recording, or a Loom or YouTube link. Change them by asking, and share one link.</p>" +
     '<div class="gp-shots"><div>' + mock({ v: 0, acc: "#0e7490" }) + "</div><div>" + cover16(tourData(TOURS.nina)) + "</div><div>" + mock({ v: 2, acc: "#0e7490" }) + "</div></div>" +
     "<h4>What it can do</h4><ul><li>Make a tour from your screens, or a Loom or YouTube link</li><li>Change a tour when you ask: shorter steps, another language, a voiceover</li><li>Share the tour's link, or export it as a video</li></ul>" +
@@ -2824,7 +3291,7 @@ function pluginModal(m) {
 }
 function chatHTML(p) {
   var body = p.items.length ? '<div class="gp-scroll" data-scroll="bottom"><div class="gp-col">' + p.items.map(gptItem).join("") + "</div></div>" : '<div class="gp-scroll"><div class="gp-hello">What can I help with?</div></div>';
-  return '<div class="gp-top">ChatGPT ' + I.chev + "</div>" + body + gptComposer(p);
+  return '<div class="gp-top">' + HOSTN + " " + I.chev + "</div>" + body + gptComposer(p);
 }
 function gptComposer(p) {
   var c = p.composer, has = !!(c && (c.text || c.at)), raw = !!(c && c.raw);
@@ -2838,7 +3305,8 @@ function gptItem(it) {
     case "bot": return '<div class="gp-a">' + it.text.split("\n\n").map(function (x) { return "<p>" + gptText(x) + "</p>"; }).join("") + "</div>";
     case "tool": return '<div class="gp-tool"><span class="ti">' + LP_LOGO + "</span><span>" + esc(it.text) + "</span></div>";
     case "w": return '<div class="gp-w"><span class="who lp" style="right:14px;top:-9px">Drawn by Layerpath</span>' + widgetHTML(it.w) + "</div>";
-    case "relink": return '<div class="gp-link"><span class="who gpt" style="right:14px;top:-9px">Drawn by ChatGPT</span><span class="ico">' + LP_LOGO + '</span><div class="w"><b>Connect Layerpath to continue</b><small>Your Layerpath account needs to be connected again.</small></div><button type="button" class="gp-cta' + nx("gp-relink") + '"' + dk("gp-relink") + ">Connect</button></div>";
+    /* it.text: our own line (this week), with the host's own button */
+    case "relink": return '<div class="gp-link"><span class="who gpt" style="right:14px;top:-9px">Drawn by ' + HOSTN + '</span><span class="ico">' + LP_LOGO + '</span><div class="w">' + (it.text ? "<b>" + esc(it.text) + "</b>" : "<b>Connect Layerpath to continue</b><small>Your Layerpath account needs to be connected again.</small>") + '</div><button type="button" class="gp-cta' + nx("gp-relink") + '"' + dk("gp-relink") + ">" + esc(it.btn || "Connect") + "</button></div>";
     case "long": return longAnswerHTML();
   }
   return "";
@@ -2862,11 +3330,19 @@ function widgetHTML(w) {
   return "";
 }
 function fullHTML(f) {
-  return '<div class="gp-full"><div class="gp-fh"><span class="x' + nx("gpt-close") + '"' + dk("gpt-close") + ' aria-label="Close" role="button">' + I.x + '</span><span class="an">' + LP_LOGO + 'Layerpath</span><span class="who gpt" style="right:12px;top:12px">Drawn by ChatGPT</span></div><div class="gp-fb"><span class="who lp" style="right:12px;bottom:12px">Drawn by Layerpath</span>' + studioHTML(f, false) + '</div><div class="gp-fc"><div class="gp-box"><span class="plus">' + I.plus + '</span><span class="ph">Ask anything</span><button type="button" class="gp-send off" aria-label="Send">' + I.up + "</button></div></div></div>";
+  return '<div class="gp-full"><div class="gp-fh"><span class="x' + nx("gpt-close") + '"' + dk("gpt-close") + ' aria-label="Close" role="button">' + I.x + '</span><span class="an">' + LP_LOGO + 'Layerpath</span><span class="who gpt" style="right:12px;top:12px">Drawn by ' + HOSTN + '</span></div><div class="gp-fb"><span class="who lp" style="right:12px;bottom:12px">Drawn by Layerpath</span>' + studioHTML(f, false) + '</div><div class="gp-fc"><div class="gp-box"><span class="plus">' + I.plus + '</span><span class="ph">Ask anything</span><button type="button" class="gp-send off" aria-label="Send">' + I.up + "</button></div></div></div>";
 }
 /* To build: Layerpath's consent page for ChatGPT (OAuth authorize), with the workspace pick */
 function consentHTML(p) {
   var u = GA[p.user] || GA.nina, multi = p.ws.length > 1;
+  if (p.mode === "wk") {
+    /* This week: the workspace choice only, then Continue (W7, W8) */
+    var w = '<div class="cs-pair"><span class="ai">' + LP_LOGO + '</span><span class="dots"><i></i><i></i><i></i></span><span class="ai">' + (p.host === "Claude" ? CLAUDE_LOGO : GPT_LOGO) + '</span></div><h1 class="lpa-h">Choose a workspace for your tours</h1>';
+    w += '<div class="cs-who"><span class="lpav2">' + esc(u.email[0]) + "</span><span>" + esc(u.email) + '</span><span class="sp"></span><a>Use another account</a></div>';
+    w += '<div class="cw-list">' + p.ws.map(function (x, i) { return '<div class="cw-opt' + (p.sel === i ? " on" : "") + nx("gc-ws" + i) + '"' + dk("gc-ws" + i) + '><span class="radio"></span><span>' + esc(x) + "</span></div>"; }).join("") + "</div>";
+    w += '<div class="cs-btns" style="margin-top:16px"><button type="button" class="sub-btn' + (p.sel < 0 ? " dim" : "") + nx("gc-continue") + '"' + dk("gc-continue") + ">Continue</button></div>";
+    return lpWrap(LOGO_ROW + w);
+  }
   var h = '<div class="cs-pair"><span class="ai">' + LP_LOGO + '</span><span class="dots"><i></i><i></i><i></i></span><span class="ai">' + GPT_LOGO + '</span></div><h1 class="lpa-h" style="margin-bottom:6px">Connect ChatGPT to Layerpath</h1><p class="lpa-p c">ChatGPT will make and change tours as you, in the workspace you pick.</p>';
   h += '<div class="cs-who"><span class="lpav2">' + esc(u.email[0]) + "</span><span>" + esc(u.email) + '</span><span class="sp"></span><a>Use another account</a></div>';
   if (multi) h += '<div class="cs-lbl">Workspace for the tours you make in ChatGPT</div><div class="cw-list">' + p.ws.map(function (w, i) { return '<div class="cw-opt' + (p.sel === i ? " on" : "") + nx("gc-ws" + i) + '"' + dk("gc-ws" + i) + '><span class="radio"></span><span>' + esc(w) + "</span></div>"; }).join("") + "</div>";
@@ -2883,7 +3359,18 @@ function googleHTML(p) {
 function cwHTML(p) {
   var opts = ["Acme · Team · 14 creator seats", "Priya's workspace · Personal · Free"];
   var body;
-  if (p.mode === "none" || p.mode === "create") {
+  /* This week (W2, W5): every workspace she's in, no role check, no seat counts */
+  if (p.mode === "wk") {
+    body = '<div class="cw-list">' + ["Acme · Team", "Priya's workspace · Free"].map(function (o, i) { return '<div class="cw-opt' + (p.sel === i ? " on" : "") + nx("cw-r" + i) + '"' + dk("cw-r" + i) + '><span class="radio"></span><span>' + esc(o) + "</span></div>"; }).join("") + "</div>" +
+      '<p class="lpa-note">Tours made in Acme\'s Slack will be saved here, with this workspace\'s brand memory.</p>' +
+      '<div class="lpa-btns"><button type="button" class="sub-btn' + (p.sel < 0 ? " dim" : "") + nx("cw-connect") + '"' + dk("cw-connect") + '>Connect</button><button type="button" class="ghost-btn">Cancel</button></div>';
+  } else if (p.mode === "wkNone" || p.mode === "wkCreate") {
+    body = '<p class="lpa-p">You don\'t have a Layerpath workspace yet.</p>' + (p.mode === "wkNone"
+      ? '<button type="button" class="sub-btn' + nx("cw-create") + '"' + dk("cw-create") + ">Create a workspace for Acme</button>"
+      : '<div class="inp v"><span class="ib">' + I.folder + "</span><span>Acme</span></div>" + '<button type="button" class="sub-btn' + nx("cw-create-connect") + '"' + dk("cw-create-connect") + ">Create and connect</button>");
+  } else if (p.mode === "wkLinked") {
+    body = '<div class="lpa-alert">Acme\'s Slack is already connected to the Globex workspace. Remove Layerpath from Slack first, then add it again.</div>';
+  } else if (p.mode === "none" || p.mode === "create") {
     body = '<p class="lpa-p">You\'re not an Owner or Admin of a workspace yet.</p>' + (p.mode === "none"
       ? '<button type="button" class="sub-btn' + nx("cw-create") + '"' + dk("cw-create") + ">Create a workspace for Acme</button>"
       : '<div class="inp v"><span class="ib">' + I.folder + "</span><span>Acme</span></div>" + '<button type="button" class="sub-btn' + nx("cw-create-connect") + '"' + dk("cw-create-connect") + ">Create and connect</button>");
@@ -2898,6 +3385,7 @@ function cwHTML(p) {
   return '<div style="position:relative;height:100%">' + lpWrap(LOGO_ROW + '<h1 class="lpa-h">Connect Acme\'s Slack to a Layerpath workspace</h1>' + body) + dlg + "</div>";
 }
 function doneHTML(p) {
+  if (p.wk) return lpWrap(LOGO_ROW + '<h1 class="lpa-h">Layerpath is in Acme\'s Slack ✓</h1><div class="lpa-box">Next: add @Layerpath to a channel with <code>/invite @Layerpath</code>, then mention it with screenshots, a Loom or a YouTube link.</div><div class="lpa-btns"><button type="button" class="sub-btn' + nx("done-open-slack") + '"' + dk("done-open-slack") + ">Open Slack</button></div>");
   return lpWrap(LOGO_ROW + '<h1 class="lpa-h">Layerpath is in Acme\'s Slack ✓</h1>' + (p.newWs ? '<p class="lpa-p">You\'re the only person in Acme so far. Invite your team in Members, or they can ask for access in Slack.</p>' : '<p class="lpa-p">We matched 2 of 3 people who can make tours to their Slack accounts by email. Others connect the first time they use it.</p>') +
     '<div class="lpa-box">Add @Layerpath to a channel: type <code>/invite @Layerpath</code> in it.</div><div class="lpa-btns"><button type="button" class="sub-btn' + nx("done-open-slack") + '"' + dk("done-open-slack") + '>Open Slack</button><button type="button" class="ghost-btn' + nx("done-back") + '"' + dk("done-back") + ">Back to Integrations</button></div>");
 }
@@ -2907,7 +3395,8 @@ function connHTML(p) {
   else if (p.mode === "ok") h = '<div class="okc">' + OKBIG + '</div><h1 class="lpa-h" style="margin-bottom:4px">You\'re connected.</h1><p class="lpa-p c">You can go back to Slack.</p><button type="button" class="sub-btn' + nx("sc-open-slack") + '"' + dk("sc-open-slack") + ">Open Slack</button>";
   else if (p.mode === "viewer") h = '<div class="okc">' + OKBIG + '</div><h1 class="lpa-h" style="margin-bottom:4px">You\'re connected.</h1><p class="lpa-p c">You\'re a Viewer in Acme, so you can watch tours but can\'t make them. Go back to Slack to ask to become an editor.</p><button type="button" class="sub-btn' + nx("sc-open-slack") + '"' + dk("sc-open-slack") + ">Open Slack</button>";
   else if (p.mode === "notin") h = '<h1 class="lpa-h sm">Connected, but this account isn\'t in Acme\'s workspace yet.</h1><button type="button" class="sub-btn' + nx("sc-ask") + '"' + dk("sc-ask") + ">Ask for access</button>";
-  else if (p.mode === "expired") h = '<h1 class="lpa-h sm" style="margin-bottom:4px">This link has expired.</h1><p class="lpa-p c">Go back to Slack and press Connect again.</p><button type="button" class="sub-btn' + nx("sc-open-slack") + '"' + dk("sc-open-slack") + ">Open Slack</button>";
+  else if (p.mode === "back") h = '<div class="okc">' + OKBIG + '</div><h1 class="lpa-h" style="margin-bottom:4px">You\'re connected.</h1><p class="lpa-p c">Go back to ' + esc(p.host || "ChatGPT") + ".</p>";
+  else if (p.mode === "expired") h ='<h1 class="lpa-h sm" style="margin-bottom:4px">This link has expired.</h1><p class="lpa-p c">Go back to Slack and press Connect again.</p><button type="button" class="sub-btn' + nx("sc-open-slack") + '"' + dk("sc-open-slack") + ">Open Slack</button>";
   else h = '<h1 class="lpa-h sm" style="margin-bottom:4px">This Slack account is connected to sam@acme.com.</h1><p class="lpa-p c">Disconnect it in Slack\'s Home tab first.</p><button type="button" class="sub-btn' + nx("sc-open-slack") + '"' + dk("sc-open-slack") + ">Open Slack</button>";
   return lpWrap(LOGO_ROW + h);
 }
@@ -2917,7 +3406,21 @@ function inviteHTML(p) {
     : '<div class="inv-card">' + authForm({ type: "signup", email: "dev@acme.com", pw: true, sk: "inv-signup" }) + "</div>";
   return '<div class="lp inv"><div class="inv-c"><span class="shine">' + LP_LOGO + "</span><h2>Welcome to Layerpath</h2><h1>Priya Shah has invited you to join the Acme</h1>" + card + "</div></div>";
 }
-function webHTML() {
+/* Slack's app settings for one app (W6), drawn generically with the OAuth page's parts */
+function slackAppHTML() {
+  return '<div class="oa"><div class="oa-top"><span class="oa-logo">' + SLACK_LOGO + '<span>slack</span></span><span class="oa-sw"><span class="wi" style="background:#9a3412">A</span><span><b>Acme</b><small>acme.slack.com</small></span>' + I.chev + "</span></div>" +
+    '<div class="oa-c"><div class="oa-ic"><span class="ai">' + LP_LOGO + "</span></div><h1>Layerpath</h1>" +
+    '<p style="text-align:center;color:#616061;margin:-6px 0 18px">Installed in Acme by Priya Shah</p>' +
+    '<h2>Remove app</h2><div class="oa-f" style="justify-content:flex-start;margin-top:8px"><button type="button" class="oa-btn danger' + nx("sl-remove") + '"' + dk("sl-remove") + ">Remove App</button></div></div></div>";
+}
+function webHTML(p) {
+  /* layerpath.com/agent#waitlist as on the site, 13 Oct 2026 (W1) */
+  if (p && p.wait) {
+    var fld = function (l, v) { return '<div class="lbl2">' + esc(l) + '</div><div class="inp v">' + esc(v) + "</div>"; };
+    return '<div class="web"><div class="web-nav">' + LPFULL + '</div><div class="web-hero" style="padding:34px 40px"><h1>Bring Agent to your team.</h1><p class="web-p" style="margin-bottom:18px">Join the waitlist for Layerpath Agent. Tell us what your team keeps explaining.</p><div class="web-wait">' +
+      fld("Name", "Tom Reed") + fld("Work email", "tom@globex.com") + fld("What would you use Agent for? (optional)", "Tours of our shipping app for new support hires") + fld("Website", "globex.com") +
+      '<button type="button" class="sub-btn' + nx("web-wait") + '"' + dk("web-wait") + '>Join the waitlist</button><div class="web-small">By joining, you agree to receive updates about Agent access.</div></div></div></div>';
+  }
   return '<div class="web"><div class="web-nav">' + LPFULL + '</div><div class="web-hero"><div class="web-pair"><span class="lpx">' + LP_LOGO + '</span><span class="plus">+</span><span class="b">' + SLACK_LOGO + '</span></div><h1>Layerpath for Slack</h1><p class="web-p">Make interactive tours from screenshots, a Loom or a YouTube link, right in Slack.</p>' + addToSlack("web-add") + "</div></div>";
 }
 
@@ -2991,6 +3494,7 @@ function draw(st, step, o) {
   var b = st.br[st.as] || BR(st, st.as);
   if (!st.ui[st.as]) U(st, st.as);
   var asChanged = LAST.as !== undefined && LAST.as !== st.as;
+  HOST = st.host || "Acme";
   CURGPT = !!st.gpt;
   desk.classList.toggle("gpt", CURGPT);
   winSlack.innerHTML = CURGPT ? "" : slackHTML(st);
@@ -3001,6 +3505,10 @@ function draw(st, step, o) {
   if (o.anim && !asChanged && LAST.tabs !== undefined && b.tabs.length > LAST.tabs) showNewTabTip();
   LAST = { as: st.as, front: st.front, tabs: b.tabs.length };
   desk.classList.toggle("later", !!step.later);
+  /* Our own Slack (#customer-intel) is marked as the Layerpath team's, with the same banner as Later */
+  var internal = !CURGPT && !step.later && !!cfgOf(st, st.as).internal;
+  desk.classList.toggle("internal", internal);
+  $("#laterBanner").textContent = internal ? "Layerpath team only" : "Later, not in V1";
   desk.querySelectorAll('[data-scroll="bottom"]').forEach(function (e) { e.scrollTop = e.scrollHeight; });
   desk.querySelectorAll('[data-scroll="top"]').forEach(function (e) { e.scrollTop = 0; });
   if (step.focus) focusMsg(step.focus);
@@ -3032,7 +3540,7 @@ function show(i, dir) {
     $("#panelBox").innerHTML = step.panel;
     $("#panelBox").scrollTop = 0;
     animate = false;
-    $("#persona").innerHTML = '<span><b>Overview</b> · Slack and ChatGPT</span>';
+    $("#persona").innerHTML = '<span><b>Overview</b> · Slack, ChatGPT and Claude</span>';
     $("#persona").title = "Overview";
     CURGPT = false; renderDock();
   } else draw(animate ? step.states[0] : step.states[step.states.length - 1], step, { anim: dir !== 0 });
@@ -3054,54 +3562,79 @@ function show(i, dir) {
   if (location.hash !== want) history.replaceState(null, "", want);
   $("#btnBack").disabled = i === 0;
   var last = i === CUR.steps.length - 1;
-  var idx = SCEN.indexOf(CUR.sc);
-  $("#btnNext").textContent = last ? (idx < SCEN.length - 1 ? "Next scenario" : "Done") : "Next";
-  $("#btnNext").disabled = last && idx === SCEN.length - 1;
+  var nxt = nextScenario();
+  $("#btnNext").textContent = last ? (nxt ? (CUR.sc.listed ? "Next scenario" : "Open " + nxt.code) : "Done") : "Next";
+  $("#btnNext").disabled = last && !nxt;
   $("#howBody").innerHTML = "<div>" + md(step.how || "No new build work in this step.") + "</div>";
   $("#sumCopy").innerHTML = step.copy ? '<span class="copyflag">Copy: Kripa to approve</span>' : "";
 }
+/* Next follows the menu; a 2 Oct scenario left out of it goes on to its This week version */
+function nextScenario() {
+  var s = CUR.sc;
+  if (!s.listed) { var r = REPL[s.code]; return r ? byCode(r[0]) : SEQ[0]; }
+  var i = SEQ.indexOf(s);
+  return i >= 0 && i < SEQ.length - 1 ? SEQ[i + 1] : null;
+}
 function next() {
   if (CUR.i < CUR.steps.length - 1) show(CUR.i + 1, 1);
-  else { var idx = SCEN.indexOf(CUR.sc); if (idx < SCEN.length - 1) openScenario(SCEN[idx + 1].code); }
+  else { var n = nextScenario(); if (n) openScenario(n.code); }
 }
 function back() { if (CUR.i > 0) show(CUR.i - 1, -1); }
 function buildSteps(s) { return s.build(CUR.opts[s.code] || {}); }
+/* A step is a number, or the name of a step's anchor (ALIAS) */
+function stepIndex(steps, at) {
+  if (typeof at === "string") { for (var j = 0; j < steps.length; j++) if (steps[j].anchor === at) return j; return 0; }
+  return Math.max(0, Math.min(at || 0, steps.length - 1));
+}
 function openScenario(code, keepStep) {
-  var s = SCEN.filter(function (x) { return x.code === code; })[0] || SCEN[0];
+  var s = byCode(code) || SEQ[0];
   CUR.sc = s;
   CUR.steps = buildSteps(s);
   UI.oaOpen = { v1: true }; UI.planClosed = false;
   LAST = {};
   renderRail(); renderHead();
-  show(keepStep != null ? Math.min(keepStep, CUR.steps.length - 1) : 0, 0);
+  show(keepStep != null ? stepIndex(CUR.steps, keepStep) : 0, 0);
 }
-var GROUPS = [["start", "Start here"], ["today", "Slack · live today"], ["admin", "Slack · admin install"], ["people", "Slack · people"], ["day", "Slack · day to day"], ["leaving", "Slack · leaving"], ["gpt", "ChatGPT"], ["later", "Later (not in V1)"]];
 var COUNTS = {}, SST = {};
 var SST_LABEL = { live: "Live today", build: "To build", mix: "Partly live: some steps live today, some to build", later: "Later, not in V1", info: "Overview" };
 function renderRail() {
   var h = "";
-  GROUPS.forEach(function (g) {
-    h += '<h4 class="' + (g[0] === "later" ? "lt" : g[0] === "gpt" ? "gpt-h" : "") + '">' + g[1] + "</h4>";
-    SCEN.filter(function (s) { return s.group === g[0]; }).forEach(function (s) {
-      var st = SST[s.code] || s.st;
-      h += '<a class="ri' + (s.group === "later" ? " lt" : "") + (CUR.sc === s ? " on" : "") + '" href="#' + s.code + '" data-sc="' + s.code + '"' + (CUR.sc === s ? ' aria-current="page"' : "") + '><span class="c">' + s.code + "</span><span>" + esc(s.title) + '</span><span class="sd ' + st + '" title="' + esc(SST_LABEL[st] || "") + '" aria-label="' + esc(SST_LABEL[st] || "") + '"></span><span class="n">' + (s.group === "start" ? "" : (COUNTS[s.code] || "")) + "</span></a>";
+  MENU.forEach(function (g) {
+    h += '<h4 class="' + (g.cls || "") + '">' + esc(g.title) + "</h4>";
+    g.subs.forEach(function (sub) {
+      if (sub[0]) h += '<div class="rsub">' + esc(sub[0]) + "</div>";
+      sub[1].forEach(function (c) {
+        var s = byCode(c);
+        if (!s) return;
+        var st = SST[s.code] || s.st;
+        h += '<a class="ri' + (s.group === "later" ? " lt" : "") + (CUR.sc === s ? " on" : "") + '" href="#' + s.code + '" data-sc="' + s.code + '"' + (CUR.sc === s ? ' aria-current="page"' : "") + '><span class="c">' + s.code + "</span><span>" + esc(s.title) + '</span><span class="sd ' + st + '" title="' + esc(SST_LABEL[st] || "") + '" aria-label="' + esc(SST_LABEL[st] || "") + '"></span><span class="n">' + (s.group === "start" ? "" : (COUNTS[s.code] || "")) + "</span></a>";
+      });
     });
   });
   $("#rail").innerHTML = h;
 }
+/* The scenario's group badge: This week, After this week or Later */
+var GBADGE = { week: '<span class="bd wk">This week</span>', after: '<span class="bd aw">After this week</span>', later: '<span class="bd later">Later</span>' };
+function jumpLink(c) { return '<a class="jump" href="#' + c + '">' + c + "</a>"; }
+function relHTML(s) {
+  if (REL[s.code]) return '<span class="rel">From the 2 Oct design:' + REL[s.code].map(jumpLink).join("") + "</span>";
+  if (REPL[s.code]) return '<span class="rel">' + (s.listed ? "This week's version:" : "2 Oct version, redrawn for this week as") + REPL[s.code].map(jumpLink).join("") + "</span>";
+  return "";
+}
 function renderHead() {
   var s = CUR.sc;
   $("#scCode").textContent = s.code;
-  $("#scCode").className = "code" + (s.group === "later" ? " lt" : "");
+  $("#scCode").className = "code" + (s.group === "later" ? " lt" : s.group === "after" ? " aw" : "");
   $("#scTitle").textContent = s.title;
   var sst = SST[s.code] || s.st;
-  $("#scBadge").innerHTML = s.group === "start" || s.group === "later" ? "" : BADGE[sst === "mix" ? "mix" : sst] || "";
+  var gb = s.listed ? GBADGE[s.group] || "" : "";
+  $("#scBadge").innerHTML = gb + (s.group === "start" || s.group === "later" ? "" : BADGE[sst === "mix" ? "mix" : sst] || "");
   var tools = "";
   if (s.code === "P5") {
     var cur = (CUR.opts.P5 && CUR.opts.P5.plan) || "free";
     tools = '<span>Acme\'s plan here:</span><span class="seg">' + [["free", "Free"], ["pro", "Pro, 3 of 3 used"], ["team", "Team, 14 of 14 used"]].map(function (x) { return '<button type="button" class="' + (cur === x[0] ? "on" : "") + '" data-ui="p5:' + x[0] + '">' + x[1] + "</button>"; }).join("") + "</span>";
   }
-  $("#scTools").innerHTML = tools;
+  $("#scTools").innerHTML = tools + relHTML(s);
 }
 
 /* clicks */
@@ -3145,18 +3678,20 @@ document.addEventListener("keydown", function (e) {
   if (e.key === "ArrowRight") { e.preventDefault(); next(); }
   else if (e.key === "ArrowLeft") { e.preventDefault(); back(); }
 });
-/* #T1 opens a scenario, #T1-3 its third step */
+/* #T1 opens a scenario, #T1-3 its third step; #W2b has a letter after the number; any case works */
 function parseHash() {
-  var m = /^#?([A-Za-z]+\d+)(?:-(\d+))?$/.exec(location.hash || "");
+  var m = /^#?([A-Za-z]+\d+[A-Za-z]?)(?:-(\d+))?$/.exec(location.hash || "");
   if (!m) return null;
-  var code = m[1].toUpperCase();
-  if (!SCEN.some(function (s) { return s.code === code; })) return null;
-  return { code: code, i: m[2] ? Math.max(0, parseInt(m[2], 10) - 1) : 0 };
+  var c = m[1].toUpperCase();
+  if (ALIAS[c]) return { code: ALIAS[c][0], i: ALIAS[c][1] };
+  var s = byCode(c);
+  if (!s) return null;
+  return { code: s.code, i: m[2] ? Math.max(0, parseInt(m[2], 10) - 1) : 0 };
 }
 window.addEventListener("hashchange", function () {
   var h = parseHash();
   if (!h) return;
-  if (CUR.sc && h.code === CUR.sc.code) { if (h.i !== CUR.i && h.i < CUR.steps.length) show(h.i, 0); return; }
+  if (CUR.sc && h.code === CUR.sc.code) { var j = stepIndex(CUR.steps, h.i); if (j !== CUR.i) show(j, 0); return; }
   openScenario(h.code, h.i);
 });
 if (window.ResizeObserver) new ResizeObserver(fitDesk).observe($("#stage"));
@@ -3166,6 +3701,13 @@ window.addEventListener("resize", fitDesk);
 function selfTest() {
   var problems = [], total = 0;
   var saveSc = CUR.sc ? CUR.sc.code : "A1", saveI = CUR.i, saveOpts = clone(CUR.opts);
+  MENU_MISSING.forEach(function (c) { problems.push("menu: no scenario " + c); });
+  Object.keys(ALIAS).forEach(function (c) {
+    var t = byCode(ALIAS[c][0]);
+    if (!t) problems.push("alias " + c + ": no scenario " + ALIAS[c][0]);
+    else if (typeof ALIAS[c][1] === "string" && !t.build(CUR.opts[t.code] || {}).some(function (st) { return st.anchor === ALIAS[c][1]; })) problems.push("alias " + c + ": no step " + ALIAS[c][1]);
+  });
+  Object.keys(REL).forEach(function (w) { [w].concat(REL[w]).forEach(function (c) { if (!byCode(c)) problems.push("REL: no scenario " + c); }); });
   SCEN.forEach(function (s) {
     var variants = s.code === "P5" ? ["free", "pro", "team"] : [null];
     variants.forEach(function (v) {
@@ -3177,6 +3719,11 @@ function selfTest() {
         total++;
         try {
           NEXT = step.next || null;
+          /* This week's words follow the copy rules: no "!", no "please", tour and step (not demo, walkthrough, slide) */
+          if (s.code.charAt(0) === "W") {
+            var words = (step.cap || "") + " " + (step.panel ? step.panel.replace(/<[^>]+>/g, " ") : "");
+            if (/!|\bplease\b|\bdemo\b|\bwalkthrough\b|\bslides?\b|\u2014/i.test(words)) problems.push(s.code + " step " + (i + 1) + ": breaks the copy rules");
+          }
           if (step.panel) {
             if (/\u2014/.test(step.panel)) problems.push(s.code + ": em dash in panel");
             if (/\u2019/.test(step.panel)) problems.push(s.code + ": curly apostrophe in panel");
@@ -3207,7 +3754,8 @@ function selfTest() {
 }
 window.__demo = {
   selfTest: selfTest,
-  list: function () { return SCEN.map(function (s) { return s.code + " " + s.title + " (" + COUNTS[s.code] + ")"; }); },
+  list: function () { return SCEN.map(function (s) { return s.code + " " + s.title + " (" + COUNTS[s.code] + ")" + (s.listed ? " [" + s.group + "]" : " [2 Oct version, not in the menu]"); }); },
+  menu: function () { return SEQ.map(function (s) { return s.code; }); },
   open: openScenario, next: next, back: back,
   state: function () { return { sc: CUR.sc.code, i: CUR.i, n: CUR.steps.length, next: NEXT }; }
 };
@@ -3222,7 +3770,7 @@ SCEN.forEach(function (s) {
 });
 fitDesk();
 var start = parseHash();
-openScenario(start ? start.code : "G1", start ? start.i : 0);
+openScenario(start ? start.code : "W0", start ? start.i : 0);
 })();
 </script>
 </body>
